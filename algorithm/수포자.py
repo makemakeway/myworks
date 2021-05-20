@@ -1,4 +1,4 @@
-def solution(answers):
+def solution(answers): # answers = 정답
     answer = []
     st_pick = [1, 2, 3, 4, 5] # 1번 수포자의 찍는 방식
     nd_pick = [2, 1, 2, 3, 2, 4, 2, 5] # 2번 수포자의 찍는 방식

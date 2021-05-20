@@ -1,6 +1,6 @@
 from itertools import combinations
 
-def is_prime(nbr):
+def is_prime(nbr): #nbr = 정수로 이루어진 리스트
     for i in range(2, int(nbr ** 0.5) + 1): # 2부터 제곱근까지 순회
         if nbr % i == 0: # 나눠 떨어지는 수가 있다면 소수 x
             return False

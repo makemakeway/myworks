@@ -1,5 +1,5 @@
 from itertools import combinations
-def solution(numbers):
+def solution(numbers): #numbers = 정수로ㅗ 이루어진 리스트
     answer = []
     sum_nbrs = list(combinations(numbers, 2)) # numbers에서 2가지를 선택하는 경우를 sum_nbrs에 리스트 형식으로 저장
     for sums in sum_nbrs: # 순회하면서 합을 answer에 넘겨줌
