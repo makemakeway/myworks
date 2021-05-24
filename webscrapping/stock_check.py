@@ -14,8 +14,8 @@ import telegram
 from apscheduler.schedulers.blocking import BlockingScheduler
 
 #텔레그램 설정
-chat_id = 1677964383 #자신의 텔레그램 봇 채팅방 id를 입력
-token = '1704308499:AAG-QFIw9UY76UzT5PiMRRqCTiAmHFcGRJk' #자신의 텔레그램 봇 토큰을 입력
+chat_id = 'your_id' #자신의 텔레그램 봇 '채팅방' id를 입력
+token = 'your_token' #자신의 텔레그램 봇 토큰을 입력
 bot = telegram.Bot(token=token)
 
 sched = BlockingScheduler()
