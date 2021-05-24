@@ -9,5 +9,5 @@ def solution(numbers, target):
         for rootnum in root:
             tmp.append(rootnum + num) #임시리스트에 numbers[i]를 +, - 해주는 부분
             tmp.append(rootnum - num)
-        root = tmp #임시리스트를 root에 덮어씌우기. 이 다음 실행은 [0 + numbers[i] + numbers[i+1]] 혹은 [0 + numbers[i] - numbers[i+1]] 이런 식으로 진행
+        root = tmp #임시리스트를 root에 덮어씌우기. 이 다음 실행은 [0 + numbers[i] + numbers[i+1]] 혹은 [0 + numbers[i] - numbers[i+1]] ... 이런식으로 진행
     return root.count(target) #마지막까지 진행된 list에서 target의 갯수를 리턴
