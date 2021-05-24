@@ -1,0 +1,7 @@
+# : comments
+
+*.log
+*.bat
+*.class
+*.txt
+.DS_Store
