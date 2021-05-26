@@ -10,7 +10,21 @@
 
 import sys
 
-n = sys.stdin.readline()
+n = int(sys.stdin.readline())
 stack = []
-for i in range(1, n+1):
-    stack.append(int(sys.stdin.readline()))
+result = []
+cnt = 0
+for i in range(1, n+1): #1부터 n까지 입력
+    nbr = int(sys.stdin.readline())
+    while cnt < nbr: #입력한 값이 될때까지 cnt를 1씩 증가시키며 stack에 추가
+        cnt += 1
+        stack.append(cnt)
+        result.append('+')
+    if stack[-1] == nbr: # stack의 끝 값이 입력한 값인지 확인
+        stack.pop()
+        result.append('-')
+if stack:
+    print('NO')
+else:
+    for i in result:
+        print(i)
