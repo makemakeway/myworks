@@ -3,7 +3,7 @@ def solution(name):
     leng = len(name)
     default = "A" * leng
     for d, n in zip(default, name): #수직 이동방향을 정하는 부분
-        if d != n:
+        if d != n: #문자를 바꾸어야 할 때
             if ord(n) - ord(d) >= 14: #반대방향으로 이동하는 조건
                 count = count + ord('Z') - ord(n) + 1
             else:

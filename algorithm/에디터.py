@@ -37,5 +37,25 @@ for i in range(n): #명령어의 개수만큼 반복문 실행
             cursor -= 1
 print(str)
 
-# 위 코드로는 시간초과가 떠서 실패
+# 위 코드로는 시간초과 문제로 실패함
 
+import sys
+
+str = list(sys.stdin.readline().strip()) #주어지는 문자열 저장
+n = int(sys.stdin.readline()) #명령어의 개수 저장
+stack = []
+for i in range(n): #명령어의 개수만큼 반복문 실행
+    command = list(sys.stdin.readline().strip().split()) #명령어를 리스트 형식으로 저장
+    if command[0] == 'P': #명령어의 첫번째 인자가 P일 경우
+        str.append(command[1]) #str 리스트에 명령어의 두번째 인자를 append해줌
+    elif command[0] == 'L' and str != []: #명령어의 첫번째 인자가 L일 경우
+        stack.append(str.pop()) #커서가 왼쪽으로 갔으므로, str의 맨 마지막 인자를 stack 리스트에 추가
+    elif command[0] == 'D' and stack != []:
+        str.append(stack.pop()) #커서가 오른쪽으로 갔으므로, stack의 인자를 str으로 추가
+    elif command[0] == 'B' and str != []:
+        str.pop()
+print(''.join(str) + ''.join(reversed(stack))) 
+# 리스트 원소들을 join함수로 합쳐서 출력
+# stack에는 원소들이 stack형식으로 쌓여있으므로, reversed로 거꾸로 출력
+
+#append()와 pop()은 O(1)의 시간복잡도를 가져서 통과할 수 있었음.
