@@ -21,10 +21,8 @@ struct ContactView: View {
                         .font(.system(size: 28, weight: .bold))
                     
                     Text("새내기 iOS 개발자\n\n\nSwift 클론코딩중입니다.\n\n\nSwiftUI 꿀잼입니다.\n\n\n치킨먹고싶다")
-                        .foregroundColor(.gray)
                         .frame(width: 300, height: 300, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                         .font(.system(size: 20))
-                        .foregroundColor(.gray)
                     
                     Text("Contact")
                         .font(.system(size: 28, weight: .bold))

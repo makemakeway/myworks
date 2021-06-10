@@ -9,11 +9,22 @@ import SwiftUI
 
 struct ProductView: View {
     var body: some View {
-        GeometryReader { Geometry in
-            ScrollView {
-                Text("Product")
+        ScrollView {
+            VStack(alignment: .center, spacing: 4) {
+                ForEach(1..<5) { n in
+                    NavigationLink(
+                        destination: Product1DetailView(),
+                        label: {
+                            ProductCell1()
+                                .foregroundColor(.black)
+                        })
+                        .background(Color(.white))
+                }
             }
+            .padding(.top)
         }
+        .padding(.top, 30.0)
+        .background(Color(.systemGray5))
     }
 }
 
