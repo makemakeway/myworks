@@ -13,7 +13,7 @@ struct ProductCell3: View {
             Image("image-cell3")
                 .resizable()
                 .scaledToFill()
-                .frame(width: 100, height: 100)
+                .frame(width: 80, height: 80)
             
             Text("1937 Dest Set")
                 .font(.title2)

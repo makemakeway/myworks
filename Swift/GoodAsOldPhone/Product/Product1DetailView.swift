@@ -10,7 +10,7 @@ import SwiftUI
 struct Product1DetailView: View {
     var body: some View {
         ScrollView {
-            ZStack {
+            ZStack {                // 이미지 위에 텍스트와 ADD TO CART 버튼이 있기에, ZStack으로 쌓음
                 Image("phone-fullscreen1")
                     .resizable()
                     .scaledToFill()
@@ -27,6 +27,7 @@ struct Product1DetailView: View {
                         Image("button-addtocart")
                             .padding(.top, 40.0)
                     })
+
                     Spacer()
                     
                 }

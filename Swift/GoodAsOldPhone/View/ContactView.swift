@@ -13,8 +13,8 @@ struct ContactView: View {
             ScrollView {
                 VStack(spacing: 40) {       // vertical Stack으로 세로로 쌓음. 각 원소의 거리를 40px씩 주었음
                     Image("header-contact")
-                        .resizable()        // 공간에 맞게 사이즈를 변경할 수 있게 해주는 메소드
-                        .scaledToFit()      // 부모에 맞게 배율을 조정
+                        .resizable()        // 공간에 맞게 사이즈를 변경할 수 있게 함. 이 옵션을 주지 않으면 frame을 적용해도 이미지는 원본 크기를 유지
+                        .scaledToFit()      // 원본의 비율을 유지한 상태에서 너비와 높이 중 `작은 값`을 기준으로 주어진 공간 내에서 최대로 늘어남
                         .clipped()          // 넘치는 이미지는 잘라냄
                         
                     Text("About Us")
@@ -31,6 +31,7 @@ struct ContactView: View {
                         HStack(spacing: 30) {           //이미지와 텍스트를 가로로 두어야하므로, HStack 사용
                             Image("icon-about-email")
                             Link("makemakeway@gmail.com", destination: URL(string: "mailto:makemakeway@gmail.com")!)    // 링크 형식으로, 클릭 시 mail로 이동할 수 있도록 함
+                                // 시뮬레이터에는 mail앱이 없어 이동되지 않지만, 디바이스에선 이동가능
                                 .foregroundColor(.gray)
                         }
                         HStack(spacing: 30) {
