@@ -8,11 +8,12 @@
 import SwiftUI
 
 struct MakeTodoView: View {
+    @Binding var isActive: Bool
+    @Binding var list: [TodoList]
     @State var inputTitle = ""
     @State var inputAddress = ""
     @State var inputDescription = ""
     @State var date = Date()
-    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
     var body: some View {
         VStack(alignment: .center, spacing: 20) {
@@ -24,8 +25,10 @@ struct MakeTodoView: View {
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                 TextField("Address", text: $inputAddress)
                     .frame(width: 200, height: 48, alignment: .center)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
                 TextField("Description", text: $inputDescription)
                     .frame(width: 200, height: 48, alignment: .center)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
             }
             .padding(.top, 70)
             .padding(.bottom, 30)
@@ -38,19 +41,23 @@ struct MakeTodoView: View {
                     .font(.title3)
                 Spacer()
             }
-            DatePicker("Date",selection: $date, in: ...Date(), displayedComponents: .date)
+            DatePicker("Date", selection: $date, in: Date()..., displayedComponents: .date)
                 .labelsHidden()
             
             // Cancel or Save
             HStack {
-                Button(action: { mode.wrappedValue.dismiss() }, label: {
-                    Text("Cancel")
-                })
-                .foregroundColor(.red)
+                Button(action: { isActive = false },
+                       label: {
+                        Text("Cancel")
+                       })
+                    .foregroundColor(.red)
                 Spacer()
-                Button(action: { mode.wrappedValue.dismiss() }, label: {
-                    Text("Save")
-                })
+                Button(action: {
+                        list.append(TodoList(inputTitle: inputTitle, inputAddress: inputAddress, inputDescription: inputDescription, date: date))
+                        isActive = false},
+                       label: {
+                        Text("Save")
+                       })
             }
             .padding(.horizontal, 80)
             Spacer()
@@ -61,8 +68,3 @@ struct MakeTodoView: View {
     }
 }
 
-struct MakeTodoView_Previews: PreviewProvider {
-    static var previews: some View {
-        MakeTodoView()
-    }
-}

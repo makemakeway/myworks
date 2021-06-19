@@ -7,15 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FF0B9E40267C68320071735A /* TodoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0B9E3F267C68320071735A /* TodoList.swift */; };
 		FF2928C6267A0D8800B1F94C /* TodoSwiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2928C5267A0D8800B1F94C /* TodoSwiftUIApp.swift */; };
 		FF2928C8267A0D8800B1F94C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2928C7267A0D8800B1F94C /* ContentView.swift */; };
 		FF2928CA267A0D8900B1F94C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF2928C9267A0D8900B1F94C /* Assets.xcassets */; };
 		FF2928CD267A0D8900B1F94C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF2928CC267A0D8900B1F94C /* Preview Assets.xcassets */; };
 		FF80A479267A20FA000D7C37 /* MakeTodoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF80A478267A20FA000D7C37 /* MakeTodoView.swift */; };
-		FF8CE860267B68BA0030E202 /* TodoThings.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF8CE85F267B68BA0030E202 /* TodoThings.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FF0B9E3F267C68320071735A /* TodoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoList.swift; sourceTree = "<group>"; };
 		FF2928C2267A0D8800B1F94C /* TodoSwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodoSwiftUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF2928C5267A0D8800B1F94C /* TodoSwiftUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoSwiftUIApp.swift; sourceTree = "<group>"; };
 		FF2928C7267A0D8800B1F94C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -23,7 +24,6 @@
 		FF2928CC267A0D8900B1F94C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		FF2928CE267A0D8900B1F94C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FF80A478267A20FA000D7C37 /* MakeTodoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeTodoView.swift; sourceTree = "<group>"; };
-		FF8CE85F267B68BA0030E202 /* TodoThings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoThings.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,7 +86,7 @@
 		FF8CE85E267B688E0030E202 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				FF8CE85F267B68BA0030E202 /* TodoThings.swift */,
+				FF0B9E3F267C68320071735A /* TodoList.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -160,9 +160,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF0B9E40267C68320071735A /* TodoList.swift in Sources */,
 				FF2928C8267A0D8800B1F94C /* ContentView.swift in Sources */,
 				FF2928C6267A0D8800B1F94C /* TodoSwiftUIApp.swift in Sources */,
-				FF8CE860267B68BA0030E202 /* TodoThings.swift in Sources */,
 				FF80A479267A20FA000D7C37 /* MakeTodoView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
