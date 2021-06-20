@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TodoList: Identifiable {
+struct TodoList: Identifiable, Hashable {
     
     let id: String = UUID().uuidString
     var inputTitle: String

@@ -13,14 +13,11 @@ struct ContentView: View {
     @State var isActive = false
     
     
-    
-    
     var body: some View {
         NavigationView {
             List {
-                
-                ForEach(Array(todoList.enumerated()), id: \.offset) { (index, item) in
-                    HStack {
+                ForEach(todoList, id: \.self) { item in
+                    HStack(spacing: 28) {
                         Text(item.inputTitle)
                         Text(item.inputAddress)
                         Text(item.inputDescription)
@@ -28,19 +25,9 @@ struct ContentView: View {
                         Text(item.date, style: .date)
                     }
                     .frame(maxWidth: .infinity)
-                    
-                    .onTapGesture {
-                        todoList.remove(at: index)
-                    
-                    }
-                    
-                    
                 }
-                
-                
-                
+                .onDelete(perform: removeList) // 왼쪽으로 드래그하면 Delete버튼이 드러나고, 버튼을 누르면 removeList 함수를 수행
             }
-            .ond
             .listStyle(PlainListStyle())
             
             
@@ -58,8 +45,8 @@ struct ContentView: View {
                                                  }))
         }
     }
-    func removeList(atOffset: Int) {
-        todoList.remove(at: atOffset)
+    func removeList(at offset: IndexSet) {
+        todoList.remove(atOffsets: offset)
     }
 }
     
