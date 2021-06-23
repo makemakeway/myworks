@@ -1,11 +1,11 @@
 # arr = [1,2,3,3,3,3,4,4]
 # arr = [3,2,4,4,2,5,2,5,5]
 # arr = [3,5,7,9,1]
-arr = [1,2,3,4,5,6,7,8,9,10,10,10,9,8]
+# arr = [1,2,3,4,5,6,7,8,9,10,10,10,9,8]
+arr = [3, 3, 2, 2, 2, 1, 1, 1, 1]
 
 def solution_0(arr):
     answer = []
-    arr = sorted(arr)           #오름차순 순서로 정렬
     done = []
     for nbr in arr:             #arr의 원소를 순환
         if nbr in done:         #done에 있는 숫자는 중복 개수를 센 것이므로, 다음 원소로 진행
@@ -20,7 +20,8 @@ def solution_0(arr):
 
 def solution_1(arr):
     answer = []
-    set_arr = sorted(set(arr))      #set으로 arr의 중복된 숫자를 없애고, 오름차순 순서로 정렬
+    set_arr = set(arr)      #set으로 arr의 중복된 숫자를 없앰
+    print(set_arr)
     for nbr in set_arr:             
         cnt = arr.count(nbr)        #nbr의 갯수를 구해 cnt에 저장
         if cnt > 1:                 #cnt가 1보다 크다는것은 중복이 있다는 것
