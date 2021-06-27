@@ -13,8 +13,9 @@
 		FF3810B52684F4D100521EFA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF3810B42684F4D100521EFA /* Preview Assets.xcassets */; };
 		FF3810BE2684F67000521EFA /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3810BD2684F67000521EFA /* UserCell.swift */; };
 		FF3810C02684FBED00521EFA /* FriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3810BF2684FBED00521EFA /* FriendsView.swift */; };
-		FF3810C22685014F00521EFA /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3810C12685014F00521EFA /* SearchView.swift */; };
 		FF3810C5268614C000521EFA /* NavigationBarHidden.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3810C4268614C000521EFA /* NavigationBarHidden.swift */; };
+		FF3810C726861AB900521EFA /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3810C626861AB900521EFA /* SearchBar.swift */; };
+		FF3810CA2688808300521EFA /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3810C92688808300521EFA /* Profile.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,8 +27,9 @@
 		FF3810B62684F4D100521EFA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FF3810BD2684F67000521EFA /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 		FF3810BF2684FBED00521EFA /* FriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsView.swift; sourceTree = "<group>"; };
-		FF3810C12685014F00521EFA /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		FF3810C4268614C000521EFA /* NavigationBarHidden.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarHidden.swift; sourceTree = "<group>"; };
+		FF3810C626861AB900521EFA /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		FF3810C92688808300521EFA /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 		FF3810AC2684F4D000521EFA /* MySNSApp */ = {
 			isa = PBXGroup;
 			children = (
+				FF3810C82687906000521EFA /* Model */,
 				FF3810C3268614A800521EFA /* Util */,
 				FF3810BC2684F4DC00521EFA /* View */,
 				FF3810AD2684F4D000521EFA /* MySNSAppApp.swift */,
@@ -84,7 +87,7 @@
 				FF3810AF2684F4D000521EFA /* ContentView.swift */,
 				FF3810BD2684F67000521EFA /* UserCell.swift */,
 				FF3810BF2684FBED00521EFA /* FriendsView.swift */,
-				FF3810C12685014F00521EFA /* SearchView.swift */,
+				FF3810C626861AB900521EFA /* SearchBar.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -95,6 +98,14 @@
 				FF3810C4268614C000521EFA /* NavigationBarHidden.swift */,
 			);
 			path = Util;
+			sourceTree = "<group>";
+		};
+		FF3810C82687906000521EFA /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				FF3810C92688808300521EFA /* Profile.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -166,9 +177,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FF3810C22685014F00521EFA /* SearchView.swift in Sources */,
+				FF3810C726861AB900521EFA /* SearchBar.swift in Sources */,
 				FF3810B02684F4D000521EFA /* ContentView.swift in Sources */,
 				FF3810AE2684F4D000521EFA /* MySNSAppApp.swift in Sources */,
+				FF3810CA2688808300521EFA /* Profile.swift in Sources */,
 				FF3810C02684FBED00521EFA /* FriendsView.swift in Sources */,
 				FF3810BE2684F67000521EFA /* UserCell.swift in Sources */,
 				FF3810C5268614C000521EFA /* NavigationBarHidden.swift in Sources */,

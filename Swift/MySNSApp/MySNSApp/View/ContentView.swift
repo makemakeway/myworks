@@ -12,22 +12,21 @@ struct ContentView: View {
         UINavigationBar.appearance().isHidden = true
     }
     
+    
+    
     var body: some View {
-            TabView {
-                FriendsView()
-                    .tabItem {
-                        Image(systemName: "person.fill")
-                        Text("친구")
-                    }
-                Text("메세지")
-                    .tabItem {
-                        Image(systemName: "envelope.fill")
-                        Text("메세지")
-                    }
-                    
-            }
-            
-            
+        TabView {
+            FriendsView()
+                .tabItem {
+                    Image(systemName: "person.fill")
+                    Text("친구")
+                }
+            Text("메세지")
+                .tabItem {
+                    Image(systemName: "envelope.fill")
+                    Text("메세지")
+                }
+        }
     }
 }
 

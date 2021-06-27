@@ -8,28 +8,42 @@
 import SwiftUI
 
 struct FriendsView: View {
+    @State var searchBarInput = ""
+    @State var searchBarClicked = false
+    @State var searchToggle = false
+    @State var profile = [Profile]()
+    
     var body: some View {
         ZStack {
             NavigationView {
                 ScrollView {
                     VStack {
+                        // My Profile
                         UserCell()
                             .padding(.top)
                         Divider()
                             .padding()
                         
-                        ForEach(0..<20) { _ in
+                        // Friends Profile
+                        ForEach(0..<20, id: \.self) { i in
                             UserCell()
                             Divider()
                         }
                     }
                 }
                 .navigationBarTitle("", displayMode: .inline)
-                .navigationBarItems(leading: Text("친구").font(.title2),
-                                    trailing: Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
-                        Image(systemName: "magnifyingglass")
-                            .foregroundColor(.black)
-                }))
+                .navigationBarItems(leading: Text("친구").font(.system(size: 24, weight: .semibold)),
+                                    trailing: Button(
+                                        action: {
+                                            searchToggle.toggle()
+                                        },
+                                        label: {
+                                            Image(systemName: "magnifyingglass")
+                                                .foregroundColor(.black)
+                                        }))
+                .fullScreenCover(isPresented: $searchToggle , content: {
+                    SearchBar(searchBarInput: $searchBarInput, searchBarClicked: $searchBarClicked, searchToggle: $searchToggle)
+                })
             }
         }
     }
