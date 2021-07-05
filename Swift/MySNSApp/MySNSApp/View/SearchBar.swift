@@ -31,6 +31,7 @@ struct SearchBar: View {
                         .background(Color(.systemGray5))
                         .clipShape(Capsule())
                         .autocapitalization(.none)
+                    
                 }
                 
                 .onTapGesture(perform: {
@@ -72,5 +73,6 @@ struct SearchBar: View {
 struct SearchBar_Previews: PreviewProvider {
     static var previews: some View {
         SearchBar(searchBarInput: .constant(""), searchBarClicked: .constant(true), searchToggle: .constant(false))
+            .preferredColorScheme(.dark)
     }
 }

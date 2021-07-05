@@ -8,9 +8,9 @@
 import Foundation
 import SwiftUI
 
-struct Profile: Identifiable, Hashable {
+struct Profile: Identifiable {
     var id: String = UUID().uuidString
     var userName: String
     var profileMessage: String
-    var profileImage: UIImage
+    var profileImage: Image 
 }

@@ -8,43 +8,70 @@
 import SwiftUI
 
 struct FriendsView: View {
+    @State var profileClicked = false
     @State var searchBarInput = ""
     @State var searchBarClicked = false
     @State var searchToggle = false
-    @State var profile = [Profile]()
+    @State var profiles = [
+        Profile(userName: "Yeonpark", profileMessage: "iOS", profileImage: Image(systemName: "person")),
+        Profile(userName: "Nosick", profileMessage: "StarBucks", profileImage: Image(systemName: "person")),
+        Profile(userName: "JJangSuck", profileMessage: "China", profileImage: Image(systemName: "person"))
+    ]
+    
+    
     
     var body: some View {
         ZStack {
             NavigationView {
-                ScrollView {
-                    VStack {
+                VStack {
+                    List {
                         // My Profile
-                        UserCell()
-                            .padding(.top)
-                        Divider()
-                            .padding()
+                        Button(action: { profileClicked.toggle()
+                            print("toggled")
+                        }, label: {
+                            UserCell()
+                            
+                        })
+                        .fullScreenCover(isPresented: $profileClicked, content: {
+                            SettingProfileInfoView(profileClicked: $profileClicked)
+                        })
+                        .padding(.horizontal, -20)
+                        
+                        HStack {
+                            Text("친구")
+                            
+                            Text("0")
+                        }
+                        
+                        
                         
                         // Friends Profile
-                        ForEach(0..<20, id: \.self) { i in
+                        ForEach(0..<profiles.count) { profile in
+                            
                             UserCell()
-                            Divider()
                         }
+                        .padding(.horizontal, -20)
+                        
                     }
+                    .listStyle(PlainListStyle())
+                    .navigationBarTitle("", displayMode: .inline)
+                    .navigationBarItems(leading: Text("친구").font(.system(size: 24, weight: .semibold)),
+                                        trailing: Button(
+                                            action: {
+                                                searchToggle.toggle()
+                                                print("toggled")
+                                            },
+                                            label: {
+                                                Image(systemName: "magnifyingglass")
+                                                    .foregroundColor(.white)
+                                            }))
+                    .fullScreenCover(isPresented: $searchToggle , content: {
+                        SearchBar(searchBarInput: $searchBarInput, searchBarClicked: $searchBarClicked, searchToggle: $searchToggle)
+                    })
+                    
                 }
-                .navigationBarTitle("", displayMode: .inline)
-                .navigationBarItems(leading: Text("친구").font(.system(size: 24, weight: .semibold)),
-                                    trailing: Button(
-                                        action: {
-                                            searchToggle.toggle()
-                                        },
-                                        label: {
-                                            Image(systemName: "magnifyingglass")
-                                                .foregroundColor(.black)
-                                        }))
-                .fullScreenCover(isPresented: $searchToggle , content: {
-                    SearchBar(searchBarInput: $searchBarInput, searchBarClicked: $searchBarClicked, searchToggle: $searchToggle)
-                })
             }
+            
         }
     }
 }
@@ -52,5 +79,6 @@ struct FriendsView: View {
 struct FriendsView_Previews: PreviewProvider {
     static var previews: some View {
         FriendsView()
+            .preferredColorScheme(.dark)
     }
 }
