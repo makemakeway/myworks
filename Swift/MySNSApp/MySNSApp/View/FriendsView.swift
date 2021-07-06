@@ -26,16 +26,18 @@ struct FriendsView: View {
                 VStack {
                     List {
                         // My Profile
-                        Button(action: { profileClicked.toggle()
+                        Button(action: {
+                            profileClicked.toggle()
                             print("toggled")
                         }, label: {
                             UserCell()
                             
                         })
+                        .padding(.horizontal, -20)
                         .fullScreenCover(isPresented: $profileClicked, content: {
                             SettingProfileInfoView(profileClicked: $profileClicked)
                         })
-                        .padding(.horizontal, -20)
+                        
                         
                         HStack {
                             Text("친구")
@@ -46,7 +48,7 @@ struct FriendsView: View {
                         
                         
                         // Friends Profile
-                        ForEach(0..<profiles.count) { profile in
+                        ForEach(profiles) { profile in
                             
                             UserCell()
                         }
