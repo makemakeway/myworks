@@ -13,9 +13,9 @@ struct FriendsView: View {
     @State var searchBarClicked = false
     @State var searchToggle = false
     @State var profiles = [
-        Profile(userName: "Yeonpark", profileMessage: "iOS", profileImage: Image(systemName: "person")),
-        Profile(userName: "Nosick", profileMessage: "StarBucks", profileImage: Image(systemName: "person")),
-        Profile(userName: "JJangSuck", profileMessage: "China", profileImage: Image(systemName: "person"))
+        Profile(userName: "Yeonpark", profileMessage: "iOS", profileImage: UIImage(systemName: "person")),
+        Profile(userName: "Nosick", profileMessage: "StarBucks", profileImage: UIImage(systemName: "person")),
+        Profile(userName: "JJangSuck", profileMessage: "China", profileImage: UIImage(systemName: "person"))
     ]
     
     

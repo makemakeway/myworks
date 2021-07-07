@@ -17,6 +17,7 @@
 		FF3810C726861AB900521EFA /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3810C626861AB900521EFA /* SearchBar.swift */; };
 		FF3810CA2688808300521EFA /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3810C92688808300521EFA /* Profile.swift */; };
 		FFAFFE2F269219CC00BAF13F /* SettingProfileInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAFFE2E269219CC00BAF13F /* SettingProfileInfoView.swift */; };
+		FFAFFE32269576A600BAF13F /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAFFE31269576A600BAF13F /* ImagePicker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		FF3810C626861AB900521EFA /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		FF3810C92688808300521EFA /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		FFAFFE2E269219CC00BAF13F /* SettingProfileInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingProfileInfoView.swift; sourceTree = "<group>"; };
+		FFAFFE31269576A600BAF13F /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,11 +88,11 @@
 		FF3810BC2684F4DC00521EFA /* View */ = {
 			isa = PBXGroup;
 			children = (
+				FFAFFE302694BA9A00BAF13F /* Profile */,
 				FF3810AF2684F4D000521EFA /* ContentView.swift */,
 				FF3810BD2684F67000521EFA /* UserCell.swift */,
 				FF3810BF2684FBED00521EFA /* FriendsView.swift */,
 				FF3810C626861AB900521EFA /* SearchBar.swift */,
-				FFAFFE2E269219CC00BAF13F /* SettingProfileInfoView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -99,6 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				FF3810C4268614C000521EFA /* NavigationBarHidden.swift */,
+				FFAFFE31269576A600BAF13F /* ImagePicker.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -109,6 +112,14 @@
 				FF3810C92688808300521EFA /* Profile.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		FFAFFE302694BA9A00BAF13F /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				FFAFFE2E269219CC00BAF13F /* SettingProfileInfoView.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -183,6 +194,7 @@
 				FF3810C726861AB900521EFA /* SearchBar.swift in Sources */,
 				FF3810B02684F4D000521EFA /* ContentView.swift in Sources */,
 				FF3810AE2684F4D000521EFA /* MySNSAppApp.swift in Sources */,
+				FFAFFE32269576A600BAF13F /* ImagePicker.swift in Sources */,
 				FF3810CA2688808300521EFA /* Profile.swift in Sources */,
 				FF3810C02684FBED00521EFA /* FriendsView.swift in Sources */,
 				FFAFFE2F269219CC00BAF13F /* SettingProfileInfoView.swift in Sources */,

@@ -12,5 +12,5 @@ struct Profile: Identifiable {
     var id: String = UUID().uuidString
     var userName: String
     var profileMessage: String
-    var profileImage: Image 
+    var profileImage: UIImage?
 }

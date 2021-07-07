@@ -8,11 +8,14 @@
 import SwiftUI
 
 struct SettingProfileInfoView: View {
-    @State var userName = ""
-    @State var profileMessage = ""
-    @State var profileImage = UIImage(systemName: "person")
+    @State var userName = "이름"
+    @State var profileMessage = "프로필 메세지"
     @State var modifyMode = false
+    @State var pickedImage: Image?
+    @State var showingImagePicker = false
+    
     @Binding var profileClicked: Bool
+    
     
     var body: some View {
         
@@ -33,16 +36,26 @@ struct SettingProfileInfoView: View {
                     .padding(.leading, 24)
                     Spacer()
                     
-                    Image(systemName: "person.fill")
-                        .resizable()
-                        .foregroundColor(.white)
-                        .scaledToFit()
-                        .frame(width: 40, height: 40)
-                        .padding()
-                        .background(Color(.systemTeal))
-                        .cornerRadius(26)
+                    if let pickedImage = pickedImage {
+                        pickedImage
+                            .resizable()
+                            .foregroundColor(.white)
+                            .scaledToFill()
+                            .frame(width: 70, height: 70)
+                            .cornerRadius(23)
+                    } else {
+                        Image(systemName: "person.fill")
+                            .resizable()
+                            .foregroundColor(.white)
+                            .frame(width: 40, height: 40)
+                            .padding()
+                            .background(Color(.systemTeal))
+                            .cornerRadius(27)
+                    }
                     
-                    Text("이름")
+                    
+                    
+                    Text("\(userName)")
                         .fontWeight(.bold)
                         .font(.title3)
                         .padding(.top, 14)
@@ -51,7 +64,7 @@ struct SettingProfileInfoView: View {
                     Rectangle()
                         .frame(height: 0)
                     
-                    Text("상태메세지")
+                    Text("\(profileMessage)")
                         .fontWeight(.bold)
                     
                     Rectangle()
@@ -76,7 +89,7 @@ struct SettingProfileInfoView: View {
                             }
                         })
                     }
-                    .padding(.top, 54)
+                    .padding(.top, 53)
                     .padding(.vertical, 28)
                 }
                 
@@ -110,17 +123,48 @@ struct SettingProfileInfoView: View {
                     Spacer()
                     
                     
-                    Image(systemName: "person.fill")
-                        .resizable()
-                        .foregroundColor(.white)
-                        .scaledToFit()
-                        .frame(width: 40, height: 40)
-                        .padding()
-                        .background(Color(.systemTeal))
-                        .cornerRadius(26)
+                    // profileImage 변경 버튼
+                    Button(action: { self.showingImagePicker.toggle() }, label: {
+                        
+                        if let pickedImage = pickedImage {
+                            pickedImage
+                                .resizable()
+                                .foregroundColor(.white)
+                                .scaledToFill()
+                                .frame(width: 70, height: 70)
+                                .cornerRadius(23)
+                        } else {
+                            Image(systemName: "person.fill")
+                                .resizable()
+                                .foregroundColor(.white)
+                                .scaledToFill()
+                                .frame(width: 40, height: 40)
+                                .padding()
+                                .background(Color(.systemTeal))
+                                .cornerRadius(26)
+                        }
+                            
+                    })
+                    .fullScreenCover(isPresented: $showingImagePicker, content: {
+                        ImagePicker(sourceType: .photoLibrary) { (image) in
+                            self.pickedImage = Image(uiImage: image)
+                        }
+                    })
+                    .overlay(Image(systemName: "camera.fill")
+                                .resizable()
+                                .frame(width: 16, height: 12)
+                                .padding(.all, 5)
+                                .background(Color.white)
+                                .clipShape(Circle())
+                                .foregroundColor(.black)
+                                .offset(x: 30, y: 30)
+                                )
                     
                     
                     
+                    
+                    
+                    // userName 변경 버튼
                     Button(action: { print("modify username") }, label: {
                         VStack {
                             HStack {
@@ -145,13 +189,21 @@ struct SettingProfileInfoView: View {
                     
                     
                     
-                    
+                    // profileMessage 변경 버튼
                     Button(action: { print("modify profileMessage") }, label: {
                         VStack {
-                            Text("상태메세지를 입력하세요.")
-                                .fontWeight(.bold)
-                                .padding(.top, 4)
-                                .lineLimit(1)
+                            if !profileMessage.isEmpty {
+                                Text("\(profileMessage)")
+                                    .fontWeight(.bold)
+                                    .padding(.top, 4)
+                                    .lineLimit(1)
+                            } else {
+                                Text("상태메세지를 입력하세요.")
+                                    .fontWeight(.bold)
+                                    .padding(.top, 4)
+                                    .lineLimit(1)
+                            }
+                            
                             Rectangle()
                                 .frame(height: 1)
                                 .padding(.horizontal, 24)
