@@ -21,19 +21,22 @@ struct FriendsView: View {
     
     
     var body: some View {
-        ZStack {
-            NavigationView {
+        
+        
+        
+        NavigationView {
+            ScrollView {
                 VStack {
-                    List {
+                    VStack {
                         // My Profile
                         Button(action: {
                             profileClicked.toggle()
                             print("toggled")
                         }, label: {
                             UserCell()
-                            
                         })
-                        .padding(.horizontal, -20)
+                        .padding(.top, 10)
+                        .padding(.horizontal, 0)
                         .fullScreenCover(isPresented: $profileClicked, content: {
                             SettingProfileInfoView(profileClicked: $profileClicked)
                         })
@@ -41,46 +44,46 @@ struct FriendsView: View {
                         
                         HStack {
                             Text("친구")
-                            
+                                .fontWeight(.semibold)
                             Text("0")
+                                .fontWeight(.semibold)
+                            Spacer()
                         }
+                        .padding(.vertical, 10)
+                        .padding(.horizontal)
                         
-                        
+                        Spacer()
                         
                         // Friends Profile
-                        ForEach(profiles) { profile in
+                        ForEach(0..<20) { profile in
                             
                             UserCell()
                         }
-                        .padding(.horizontal, -20)
-                        
+                        .padding(.horizontal, 0)
+                        .listStyle(PlainListStyle())
                     }
-                    .listStyle(PlainListStyle())
-                    .navigationBarTitle("", displayMode: .inline)
-                    .navigationBarItems(leading: Text("친구").font(.system(size: 24, weight: .semibold)),
-                                        trailing: Button(
-                                            action: {
-                                                searchToggle.toggle()
-                                                print("toggled")
-                                            },
-                                            label: {
-                                                Image(systemName: "magnifyingglass")
-                                                    .foregroundColor(.white)
-                                            }))
+                    
                     .fullScreenCover(isPresented: $searchToggle , content: {
                         SearchBar(searchBarInput: $searchBarInput, searchBarClicked: $searchBarClicked, searchToggle: $searchToggle)
                     })
                     
                 }
             }
-            
+            .navigationBarItems(leading: Text("친구").font(.title2).fontWeight(.semibold),
+                                trailing: Button(
+                                    action: { self.searchToggle.toggle() },
+                                    label: { Image(systemName: "magnifyingglass").foregroundColor(.gray) }))
+            .navigationBarTitle("", displayMode: .inline)
         }
+        
+        
     }
 }
+
 
 struct FriendsView_Previews: PreviewProvider {
     static var previews: some View {
         FriendsView()
-            .preferredColorScheme(.dark)
+        //            .preferredColorScheme(.dark)
     }
 }

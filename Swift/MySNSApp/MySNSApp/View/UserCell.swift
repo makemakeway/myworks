@@ -18,7 +18,7 @@ struct UserCell: View {
                 .frame(width: 30, height: 30)
                 .scaledToFit()
                 .padding()
-                .background(Color(.systemTeal))
+                .background(Color(.systemIndigo))
                 .foregroundColor(.white)
                 .cornerRadius(20)
             
@@ -29,16 +29,17 @@ struct UserCell: View {
                 Text("userName")           // 유저 이름
                     .font(.title3)
                     .fontWeight(.semibold)
-                    .padding(.top, 15)
+                    .padding(.top, 5)
                 
                 
                 Text("profileMessage")     // 상태메세지
                     .font(.footnote)
                     .lineLimit(1)
-                    .padding(.vertical, 5)
+                    .padding(.top, 1)
+                    .padding(.bottom, 1)
                     .foregroundColor(.gray)
             }
-            .padding(.leading)
+            .padding(.leading, 10)
             
             
             Spacer()

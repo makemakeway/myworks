@@ -20,7 +20,7 @@ struct SettingProfileInfoView: View {
     var body: some View {
         
         ZStack {
-            Color(.systemGray2).edgesIgnoringSafeArea(.all)
+            Color(.systemFill).edgesIgnoringSafeArea(.all)
             VStack(spacing: 12) {
                 
                 
@@ -49,7 +49,7 @@ struct SettingProfileInfoView: View {
                             .foregroundColor(.white)
                             .frame(width: 40, height: 40)
                             .padding()
-                            .background(Color(.systemTeal))
+                            .background(Color(.systemIndigo))
                             .cornerRadius(27)
                     }
                     
@@ -137,11 +137,10 @@ struct SettingProfileInfoView: View {
                             Image(systemName: "person.fill")
                                 .resizable()
                                 .foregroundColor(.white)
-                                .scaledToFill()
                                 .frame(width: 40, height: 40)
                                 .padding()
-                                .background(Color(.systemTeal))
-                                .cornerRadius(26)
+                                .background(Color(.systemIndigo))
+                                .cornerRadius(27)
                         }
                             
                     })
