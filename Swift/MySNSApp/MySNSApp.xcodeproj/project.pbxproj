@@ -20,6 +20,8 @@
 		FF72831C2696D9FA0063A66E /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = FF72831B2696D9FA0063A66E /* FirebaseAuth */; };
 		FF72831E2696D9FA0063A66E /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = FF72831D2696D9FA0063A66E /* FirebaseStorage */; };
 		FF7283202696D9FA0063A66E /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = FF72831F2696D9FA0063A66E /* FirebaseFirestore */; };
+		FF7283222697E5C70063A66E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF7283212697E5C70063A66E /* GoogleService-Info.plist */; };
+		FF72832426983D130063A66E /* DefaultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF72832326983D130063A66E /* DefaultView.swift */; };
 		FFAFFE2F269219CC00BAF13F /* SettingProfileInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAFFE2E269219CC00BAF13F /* SettingProfileInfoView.swift */; };
 		FFAFFE32269576A600BAF13F /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAFFE31269576A600BAF13F /* ImagePicker.swift */; };
 		FFAFFE362695EA6500BAF13F /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAFFE352695EA6500BAF13F /* LoginView.swift */; };
@@ -42,6 +44,8 @@
 		FF3810C626861AB900521EFA /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		FF3810C92688808300521EFA /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		FF728316269620D80063A66E /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
+		FF7283212697E5C70063A66E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "MySNSApp/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		FF72832326983D130063A66E /* DefaultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultView.swift; sourceTree = "<group>"; };
 		FFAFFE2E269219CC00BAF13F /* SettingProfileInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingProfileInfoView.swift; sourceTree = "<group>"; };
 		FFAFFE31269576A600BAF13F /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		FFAFFE352695EA6500BAF13F /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -68,6 +72,7 @@
 		FF3810A12684F4D000521EFA = {
 			isa = PBXGroup;
 			children = (
+				FF7283212697E5C70063A66E /* GoogleService-Info.plist */,
 				FF3810AC2684F4D000521EFA /* MySNSApp */,
 				FF3810AB2684F4D000521EFA /* Products */,
 			);
@@ -110,6 +115,7 @@
 				FFAFFE342695EA4F00BAF13F /* Auth */,
 				FFAFFE302694BA9A00BAF13F /* Profile */,
 				FF3810AF2684F4D000521EFA /* ContentView.swift */,
+				FF72832326983D130063A66E /* DefaultView.swift */,
 				FF3810BD2684F67000521EFA /* UserCell.swift */,
 				FF3810BF2684FBED00521EFA /* FriendsView.swift */,
 				FF3810C626861AB900521EFA /* SearchBar.swift */,
@@ -229,6 +235,7 @@
 			files = (
 				FF3810B52684F4D100521EFA /* Preview Assets.xcassets in Resources */,
 				FF3810B22684F4D100521EFA /* Assets.xcassets in Resources */,
+				FF7283222697E5C70063A66E /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -251,6 +258,7 @@
 				FFAFFE3C2695F9C200BAF13F /* CustomSecureField.swift in Sources */,
 				FFAFFE2F269219CC00BAF13F /* SettingProfileInfoView.swift in Sources */,
 				FFAFFE3A2695F3C800BAF13F /* CustomTextField.swift in Sources */,
+				FF72832426983D130063A66E /* DefaultView.swift in Sources */,
 				FF3810BE2684F67000521EFA /* UserCell.swift in Sources */,
 				FFAFFE362695EA6500BAF13F /* LoginView.swift in Sources */,
 				FF3810C5268614C000521EFA /* NavigationBarHidden.swift in Sources */,

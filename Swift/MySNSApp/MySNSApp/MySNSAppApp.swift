@@ -14,9 +14,11 @@ struct MySNSAppApp: App {
         FirebaseApp.configure()
     }
     
+    
+    
     var body: some Scene {
         WindowGroup {
-            LoginView()
+            ContentView()
         }
     }
 }

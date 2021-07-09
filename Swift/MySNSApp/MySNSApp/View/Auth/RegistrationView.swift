@@ -8,13 +8,11 @@
 import SwiftUI
 
 struct RegistrationView: View {
-    @State var id = ""
     @State var password = ""
     @State var userName = ""
     @State var email = ""
     @State var showImagePicker = false
-    @State var selectedImage: Image?
-    @State var image: UIImage?
+    @State var selectedImage: UIImage?
     @Environment(\.presentationMode) var mode : Binding<PresentationMode>
     @ObservedObject var authViewModel = AuthViewModel()
     
@@ -22,9 +20,10 @@ struct RegistrationView: View {
         ZStack {
             Color(.systemIndigo).edgesIgnoringSafeArea(.all)
             VStack {
+                // 이미지 선택
                 Button(action: { self.showImagePicker.toggle() }, label: {
                     if let selectedImage = selectedImage {
-                        selectedImage
+                        Image(uiImage: selectedImage)
                             .resizable()
                             .scaledToFill()
                             .frame(width: 150,  height: 150)
@@ -40,13 +39,12 @@ struct RegistrationView: View {
                 })
                 .fullScreenCover(isPresented: $showImagePicker, content: {
                     ImagePicker(sourceType: .savedPhotosAlbum) { (image) in
-                        self.selectedImage = Image(uiImage: image)
-                        self.image = image
+                        self.selectedImage = image
                     }
                 })
                 
                 
-                
+                // 텍스트필드 영역
                 VStack(spacing: 20) {
                     CustomTextField(text: $userName, placeholder: Text("이름을 입력하세요."), imageName: "person.fill")
                         .clipShape(Capsule())
@@ -67,9 +65,13 @@ struct RegistrationView: View {
                 }
                 .padding(.top, 60)
                 
+                
+                // 가입 버튼
                 Button(action: {
                     guard let image = selectedImage else { return }
                     authViewModel.registerUser(userName: userName, email: email, password: password, profileImage: image)
+                    
+                    mode.wrappedValue.dismiss()
                     
                 }, label: {
                     Text("가입")

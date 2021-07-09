@@ -12,12 +12,8 @@ struct FriendsView: View {
     @State var searchBarInput = ""
     @State var searchBarClicked = false
     @State var searchToggle = false
-    @State var profiles = [
-        Profile(userName: "Yeonpark", profileMessage: "iOS", profileImage: UIImage(systemName: "person")),
-        Profile(userName: "Nosick", profileMessage: "StarBucks", profileImage: UIImage(systemName: "person")),
-        Profile(userName: "JJangSuck", profileMessage: "China", profileImage: UIImage(systemName: "person"))
-    ]
-    
+    @State var menuToggle = false
+    @ObservedObject var authViewModel: AuthViewModel
     
     
     var body: some View {
@@ -25,55 +21,71 @@ struct FriendsView: View {
         
         
         NavigationView {
-            ScrollView {
-                VStack {
-                    VStack {
-                        // My Profile
-                        Button(action: {
-                            profileClicked.toggle()
-                            print("toggled")
-                        }, label: {
-                            UserCell()
-                        })
-                        .padding(.top, 10)
-                        .padding(.horizontal, 0)
-                        .fullScreenCover(isPresented: $profileClicked, content: {
-                            SettingProfileInfoView(profileClicked: $profileClicked)
-                        })
-                        
-                        
-                        HStack {
-                            Text("친구")
-                                .fontWeight(.semibold)
-                            Text("0")
-                                .fontWeight(.semibold)
-                            Spacer()
-                        }
-                        .padding(.vertical, 10)
-                        .padding(.horizontal)
-                        
+            
+            VStack {
+                List {
+                    // 내 프로필
+                    Button(action: {
+                        profileClicked.toggle()
+                        print("toggled")
+                    }, label: {
+                        UserCell()
+                    })
+                    .padding(.top, 10)
+                    .fullScreenCover(isPresented: $profileClicked, content: {
+                        SettingProfileInfoView(profileClicked: $profileClicked)
+                    })
+                    HStack {
+                        Text("친구")
+                            .fontWeight(.semibold)
+                        Text("0")
+                            .fontWeight(.semibold)
                         Spacer()
+                    }
+                    .padding(.horizontal)
+                    
+                    // 친구 프로필
+                    ForEach(0..<3) { profile in
                         
-                        // Friends Profile
-                        ForEach(0..<20) { profile in
-                            
-                            UserCell()
-                        }
-                        .padding(.horizontal, 0)
-                        .listStyle(PlainListStyle())
+                        UserCell()
                     }
                     
-                    .fullScreenCover(isPresented: $searchToggle , content: {
-                        SearchBar(searchBarInput: $searchBarInput, searchBarClicked: $searchBarClicked, searchToggle: $searchToggle)
-                    })
-                    
                 }
+                .padding(.horizontal, -20)
+                .listStyle(PlainListStyle())
+                .fullScreenCover(isPresented: $searchToggle , content: {
+                    SearchBar(searchBarInput: $searchBarInput, searchBarClicked: $searchBarClicked, searchToggle: $searchToggle)
+                })
+                .navigationBarItems(leading: Text("친구").font(.title2).fontWeight(.semibold),
+                                    trailing:
+                                        HStack(spacing: 20) {
+                                            // 검색 버튼
+                                            Button(
+                                                action: { self.searchToggle.toggle() },
+                                                label: { Image(systemName: "magnifyingglass").foregroundColor(.gray) })
+                                            
+                                            // 로그아웃 버튼
+                                            Button(
+                                                action: { self.menuToggle.toggle() },
+                                                label: {
+                                                    Image(systemName: "ellipsis").foregroundColor(.gray)
+                                                })
+                                                .actionSheet(isPresented: $menuToggle, content: {
+                                                    ActionSheet(title: Text(""),
+                                                                message: Text(""),
+                                                                buttons: [
+                                                                    .cancel(),
+                                                                    .destructive(
+                                                                        Text("로그아웃"),
+                                                                        action: {authViewModel.signOut()})
+                                                                    
+                                                                ])
+                                                })
+                                        })
+                .navigationBarTitle("", displayMode: .inline)
             }
-            .navigationBarItems(leading: Text("친구").font(.title2).fontWeight(.semibold),
-                                trailing: Button(
-                                    action: { self.searchToggle.toggle() },
-                                    label: { Image(systemName: "magnifyingglass").foregroundColor(.gray) }))
-            .navigationBarTitle("", displayMode: .inline)
+            
+            
         }
         
         
@@ -81,9 +93,9 @@ struct FriendsView: View {
 }
 
 
-struct FriendsView_Previews: PreviewProvider {
-    static var previews: some View {
-        FriendsView()
-        //            .preferredColorScheme(.dark)
-    }
-}
+//struct FriendsView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        FriendsView()
+//        //            .preferredColorScheme(.dark)
+//    }
+//}

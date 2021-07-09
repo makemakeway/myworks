@@ -8,35 +8,27 @@
 import SwiftUI
 
 struct ContentView: View {
-    init() {
-        UINavigationBar.appearance().isHidden = true
-    }
+//
+    @ObservedObject var authViewModel = AuthViewModel()
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
     
     
     
     var body: some View {
-        ZStack {
-            Color.yellow.edgesIgnoringSafeArea(.all)
-            TabView {
-                FriendsView()
-                    .tabItem {
-                        Image(systemName: "person.fill")
-                        Text("친구")
-                    }
-                Text("메세지")
-                    .tabItem {
-                        Image(systemName: "envelope.fill")
-                        Text("메세지")
-                    }
-            }
+        
+        
+        if authViewModel.isSignedIn {
+            DefaultView(authViewModel: authViewModel)
+        } else {
+            LoginView()
         }
         
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
+//struct ContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ContentView()
 //            .preferredColorScheme(.dark)
-    }
-}
+//    }
+//}
