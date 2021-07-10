@@ -13,7 +13,8 @@ struct FriendsView: View {
     @State var searchBarClicked = false
     @State var searchToggle = false
     @State var menuToggle = false
-    @ObservedObject var authViewModel: AuthViewModel
+    @EnvironmentObject var authViewModel: AuthViewModel
+    @ObservedObject var userViewModel = UserViewModel()
     
     
     var body: some View {
@@ -29,7 +30,7 @@ struct FriendsView: View {
                         profileClicked.toggle()
                         print("toggled")
                     }, label: {
-                        UserCell()
+//                        UserCell(user: userViewModel.users[0])
                     })
                     .padding(.top, 10)
                     .fullScreenCover(isPresented: $profileClicked, content: {
@@ -38,16 +39,16 @@ struct FriendsView: View {
                     HStack {
                         Text("친구")
                             .fontWeight(.semibold)
-                        Text("0")
+                        Text("\(userViewModel.users.count)")
                             .fontWeight(.semibold)
                         Spacer()
                     }
                     .padding(.horizontal)
                     
                     // 친구 프로필
-                    ForEach(0..<3) { profile in
+                    ForEach(userViewModel.users) { user in
                         
-                        UserCell()
+                        UserCell(user: user)
                     }
                     
                 }
@@ -74,10 +75,12 @@ struct FriendsView: View {
                                                     ActionSheet(title: Text(""),
                                                                 message: Text(""),
                                                                 buttons: [
-                                                                    .cancel(),
+                                                                    .cancel(Text("취소")),
                                                                     .destructive(
                                                                         Text("로그아웃"),
-                                                                        action: {authViewModel.signOut()})
+                                                                        action: {
+                                                                            authViewModel.signOut()
+                                                                        })
                                                                     
                                                                 ])
                                                 })
@@ -93,9 +96,9 @@ struct FriendsView: View {
 }
 
 
-//struct FriendsView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        FriendsView()
-//        //            .preferredColorScheme(.dark)
-//    }
-//}
+struct FriendsView_Previews: PreviewProvider {
+    static var previews: some View {
+        FriendsView()
+        //            .preferredColorScheme(.dark)
+    }
+}

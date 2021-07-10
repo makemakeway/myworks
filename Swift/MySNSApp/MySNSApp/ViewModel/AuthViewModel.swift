@@ -13,11 +13,18 @@ class AuthViewModel: ObservableObject {
     let errorDict = [Optional("The email address is badly formatted.") : "올바른 이메일 형식이 아닙니다.",
                      Optional("The password is invalid or the user does not have a password.") : "비밀번호가 틀렸거나 유효하지 않은 사용자입니다."]
     
-    var error = ""
+    var signInError = ""
     
-    func login() {
-        
+    // 유저가 로그인 되었는지 추적
+    @Published var userSession: FirebaseAuth.User?
+    @Published var isAuthenticating = false
+    @Published var error: Error?
+    @Published var user: User?
+    
+    init() {
+        userSession = Auth.auth().currentUser
     }
+    
     
     var isSignedIn: Bool {
         return Auth.auth().currentUser != nil
@@ -31,7 +38,7 @@ class AuthViewModel: ObservableObject {
         
         storageRef.putData(imageData, metadata: nil) { _, error in
             if let error = error {
-                print("DEBUG: Image Upload Failed. \(error.localizedDescription)")
+                print("ERROR: Image Upload Failed. \(error.localizedDescription)")
                 return
             }
             storageRef.downloadURL { url, _ in
@@ -40,7 +47,7 @@ class AuthViewModel: ObservableObject {
                 
                 Auth.auth().createUser(withEmail: email, password: password) { result, error in
                     if let error = error {
-                        print("DEBUG: creatUserError \(error.localizedDescription)")
+                        print("ERROR: creatUserError \(error.localizedDescription)")
                         return
                     }
                     
@@ -49,10 +56,12 @@ class AuthViewModel: ObservableObject {
                     let data = ["email": email,
                                 "userName": userName,
                                 "profileImageUrl": profileImageUrl,
+                                "profileMessage": "",
                                 "uid": user.uid]
                     
                     Firestore.firestore().collection("users").document(user.uid).setData(data) { _ in
-                        print("succes upload data")
+                        print("success upload data")
+                        self.userSession = user
                     }
                     
                 }
@@ -67,18 +76,31 @@ class AuthViewModel: ObservableObject {
             
             //로그인 실패
             guard result != nil, error == nil else {
-                print("DEBUG: \(String(describing: error?.localizedDescription))")
-                self.error = self.errorDict[error?.localizedDescription]!
+                print("ERROR: \(String(describing: error?.localizedDescription))")
+                guard self.errorDict[error?.localizedDescription] == nil else {
+                    self.signInError = self.errorDict[error?.localizedDescription]!
+                    return
+                }
                 return
             }
             //로그인 성공
             print("Login Success")
+            self.userSession = result?.user
         }
     }
     
     func signOut() {
+        userSession = nil
         try? Auth.auth().signOut()
     }
     
     
+    func feachUser() {
+        guard let uid = userSession?.uid else { return }
+        Firestore.firestore().collection("users").document(uid).getDocument { snapShot, _ in
+            guard let data = snapShot?.data() else { return }
+            let user = User(dictionary: data)
+            print("DEBUG: user is \(user.username)")
+        }
+    }
 }

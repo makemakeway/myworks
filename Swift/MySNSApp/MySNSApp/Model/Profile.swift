@@ -13,4 +13,5 @@ struct Profile: Identifiable {
     var userName: String
     var profileMessage: String
     var profileImage: UIImage?
+    var isCurrentUser: Bool
 }

@@ -14,7 +14,7 @@ struct DefaultView: View {
         ZStack {
             Color.yellow.edgesIgnoringSafeArea(.all)
             TabView {
-                FriendsView(authViewModel: authViewModel)
+                FriendsView()
                     .tabItem {
                         Image(systemName: "person.fill")
                         Text("친구")

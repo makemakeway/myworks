@@ -10,7 +10,7 @@ import SwiftUI
 struct LoginView: View {
     @State var email = ""
     @State var password = ""
-    @ObservedObject var authViewModel = AuthViewModel()
+    @EnvironmentObject var authViewModel: AuthViewModel
     @State var error = false
     
     var body: some View {
@@ -30,18 +30,23 @@ struct LoginView: View {
                             .clipShape(Capsule())
                             .padding(.horizontal, 40)
                             .accentColor(.white)
+                            .autocapitalization(.none)
+                            .disableAutocorrection(true)
                         
                         CustomSecureField(text: $password, placeholder: Text("비밀번호를 입력하세요."), imageName: "lock.fill")
                             .clipShape(Capsule())
                             .padding(.horizontal, 40)
                             .accentColor(.white)
+                            .autocapitalization(.none)
+                            .disableAutocorrection(true)
                         
                         // 로그인 버튼
                         Button(action: {
                             authViewModel.signIn(email: email, password: password)
-                            if authViewModel.error != "" {
+                            if !authViewModel.signInError.isEmpty {
                                 self.error = true
                             }
+                            
                             
                         }, label: {
                             Text("로그인")
@@ -53,7 +58,7 @@ struct LoginView: View {
                                 .cornerRadius(10)
                         })
                         .alert(isPresented: $error, content: {
-                            Alert(title: Text("에러"), message: Text(String("\(authViewModel.error)")), dismissButton: .default(Text("확인")))
+                            Alert(title: Text("에러"), message: Text(String("\(authViewModel.signInError)")), dismissButton: .default(Text("확인")))
                         })
                     }
                     .padding(.top, 60)

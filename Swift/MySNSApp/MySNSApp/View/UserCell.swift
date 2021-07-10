@@ -6,33 +6,32 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct UserCell: View {
     //    @Binding var profiles: [Profile]
-    
+    let user: User
     
     var body: some View {
         HStack {
-            Image(systemName: "person.fill") // 프로필 이미지
+            KFImage(URL(string: user.profileImageUrl)) // 프로필 이미지
                 .resizable()
-                .frame(width: 30, height: 30)
-                .scaledToFit()
-                .padding()
-                .background(Color(.systemIndigo))
                 .foregroundColor(.white)
-                .cornerRadius(20)
+                .scaledToFill()
+                .frame(width: 70, height: 70)
+                .cornerRadius(23)
             
             
             
             
             VStack(alignment: .leading) {
-                Text("userName")           // 유저 이름
+                Text(user.username)           // 유저 이름
                     .font(.title3)
                     .fontWeight(.semibold)
                     .padding(.top, 5)
                 
                 
-                Text("profileMessage")     // 상태메세지
+                Text(user.profileMessage)     // 상태메세지
                     .font(.footnote)
                     .lineLimit(1)
                     .padding(.top, 1)
@@ -47,12 +46,5 @@ struct UserCell: View {
         .padding(.horizontal)
         
         
-    }
-}
-
-struct UserCell_Previews: PreviewProvider {
-    static var previews: some View {
-        UserCell()
-            .preferredColorScheme(.dark)
     }
 }

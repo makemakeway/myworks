@@ -20,7 +20,7 @@ struct SettingProfileInfoView: View {
     var body: some View {
         
         ZStack {
-            Color(.systemFill).edgesIgnoringSafeArea(.all)
+            Color(.systemGray2).edgesIgnoringSafeArea(.all)
             VStack(spacing: 12) {
                 
                 

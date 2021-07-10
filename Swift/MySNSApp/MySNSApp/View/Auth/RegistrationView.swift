@@ -14,7 +14,7 @@ struct RegistrationView: View {
     @State var showImagePicker = false
     @State var selectedImage: UIImage?
     @Environment(\.presentationMode) var mode : Binding<PresentationMode>
-    @ObservedObject var authViewModel = AuthViewModel()
+    @EnvironmentObject var authViewModel: AuthViewModel
     
     var body: some View {
         ZStack {
@@ -50,16 +50,22 @@ struct RegistrationView: View {
                         .clipShape(Capsule())
                         .padding(.horizontal, 40)
                         .accentColor(.white)
+                        .autocapitalization(.none)
+                        .disableAutocorrection(true)
                     
                     CustomTextField(text: $email, placeholder: Text("이메일 주소를 입력하세요."), imageName: "envelope.fill")
                         .clipShape(Capsule())
                         .padding(.horizontal, 40)
                         .accentColor(.white)
+                        .autocapitalization(.none)
+                        .disableAutocorrection(true)
                     
                     CustomSecureField(text: $password, placeholder: Text("비밀번호를 입력하세요."), imageName: "lock.fill")
                         .clipShape(Capsule())
                         .padding(.horizontal, 40)
                         .accentColor(.white)
+                        .autocapitalization(.none)
+                        .disableAutocorrection(true)
                     
                     
                 }
@@ -70,9 +76,6 @@ struct RegistrationView: View {
                 Button(action: {
                     guard let image = selectedImage else { return }
                     authViewModel.registerUser(userName: userName, email: email, password: password, profileImage: image)
-                    
-                    mode.wrappedValue.dismiss()
-                    
                 }, label: {
                     Text("가입")
                         .fontWeight(.semibold)
