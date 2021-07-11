@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct SettingProfileInfoView: View {
     @State var userName = "이름"
@@ -14,8 +15,9 @@ struct SettingProfileInfoView: View {
     @State var pickedImage: Image?
     @State var showingImagePicker = false
     
-    @Binding var profileClicked: Bool
+    @Binding var myProfileClicked: Bool
     
+    let user: User
     
     var body: some View {
         
@@ -28,7 +30,7 @@ struct SettingProfileInfoView: View {
                 if !modifyMode {
                     // x마크
                     HStack {
-                        Button(action: { profileClicked.toggle() }, label: {
+                        Button(action: { myProfileClicked.toggle() }, label: {
                             Image(systemName: "xmark")
                         })
                         Spacer()
@@ -36,8 +38,8 @@ struct SettingProfileInfoView: View {
                     .padding(.leading, 24)
                     Spacer()
                     
-                    if let pickedImage = pickedImage {
-                        pickedImage
+                    if user.profileImageUrl != "" {
+                        KFImage(URL(string: user.profileImageUrl))
                             .resizable()
                             .foregroundColor(.white)
                             .scaledToFill()
@@ -55,7 +57,7 @@ struct SettingProfileInfoView: View {
                     
                     
                     
-                    Text("\(userName)")
+                    Text("\(user.username)")
                         .fontWeight(.bold)
                         .font(.title3)
                         .padding(.top, 14)
@@ -64,7 +66,7 @@ struct SettingProfileInfoView: View {
                     Rectangle()
                         .frame(height: 0)
                     
-                    Text("\(profileMessage)")
+                    Text("\(user.profileMessage)")
                         .fontWeight(.bold)
                     
                     Rectangle()
@@ -126,8 +128,8 @@ struct SettingProfileInfoView: View {
                     // profileImage 변경 버튼
                     Button(action: { self.showingImagePicker.toggle() }, label: {
                         
-                        if let pickedImage = pickedImage {
-                            pickedImage
+                        if user.profileImageUrl != "" {
+                            KFImage(URL(string: user.profileImageUrl))
                                 .resizable()
                                 .foregroundColor(.white)
                                 .scaledToFill()
@@ -167,7 +169,7 @@ struct SettingProfileInfoView: View {
                     Button(action: { print("modify username") }, label: {
                         VStack {
                             HStack {
-                                Text("이름")
+                                Text("\(user.username)")
                                     .fontWeight(.bold)
                                     .font(.title3)
                                     .padding(.top)
@@ -191,8 +193,8 @@ struct SettingProfileInfoView: View {
                     // profileMessage 변경 버튼
                     Button(action: { print("modify profileMessage") }, label: {
                         VStack {
-                            if !profileMessage.isEmpty {
-                                Text("\(profileMessage)")
+                            if !user.profileMessage.isEmpty {
+                                Text("\(user.profileMessage)")
                                     .fontWeight(.bold)
                                     .padding(.top, 4)
                                     .lineLimit(1)
@@ -245,9 +247,9 @@ struct SettingProfileInfoView: View {
     }
 }
 
-struct SettingProfileInfoView_Previews: PreviewProvider {
-    static var previews: some View {
-        SettingProfileInfoView(profileClicked: .constant(true))
-            .preferredColorScheme(.dark)
-    }
-}
+//struct SettingProfileInfoView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SettingProfileInfoView(profileClicked: .constant(true))
+//            .preferredColorScheme(.dark)
+//    }
+//}

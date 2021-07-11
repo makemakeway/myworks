@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct FriendsView: View {
+    @State var myProfileClicked = false
     @State var profileClicked = false
     @State var searchBarInput = ""
     @State var searchBarClicked = false
@@ -15,6 +16,7 @@ struct FriendsView: View {
     @State var menuToggle = false
     @EnvironmentObject var authViewModel: AuthViewModel
     @ObservedObject var userViewModel = UserViewModel()
+    @Environment(\.presentationMode) var mode : Binding<PresentationMode>
     
     
     var body: some View {
@@ -25,37 +27,53 @@ struct FriendsView: View {
             
             VStack {
                 List {
-                    // 내 프로필
-                    Button(action: {
-                        profileClicked.toggle()
-                        print("toggled")
-                    }, label: {
-//                        UserCell(user: userViewModel.users[0])
-                    })
-                    .padding(.top, 10)
-                    .fullScreenCover(isPresented: $profileClicked, content: {
-                        SettingProfileInfoView(profileClicked: $profileClicked)
-                    })
+                    ForEach(userViewModel.users) { user in
+                        if authViewModel.userSession?.uid == user.id {
+                            Button(action: { myProfileClicked.toggle() }, label: {
+                                UserCell(user: user)
+                            })
+                            .fullScreenCover(isPresented: $myProfileClicked, content: {
+                                SettingProfileInfoView(myProfileClicked: $myProfileClicked, user: user)
+                            })
+                        }
+                    }
+                    
+                    
                     HStack {
                         Text("친구")
                             .fontWeight(.semibold)
-                        Text("\(userViewModel.users.count)")
-                            .fontWeight(.semibold)
+                        if userViewModel.users.count == 1 {
+                            Text("0")
+                                .fontWeight(.semibold)
+                        } else {
+                            Text("\(userViewModel.users.count - 1)")
+                                .fontWeight(.semibold)
+                        }
+                        
                         Spacer()
                     }
                     .padding(.horizontal)
                     
                     // 친구 프로필
                     ForEach(userViewModel.users) { user in
+                        if authViewModel.userSession?.uid != user.id {
+                            Button(action: { profileClicked.toggle() }, label: {
+                                UserCell(user: user)
+                            })
+                            .fullScreenCover(isPresented: $profileClicked, content: {
+                                ShowProfileView(profileClicked: $profileClicked, user: user)
+                            })
+                        }
                         
-                        UserCell(user: user)
                     }
+                    
+                    
                     
                 }
                 .padding(.horizontal, -20)
                 .listStyle(PlainListStyle())
                 .fullScreenCover(isPresented: $searchToggle , content: {
-                    SearchBar(searchBarInput: $searchBarInput, searchBarClicked: $searchBarClicked, searchToggle: $searchToggle)
+                    SearchBar(searchBarInput: $searchBarInput, searchBarClicked: $searchBarClicked, searchToggle: $searchToggle, userViewModel: userViewModel)
                 })
                 .navigationBarItems(leading: Text("친구").font(.title2).fontWeight(.semibold),
                                     trailing:

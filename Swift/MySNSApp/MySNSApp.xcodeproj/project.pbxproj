@@ -26,6 +26,8 @@
 		FF7283292699CE220063A66E /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = FF7283282699CE220063A66E /* Kingfisher */; };
 		FF72832B2699CF950063A66E /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF72832A2699CF950063A66E /* UserViewModel.swift */; };
 		FF72832F2699D0850063A66E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF72832E2699D0850063A66E /* Constants.swift */; };
+		FF7283312699E2920063A66E /* ShowProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7283302699E2920063A66E /* ShowProfileView.swift */; };
+		FF728333269AF0A80063A66E /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF728332269AF0A80063A66E /* ProfileViewModel.swift */; };
 		FFAFFE2F269219CC00BAF13F /* SettingProfileInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAFFE2E269219CC00BAF13F /* SettingProfileInfoView.swift */; };
 		FFAFFE32269576A600BAF13F /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAFFE31269576A600BAF13F /* ImagePicker.swift */; };
 		FFAFFE362695EA6500BAF13F /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAFFE352695EA6500BAF13F /* LoginView.swift */; };
@@ -53,6 +55,8 @@
 		FF7283252699B37B0063A66E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		FF72832A2699CF950063A66E /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		FF72832E2699D0850063A66E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		FF7283302699E2920063A66E /* ShowProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowProfileView.swift; sourceTree = "<group>"; };
+		FF728332269AF0A80063A66E /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		FFAFFE2E269219CC00BAF13F /* SettingProfileInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingProfileInfoView.swift; sourceTree = "<group>"; };
 		FFAFFE31269576A600BAF13F /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		FFAFFE352695EA6500BAF13F /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -156,6 +160,7 @@
 			isa = PBXGroup;
 			children = (
 				FFAFFE2E269219CC00BAF13F /* SettingProfileInfoView.swift */,
+				FF7283302699E2920063A66E /* ShowProfileView.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -165,6 +170,7 @@
 			children = (
 				FF728316269620D80063A66E /* AuthViewModel.swift */,
 				FF72832A2699CF950063A66E /* UserViewModel.swift */,
+				FF728332269AF0A80063A66E /* ProfileViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -265,6 +271,7 @@
 				FF3810AE2684F4D000521EFA /* MySNSAppApp.swift in Sources */,
 				FFAFFE402696040B00BAF13F /* RegistrationView.swift in Sources */,
 				FFAFFE382695ECC000BAF13F /* LoadingView.swift in Sources */,
+				FF728333269AF0A80063A66E /* ProfileViewModel.swift in Sources */,
 				FF728317269620D80063A66E /* AuthViewModel.swift in Sources */,
 				FFAFFE32269576A600BAF13F /* ImagePicker.swift in Sources */,
 				FF72832B2699CF950063A66E /* UserViewModel.swift in Sources */,
@@ -276,6 +283,7 @@
 				FFAFFE3A2695F3C800BAF13F /* CustomTextField.swift in Sources */,
 				FF72832426983D130063A66E /* DefaultView.swift in Sources */,
 				FF3810BE2684F67000521EFA /* UserCell.swift in Sources */,
+				FF7283312699E2920063A66E /* ShowProfileView.swift in Sources */,
 				FFAFFE362695EA6500BAF13F /* LoginView.swift in Sources */,
 				FF3810C5268614C000521EFA /* NavigationBarHidden.swift in Sources */,
 			);

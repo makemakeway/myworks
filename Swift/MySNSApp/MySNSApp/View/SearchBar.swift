@@ -11,7 +11,10 @@ struct SearchBar: View {
     @Binding var searchBarInput: String
     @Binding var searchBarClicked: Bool
     @Binding var searchToggle: Bool
+    @State var profileClicked = false
     
+    @ObservedObject var userViewModel: UserViewModel
+    @EnvironmentObject var authViewModel: AuthViewModel
     
     var body: some View {
         VStack {
@@ -61,7 +64,19 @@ struct SearchBar: View {
             }
             .padding(.top)
             // Search List part
-            
+            List {
+                ForEach(userViewModel.users) { user in
+                    if authViewModel.userSession?.uid != user.id {
+                        Button(action: { profileClicked.toggle() }, label: {
+                            UserCell(user: user)
+                        })
+                        .fullScreenCover(isPresented: $profileClicked, content: {
+                            ShowProfileView(profileClicked: $profileClicked, user: user)
+                        })
+                    }
+                    
+                }            }
+            .listStyle(PlainListStyle())
             
             Spacer()
         }
@@ -70,9 +85,9 @@ struct SearchBar: View {
     }
 }
 
-struct SearchBar_Previews: PreviewProvider {
-    static var previews: some View {
-        SearchBar(searchBarInput: .constant(""), searchBarClicked: .constant(true), searchToggle: .constant(false))
-            .preferredColorScheme(.dark)
-    }
-}
+//struct SearchBar_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SearchBar(searchBarInput: .constant(""), searchBarClicked: .constant(true), searchToggle: .constant(false))
+//            .preferredColorScheme(.dark)
+//    }
+//}

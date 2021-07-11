@@ -21,6 +21,7 @@ struct ContentView: View {
                                 Image(systemName: "person.fill")
                                 Text("친구")
                             }
+                        
                         Text("메세지")
                             .tabItem {
                                 Image(systemName: "envelope.fill")

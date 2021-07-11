@@ -11,7 +11,6 @@ struct LoginView: View {
     @State var email = ""
     @State var password = ""
     @EnvironmentObject var authViewModel: AuthViewModel
-    @State var error = false
     
     var body: some View {
         NavigationView {
@@ -43,9 +42,6 @@ struct LoginView: View {
                         // 로그인 버튼
                         Button(action: {
                             authViewModel.signIn(email: email, password: password)
-                            if !authViewModel.signInError.isEmpty {
-                                self.error = true
-                            }
                             
                             
                         }, label: {
@@ -57,8 +53,8 @@ struct LoginView: View {
                                 .background(Color.white)
                                 .cornerRadius(10)
                         })
-                        .alert(isPresented: $error, content: {
-                            Alert(title: Text("에러"), message: Text(String("\(authViewModel.signInError)")), dismissButton: .default(Text("확인")))
+                        .alert(isPresented: $authViewModel.isError, content: {
+                            Alert(title: Text("에러"), message: Text(String(authViewModel.errorMessage)), dismissButton: .default(Text("확인")))
                         })
                     }
                     .padding(.top, 60)

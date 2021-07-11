@@ -11,9 +11,15 @@ import Firebase
 class AuthViewModel: ObservableObject {
     
     let errorDict = [Optional("The email address is badly formatted.") : "올바른 이메일 형식이 아닙니다.",
-                     Optional("The password is invalid or the user does not have a password.") : "비밀번호가 틀렸거나 유효하지 않은 사용자입니다."]
+                     Optional("The password is invalid or the user does not have a password.") : "비밀번호가 틀렸습니다.",
+                     Optional("There is no user record corresponding to this identifier. The user may have been deleted.") : "일치하는 사용자가 없습니다. 아이디를 확인해주세요.",
+                     Optional("The email address is already in use by another account.") : "이미 사용중인 이메일입니다.",
+                     Optional("The password must be 6 characters long or more.") : "비밀번호는 6글자 이상으로 입력해주세요."
+                     
+    ]
     
-    var signInError = ""
+    @Published var isError = false
+    @Published var errorMessage = ""
     
     // 유저가 로그인 되었는지 추적
     @Published var userSession: FirebaseAuth.User?
@@ -48,6 +54,11 @@ class AuthViewModel: ObservableObject {
                 Auth.auth().createUser(withEmail: email, password: password) { result, error in
                     if let error = error {
                         print("ERROR: creatUserError \(error.localizedDescription)")
+                        guard self.errorDict[error.localizedDescription] == nil else {
+                            self.errorMessage = self.errorDict[error.localizedDescription]!
+                            self.isError = true
+                            return
+                        }
                         return
                     }
                     
@@ -78,7 +89,8 @@ class AuthViewModel: ObservableObject {
             guard result != nil, error == nil else {
                 print("ERROR: \(String(describing: error?.localizedDescription))")
                 guard self.errorDict[error?.localizedDescription] == nil else {
-                    self.signInError = self.errorDict[error?.localizedDescription]!
+                    self.errorMessage = self.errorDict[error?.localizedDescription]!
+                    self.isError = true
                     return
                 }
                 return

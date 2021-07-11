@@ -85,6 +85,9 @@ struct RegistrationView: View {
                         .background(Color.white)
                         .cornerRadius(10)
                 })
+                .alert(isPresented: $authViewModel.isError, content: {
+                    Alert(title: Text("에러"), message: Text(String(authViewModel.errorMessage)), dismissButton: .default(Text("확인")))
+                })
                 .padding(.top, 20)
                 
                 Spacer()
