@@ -14,6 +14,7 @@ struct FriendsView: View {
     @State var searchBarClicked = false
     @State var searchToggle = false
     @State var menuToggle = false
+    @State var searchFriend = false
     @EnvironmentObject var authViewModel: AuthViewModel
     @ObservedObject var userViewModel = UserViewModel()
     @Environment(\.presentationMode) var mode : Binding<PresentationMode>
@@ -42,7 +43,7 @@ struct FriendsView: View {
                     HStack {
                         Text("친구")
                             .fontWeight(.semibold)
-                        if userViewModel.users.count == 1 {
+                        if userViewModel.users.count <= 1 {
                             Text("0")
                                 .fontWeight(.semibold)
                         } else {
@@ -75,6 +76,9 @@ struct FriendsView: View {
                 .fullScreenCover(isPresented: $searchToggle , content: {
                     SearchBar(searchBarInput: $searchBarInput, searchBarClicked: $searchBarClicked, searchToggle: $searchToggle, userViewModel: userViewModel)
                 })
+                .fullScreenCover(isPresented: $searchFriend, content: {
+                    SearchEmailView()
+                })
                 .navigationBarItems(leading: Text("친구").font(.title2).fontWeight(.semibold),
                                     trailing:
                                         HStack(spacing: 20) {
@@ -94,6 +98,10 @@ struct FriendsView: View {
                                                                 message: Text(""),
                                                                 buttons: [
                                                                     .cancel(Text("취소")),
+                                                                    .default(Text("친구추가"), action: {
+                                                                        searchFriend.toggle()
+                                                                        
+                                                                    }),
                                                                     .destructive(
                                                                         Text("로그아웃"),
                                                                         action: {

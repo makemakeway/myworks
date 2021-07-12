@@ -14,7 +14,7 @@
 		FF3810BE2684F67000521EFA /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3810BD2684F67000521EFA /* UserCell.swift */; };
 		FF3810C02684FBED00521EFA /* FriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3810BF2684FBED00521EFA /* FriendsView.swift */; };
 		FF3810C5268614C000521EFA /* NavigationBarHidden.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3810C4268614C000521EFA /* NavigationBarHidden.swift */; };
-		FF3810C726861AB900521EFA /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3810C626861AB900521EFA /* SearchBar.swift */; };
+		FF3810C726861AB900521EFA /* SearchFriendsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3810C626861AB900521EFA /* SearchFriendsList.swift */; };
 		FF3810CA2688808300521EFA /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3810C92688808300521EFA /* Profile.swift */; };
 		FF728317269620D80063A66E /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF728316269620D80063A66E /* AuthViewModel.swift */; };
 		FF72831C2696D9FA0063A66E /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = FF72831B2696D9FA0063A66E /* FirebaseAuth */; };
@@ -28,6 +28,9 @@
 		FF72832F2699D0850063A66E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF72832E2699D0850063A66E /* Constants.swift */; };
 		FF7283312699E2920063A66E /* ShowProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7283302699E2920063A66E /* ShowProfileView.swift */; };
 		FF728333269AF0A80063A66E /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF728332269AF0A80063A66E /* ProfileViewModel.swift */; };
+		FF728335269C6B8A0063A66E /* SearchEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF728334269C6B8A0063A66E /* SearchEmailView.swift */; };
+		FF728337269C7FF90063A66E /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF728336269C7FF90063A66E /* TestView.swift */; };
+		FF728339269C801E0063A66E /* HelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF728338269C801E0063A66E /* HelpView.swift */; };
 		FFAFFE2F269219CC00BAF13F /* SettingProfileInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAFFE2E269219CC00BAF13F /* SettingProfileInfoView.swift */; };
 		FFAFFE32269576A600BAF13F /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAFFE31269576A600BAF13F /* ImagePicker.swift */; };
 		FFAFFE362695EA6500BAF13F /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAFFE352695EA6500BAF13F /* LoginView.swift */; };
@@ -47,7 +50,7 @@
 		FF3810BD2684F67000521EFA /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 		FF3810BF2684FBED00521EFA /* FriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsView.swift; sourceTree = "<group>"; };
 		FF3810C4268614C000521EFA /* NavigationBarHidden.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarHidden.swift; sourceTree = "<group>"; };
-		FF3810C626861AB900521EFA /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		FF3810C626861AB900521EFA /* SearchFriendsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFriendsList.swift; sourceTree = "<group>"; };
 		FF3810C92688808300521EFA /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		FF728316269620D80063A66E /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		FF7283212697E5C70063A66E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "MySNSApp/GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -57,6 +60,9 @@
 		FF72832E2699D0850063A66E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		FF7283302699E2920063A66E /* ShowProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowProfileView.swift; sourceTree = "<group>"; };
 		FF728332269AF0A80063A66E /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		FF728334269C6B8A0063A66E /* SearchEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchEmailView.swift; sourceTree = "<group>"; };
+		FF728336269C7FF90063A66E /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
+		FF728338269C801E0063A66E /* HelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpView.swift; sourceTree = "<group>"; };
 		FFAFFE2E269219CC00BAF13F /* SettingProfileInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingProfileInfoView.swift; sourceTree = "<group>"; };
 		FFAFFE31269576A600BAF13F /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		FFAFFE352695EA6500BAF13F /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -130,7 +136,10 @@
 				FF72832326983D130063A66E /* DefaultView.swift */,
 				FF3810BD2684F67000521EFA /* UserCell.swift */,
 				FF3810BF2684FBED00521EFA /* FriendsView.swift */,
-				FF3810C626861AB900521EFA /* SearchBar.swift */,
+				FF3810C626861AB900521EFA /* SearchFriendsList.swift */,
+				FF728334269C6B8A0063A66E /* SearchEmailView.swift */,
+				FF728336269C7FF90063A66E /* TestView.swift */,
+				FF728338269C801E0063A66E /* HelpView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -265,17 +274,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FF3810C726861AB900521EFA /* SearchBar.swift in Sources */,
+				FF3810C726861AB900521EFA /* SearchFriendsList.swift in Sources */,
 				FF72832F2699D0850063A66E /* Constants.swift in Sources */,
 				FF3810B02684F4D000521EFA /* ContentView.swift in Sources */,
 				FF3810AE2684F4D000521EFA /* MySNSAppApp.swift in Sources */,
 				FFAFFE402696040B00BAF13F /* RegistrationView.swift in Sources */,
 				FFAFFE382695ECC000BAF13F /* LoadingView.swift in Sources */,
 				FF728333269AF0A80063A66E /* ProfileViewModel.swift in Sources */,
+				FF728337269C7FF90063A66E /* TestView.swift in Sources */,
+				FF728335269C6B8A0063A66E /* SearchEmailView.swift in Sources */,
 				FF728317269620D80063A66E /* AuthViewModel.swift in Sources */,
 				FFAFFE32269576A600BAF13F /* ImagePicker.swift in Sources */,
 				FF72832B2699CF950063A66E /* UserViewModel.swift in Sources */,
 				FF7283262699B37B0063A66E /* User.swift in Sources */,
+				FF728339269C801E0063A66E /* HelpView.swift in Sources */,
 				FF3810CA2688808300521EFA /* Profile.swift in Sources */,
 				FF3810C02684FBED00521EFA /* FriendsView.swift in Sources */,
 				FFAFFE3C2695F9C200BAF13F /* CustomSecureField.swift in Sources */,

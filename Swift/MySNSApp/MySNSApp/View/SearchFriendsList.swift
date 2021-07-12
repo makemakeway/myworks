@@ -64,6 +64,7 @@ struct SearchBar: View {
             }
             .padding(.top)
             // Search List part
+            
             List {
                 ForEach(userViewModel.users) { user in
                     if authViewModel.userSession?.uid != user.id {
@@ -75,7 +76,8 @@ struct SearchBar: View {
                         })
                     }
                     
-                }            }
+                }
+            }
             .listStyle(PlainListStyle())
             
             Spacer()

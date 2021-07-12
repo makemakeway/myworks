@@ -56,10 +56,8 @@ struct ShowProfileView: View {
                     .padding(.vertical, 0)
                 
                 HStack {
+                    // 메세지 창으로 이동
                     Button(action: {
-                        withAnimation {
-                            modifyMode.toggle()
-                        }
                         
                     }, label: {
                         VStack(spacing: 12) {
