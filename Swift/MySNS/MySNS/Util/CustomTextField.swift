@@ -22,17 +22,23 @@ struct CustomTextField: View {
             }
             HStack {
                 TextField("", text: $input)
+                    .autocapitalization(.none)
+                    .disableAutocorrection(true)
                     .padding(.leading, 14)
                 
                 Spacer()
                 
-                Button(action: {}, label: {
-                    Text("게시")
-                        .font(.callout)
-                        .fontWeight(.semibold)
-                        .foregroundColor(Color(.systemTeal))
-                })
-                .padding(.trailing, 14)
+                
+                if onClicked {
+                    Button(action: {}, label: {
+                        Text("게시")
+                            .font(.callout)
+                            .fontWeight(.semibold)
+                            .foregroundColor(Color(.systemTeal))
+                    })
+                    .padding(.trailing, 14)
+                }
+                
             }
         }
         .frame(height: 40)
@@ -42,6 +48,6 @@ struct CustomTextField: View {
 
 struct CustomTextField_Previews: PreviewProvider {
     static var previews: some View {
-        CustomTextField(input: .constant("딸랄랄"), onClicked: .constant(true), placeholder: "댓글 달기...")
+        CustomTextField(input: .constant("알랄랄"), onClicked: .constant(true), placeholder: "댓글 달기...")
     }
 }

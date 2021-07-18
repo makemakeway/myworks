@@ -1,0 +1,109 @@
+//
+//  ProfileView.swift
+//  MySNS
+//
+//  Created by 박연배 on 2021/07/17.
+//
+
+import SwiftUI
+
+struct ProfileView: View {
+    @Environment(\.presentationMode) var testmode
+    @EnvironmentObject var authViewModel: AuthViewModel
+    @State var throughSearch = false
+    @State var navButtonClicked = false
+    private let width = UIScreen.main.bounds.width / 3
+    
+    var body: some View {
+        ScrollView {
+            VStack {
+                // MARK: 프로필 사진, 게시물, 팔로워, 팔로잉 숫자
+                ProfileHeaderView()
+                
+                // MARK: 이름(userName)
+                
+                
+                
+                // MARK: 유저이름 영역
+                HStack {
+                    Text(authViewModel.userViewModel.userName)
+                    Spacer()
+                }
+                .padding(.horizontal)
+                .padding(.bottom)
+                
+                // MARK: 프로필 정보 변경 버튼
+                ProfileButtonView()
+                
+                // MARK: 내 포스트들의 영역
+                
+                LazyVGrid(columns: [GridItem(.fixed(width), spacing: 1),
+                                    GridItem(.fixed(width), spacing: 1),
+                                    GridItem(.fixed(width), spacing: 1)],
+                          alignment: .center,
+                          spacing: 1,
+                          pinnedViews: [],
+                          content: {
+                            ForEach(0..<50) { i in
+                                Image("SpiderMan")
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: width, height: width)
+                                    .clipped()
+                            }
+                          })
+                    .padding(.top)
+                
+                
+            }
+            if throughSearch {
+                EmptyView()
+                    .navigationBarBackButtonHidden(true)
+                    .navigationBarTitle("UserName", displayMode: .inline)
+                    .navigationBarItems(leading: Button(action: {
+                        testmode.wrappedValue.dismiss()
+                        throughSearch = false
+                    },
+                    label: {
+                        Image(systemName: "chevron.left")
+                    }))
+            } else {
+                EmptyView()
+                    .navigationBarItems(leading: Text(authViewModel.userViewModel.userID)
+                                            .font(.title2)
+                                            .fontWeight(.bold)
+                                            .foregroundColor(.primary),
+                                        trailing: Button(action: { navButtonClicked.toggle() }, label: {
+                                            Image(systemName: "text.justify")
+                                                .foregroundColor(.primary)
+                                                .actionSheet(isPresented: $navButtonClicked,
+                                                             content: {
+                                                                ActionSheet(title: Text(""),
+                                                                            message: Text(""),
+                                                                            buttons: [
+                                                                                .cancel(Text("취소")),
+                                                                                .destructive(Text("로그아웃"), action: {
+                                                                                    authViewModel.signOut()
+                                                                                })
+                                                                            ])
+                                                             })
+                                        }))
+                    .navigationBarTitle("", displayMode: .inline)
+                
+            }
+            
+            
+            
+            
+        }
+    }
+}
+
+struct ProfileView_Previews: PreviewProvider {
+    @EnvironmentObject var authViewModel: AuthViewModel
+    static var previews: some View {
+        NavigationView {
+            ProfileView()
+        }
+    }
+}

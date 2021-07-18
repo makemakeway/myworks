@@ -8,27 +8,39 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var authViewModel: AuthViewModel
+    
     var body: some View {
-        TabView {
-            NavigationView {
-                FeedView(posts: PostArrayObject())
-            }
-            .tabItem { Image(systemName: "house.fill") }
-            
-            
-            Text("SearchView")
+        if authViewModel.userSession != nil {
+            TabView {
+                NavigationView {
+                    FeedView()
+                }
+                .tabItem { Image(systemName: "house.fill") }
+                
+                NavigationView {
+                    SearchView()
+                }
                 .tabItem { Image(systemName: "magnifyingglass") }
-            
-            
-            Text("ShortViedoView")
+                
+                NavigationView {
+                    Text("ShortVideoView")
+                }
                 .tabItem { Image(systemName: "play.rectangle") }
-            
-            
-            Text("ProfileView")
-                .tabItem { Image(systemName: "person.circle.fill") }
-            
+                
+                NavigationView {
+                    ProfileView()
+                }
+                .tabItem { Image(systemName: "person.circle") }
+            }
+            .accentColor(.black)
+            .onAppear {
+                authViewModel.fetchUser()
+            }
         }
-        .accentColor(.black)
+        else {
+            LoginView()
+        }
     }
 }
 

@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct PostView: View {
-    @State var postModel: PostModel
     @State var showActionSheet = false
     
     var body: some View {
@@ -24,10 +23,10 @@ struct PostView: View {
                     .frame(width: 30, height: 30)
                 
                 //Profile Name
-                Text(postModel.displayName)
+                Text("userName")
                     .font(.callout)
                     .foregroundColor(.primary)
-                    .fontWeight(.medium)
+                    .fontWeight(.semibold)
                     .padding(.leading, 4)
                 
                 Spacer()
@@ -52,7 +51,7 @@ struct PostView: View {
             .padding(.all, 6)
             
             // MARK: Feed Image
-            Image("Venom")
+            Image("IronMan")
                 .resizable()
                 .scaledToFit()
                 .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width)
@@ -66,7 +65,12 @@ struct PostView: View {
                 Image(systemName: "heart")
                 
                 //Comment Button
-                Image(systemName: "bubble.right")
+                NavigationLink(
+                    destination: CommentView(),
+                    label: {
+                        Image(systemName: "bubble.right")
+                    })
+                    
                 
                 //DM Button
                 Image(systemName: "paperplane")
@@ -80,19 +84,38 @@ struct PostView: View {
             .foregroundColor(.primary)
             .font(.title3)
             
+            // MARK: Like & Caption & Comment
             
+            // Like
             
-            if let caption = postModel.caption {
                 HStack {
-                    Text(caption)
+                    (Text("좋아요 ") + Text("100개"))
+                        .foregroundColor(.primary)
+                        .fontWeight(.semibold)
+                    Spacer()
+                }
+                .padding(.all, 6)
+            
+            
+            // Caption
+            
+                HStack {
+                    Text("UserName").fontWeight(.semibold) + Text("  ") + Text("caption")
                     Spacer(minLength: 0)
                 }
                 .padding(.all, 6)
+            
+            
+            HStack {
+                Text("14d")
+                Spacer()
             }
+            .foregroundColor(.gray)
+            .padding(.horizontal, 6)
+            // Comment
             
             
         }
-        //좋아요를 누른 사람이 2명 이상 있을 경우
     }
 }
 
@@ -101,7 +124,7 @@ struct PostView_Previews: PreviewProvider {
     static var postModel: PostModel = PostModel(postID: "", userID: "", displayName: "Spider_man", caption: "이 포스트의 캡션이에요.", dateCreate: Date(), likeCount: 100, likedByCurrentUser: false)
     
     static var previews: some View {
-        PostView(postModel: postModel)
+        PostView()
             .previewLayout(.sizeThatFits)
             .preferredColorScheme(.dark)
     }

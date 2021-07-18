@@ -12,6 +12,8 @@ struct CommentView: View {
     @State var commentFieldClicked = false
     @Environment(\.presentationMode) var mode
     
+    
+    
     var body: some View {
         VStack {
             ScrollView {
@@ -32,8 +34,10 @@ struct CommentView: View {
                     .onTapGesture(perform: {
                         commentFieldClicked = true
                     })
+                    
+                    
             }
-            .padding(.all, 6)
+            .padding(.all)
         }
         .navigationBarTitle(Text("댓글"), displayMode: .inline)
         .navigationBarItems(leading: Button(action: {
@@ -44,6 +48,7 @@ struct CommentView: View {
             //open comment ActionSheet
         },
         label: {Image(systemName: "ellipsis").foregroundColor(.primary)}))
+        .navigationBarBackButtonHidden(true)
     }
 }
 
