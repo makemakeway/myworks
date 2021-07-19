@@ -6,15 +6,29 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct ProfileHeaderView: View {
+    @ObservedObject var profileViewModel: ProfileViewModel
+    
     var body: some View {
         HStack {
-            Image("SpiderMan")
-                .resizable()
-                .scaledToFill()
-                .frame(width: 100, height: 100)
-                .cornerRadius(50)
+            if profileViewModel.user.profileImageUrl.isEmpty {
+                Image(systemName: "person.fill")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 100, height: 100)
+                    .background(Color(.systemGray4))
+                    .foregroundColor(.primary)
+                    .cornerRadius(50)
+            } else {
+                KFImage(URL(string: profileViewModel.user.profileImageUrl))
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 100, height: 100)
+                    .cornerRadius(50)
+            }
+
             Spacer()
             UserStatView(value: 2, title: "게시물")
             Spacer()
@@ -24,11 +38,5 @@ struct ProfileHeaderView: View {
             Spacer()
         }
         .padding()
-    }
-}
-
-struct ProfileHeaderView_Previews: PreviewProvider {
-    static var previews: some View {
-        ProfileHeaderView()
     }
 }

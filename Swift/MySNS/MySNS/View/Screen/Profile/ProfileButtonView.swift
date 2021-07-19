@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct ProfileButtonView: View {
-    var isCurrentUser: Bool = false
-    var isFollowed: Bool = true
+    @ObservedObject var profileViewModel: ProfileViewModel
+    var isFollowed: Bool { return profileViewModel.user.isFollowed ?? false }
     
     var body: some View {
-        if isCurrentUser {
+        if profileViewModel.user.isCurrentUser {
             HStack {
                 Button(action: { }, label: {
                     Text("프로필 편집")
@@ -25,18 +25,20 @@ struct ProfileButtonView: View {
             .padding(.horizontal)
         } else {
             HStack {
-                
                 if isFollowed {
-                    Button(action: { }, label: {
-                        Text("팔로잉")
-                            .foregroundColor(.primary)
+                    Button(action: { profileViewModel.unfollow() }, label: {
+                        HStack {
+                            Text("팔로잉")
+                            Image(systemName: "checkmark")
+                        }
+                        .foregroundColor(.primary)
                     })
                     .frame(maxWidth: .infinity)
                     .frame(height: 40)
                     .background(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 0.8))
                     
                 } else {
-                    Button(action: { }, label: {
+                    Button(action: { profileViewModel.follow() }, label: {
                         Text("팔로우")
                             .foregroundColor(.white)
                     })
@@ -65,9 +67,4 @@ struct ProfileButtonView: View {
     }
 }
 
-struct ProfileButtonView_Previews: PreviewProvider {
-    static var previews: some View {
-        ProfileButtonView()
-            .preferredColorScheme(.dark)
-    }
-}
+

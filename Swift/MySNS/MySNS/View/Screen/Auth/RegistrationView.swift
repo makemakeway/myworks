@@ -13,12 +13,6 @@ struct RegistrationView: View {
     @State var password: String = ""
     @State var userName: String = ""
     @State var userID: String = ""
-    init() {
-        let tempImage: Image = Image(systemName: "person")
-        let defaultImage: UIImage = tempImage.asUIImage()
-        self.defaultImage = defaultImage
-    }
-    let defaultImage: UIImage
     @Environment(\.presentationMode) var mode
     @EnvironmentObject var authViewModel: AuthViewModel
     
@@ -38,7 +32,7 @@ struct RegistrationView: View {
                     .padding(.horizontal, 40)
                     .padding(.vertical)
                 
-                Button(action: { authViewModel.registerUser(email: email, password: password, userName: userName, userID: userID, image: defaultImage) }, label: {
+                Button(action: { authViewModel.registerUser(email: email, password: password, userName: userName, userID: userID) }, label: {
                     Text("가입하기")
                         .foregroundColor(Color(.systemGray6))
                         .frame(height: 40)

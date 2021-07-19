@@ -11,37 +11,36 @@ import SwiftUI
 
 class AuthViewModel: ObservableObject {
     @Published var userSession: FirebaseAuth.User?
-    @Published var userViewModel: UserViewModel
+    @Published var currentUser: UserModel?
+    static let shared = AuthViewModel()
     
     init() {
         userSession = Auth.auth().currentUser
-        userViewModel = .init(userName: "", userID: "", email: "", imageUrl: "", id: "")
+        fetchUser()
     }
     
-    func registerUser(email: String, password: String, userName: String, userID: String, image: UIImage) {
+    func registerUser(email: String, password: String, userName: String, userID: String) {
         
-        ImageUploader.uploadImage(image: image) { imageUrl in
-            Auth.auth().createUser(withEmail: email, password: password) { result, error in
-                if let error = error  {
-                    print("DEBUG: \(error.localizedDescription)")
-                    return
-                }
-                
-                guard let user = result?.user else { return }
-                
-                let data = ["email": email,
-                            "userName": userName,
-                            "userID": userID,
-                            "uid": user.uid,
-                            "profileImageUrl": imageUrl
-                ]
-                
-                Firestore.firestore().collection("users").document(user.uid).setData(data) { _ in
-                    self.userSession = user
-                }
+        Auth.auth().createUser(withEmail: email, password: password) { result, error in
+            if let error = error  {
+                print("DEBUG: \(error.localizedDescription)")
+                return
+            }
+            
+            guard let user = result?.user else { return }
+            
+            let data = ["email": email,
+                        "userName": userName,
+                        "userID": userID,
+                        "uid": user.uid,
+                        "profileImageUrl": ""
+            ]
+            
+            COLLECTION_USERS.document(user.uid).setData(data) { _ in
+                self.userSession = user
+                self.fetchUser()
             }
         }
-        
         
     }
     
@@ -52,8 +51,9 @@ class AuthViewModel: ObservableObject {
                 return
             }
             
-            print("DEBUG: Login Success")
-            self.userSession = result?.user
+            guard let user = result?.user else { return }
+            self.userSession = user
+            self.fetchUser()
         }
     }
     
@@ -68,30 +68,11 @@ class AuthViewModel: ObservableObject {
     
     func fetchUser() {
         guard let uid = userSession?.uid else { return }
-        Firestore.firestore().collection("users").document(uid).getDocument { snapshot, error in
-            if let error = error {
-                print("DEBUG: fetchUser Failed... \(error.localizedDescription)")
-                return
-            }
-            guard let data = snapshot?.data() else {
-                print("DEBUG: Snapshot error... \(String(describing: error?.localizedDescription))")
-                return
-            }
-            let user = User(dictionary: data)
-
-            self.userViewModel.email = user.email
-            self.userViewModel.userID = user.userID
-            self.userViewModel.userName = user.userName
-            self.userViewModel.id = user.id
-            self.userViewModel.imageUrl = user.imageUrl
+        COLLECTION_USERS.document(uid).getDocument { snapshot, _ in
+            guard let user = try? snapshot?.data(as: UserModel.self) else { return }
+            self.currentUser = user
+            AuthViewModel.shared.userSession = self.userSession
+            AuthViewModel.shared.currentUser = self.currentUser
         }
     }
-}
-
-struct UserViewModel {
-    var userName: String
-    var userID: String
-    var email: String
-    var imageUrl: String
-    var id: String
 }

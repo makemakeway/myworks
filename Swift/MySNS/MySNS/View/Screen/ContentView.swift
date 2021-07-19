@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
+//    @ObservedObject var searchViewModel = SearchViewModel()
+    
     
     var body: some View {
         if authViewModel.userSession != nil {
@@ -29,14 +31,13 @@ struct ContentView: View {
                 .tabItem { Image(systemName: "play.rectangle") }
                 
                 NavigationView {
-                    ProfileView()
+                    if let user = authViewModel.currentUser {
+                        ProfileView(user: user, throughSearch: false)
+                    }
                 }
                 .tabItem { Image(systemName: "person.circle") }
             }
             .accentColor(.black)
-            .onAppear {
-                authViewModel.fetchUser()
-            }
         }
         else {
             LoginView()
@@ -44,8 +45,8 @@ struct ContentView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}
+//struct ContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ContentView()
+//    }
+//}

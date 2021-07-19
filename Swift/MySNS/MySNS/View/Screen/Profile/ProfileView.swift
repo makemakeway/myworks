@@ -8,32 +8,40 @@
 import SwiftUI
 
 struct ProfileView: View {
-    @Environment(\.presentationMode) var testmode
+    @Environment(\.presentationMode) var mode
     @EnvironmentObject var authViewModel: AuthViewModel
-    @State var throughSearch = false
+    @ObservedObject var profileViewModel: ProfileViewModel
+    var throughSearch: Bool
     @State var navButtonClicked = false
+    let user: UserModel
     private let width = UIScreen.main.bounds.width / 3
+    
+    init(user: UserModel, throughSearch: Bool) {
+        self.user = user
+        self.profileViewModel = ProfileViewModel(user: user)
+        self.throughSearch = throughSearch
+    }
     
     var body: some View {
         ScrollView {
             VStack {
                 // MARK: 프로필 사진, 게시물, 팔로워, 팔로잉 숫자
-                ProfileHeaderView()
+                ProfileHeaderView(profileViewModel: profileViewModel)
                 
-                // MARK: 이름(userName)
+                // MARK: 아이디(userID)는 네비게이션 영역으로 빼두었음.)
                 
                 
                 
-                // MARK: 유저이름 영역
+                // MARK: 유저이름 영역(userName)
                 HStack {
-                    Text(authViewModel.userViewModel.userName)
+                    Text("\(user.userName)")
                     Spacer()
                 }
                 .padding(.horizontal)
                 .padding(.bottom)
                 
                 // MARK: 프로필 정보 변경 버튼
-                ProfileButtonView()
+                ProfileButtonView(profileViewModel: profileViewModel)
                 
                 // MARK: 내 포스트들의 영역
                 
@@ -56,20 +64,21 @@ struct ProfileView: View {
                 
                 
             }
+            // 검색창을 통해 방문했을 때
             if throughSearch {
                 EmptyView()
                     .navigationBarBackButtonHidden(true)
-                    .navigationBarTitle("UserName", displayMode: .inline)
+                    .navigationBarTitle("\(user.userID)", displayMode: .inline)
                     .navigationBarItems(leading: Button(action: {
-                        testmode.wrappedValue.dismiss()
-                        throughSearch = false
+                        mode.wrappedValue.dismiss()
                     },
                     label: {
                         Image(systemName: "chevron.left")
                     }))
-            } else {
+            }
+            else {
                 EmptyView()
-                    .navigationBarItems(leading: Text(authViewModel.userViewModel.userID)
+                    .navigationBarItems(leading: Text("\(user.userID)")
                                             .font(.title2)
                                             .fontWeight(.bold)
                                             .foregroundColor(.primary),
@@ -99,11 +108,11 @@ struct ProfileView: View {
     }
 }
 
-struct ProfileView_Previews: PreviewProvider {
-    @EnvironmentObject var authViewModel: AuthViewModel
-    static var previews: some View {
-        NavigationView {
-            ProfileView()
-        }
-    }
-}
+//struct ProfileView_Previews: PreviewProvider {
+//    @EnvironmentObject var authViewModel: AuthViewModel
+//    static var previews: some View {
+//        NavigationView {
+//            ProfileView()
+//        }
+//    }
+//}

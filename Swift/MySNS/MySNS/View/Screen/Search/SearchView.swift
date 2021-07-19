@@ -10,16 +10,20 @@ import SwiftUI
 struct SearchView: View {
     @State var searchInput = ""
     @State var searchMode = false
+    @ObservedObject var searchViewModel = SearchViewModel()
+    
     private let width = UIScreen.main.bounds.width / 4
     var body: some View {
         ScrollView {
             VStack {
                 SearchTextField(input: $searchInput, searchMode: $searchMode)
                     .padding(.horizontal)
+                    .autocapitalization(.none)
+                    .disableAutocorrection(true)
                 
                 
                 if searchMode {
-                    UserListView()
+                    UserListView(searchViewModel: searchViewModel, searchInput: $searchInput)
                 } else {
                     SearchGridView()
                 }
