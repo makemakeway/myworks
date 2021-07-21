@@ -63,6 +63,7 @@
 		FFA132FA26A759380051494B /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA132F926A759380051494B /* CommentCell.swift */; };
 		FFA132FC26A7EAE20051494B /* NotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA132FB26A7EAE20051494B /* NotificationModel.swift */; };
 		FFA132FE26A80C550051494B /* NotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA132FD26A80C550051494B /* NotificationViewModel.swift */; };
+		FFA1330026A8329A0051494B /* NotificationCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA132FF26A8329A0051494B /* NotificationCellViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -117,6 +118,7 @@
 		FFA132F926A759380051494B /* CommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
 		FFA132FB26A7EAE20051494B /* NotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationModel.swift; sourceTree = "<group>"; };
 		FFA132FD26A80C550051494B /* NotificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewModel.swift; sourceTree = "<group>"; };
+		FFA132FF26A8329A0051494B /* NotificationCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCellViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -249,6 +251,7 @@
 			children = (
 				FF10D7A926A1FD1300C16B79 /* LoginView.swift */,
 				FF10D7AF26A205A500C16B79 /* RegistrationView.swift */,
+				FFA132C826A4571D0051494B /* ResetPasswordView.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -303,6 +306,7 @@
 			isa = PBXGroup;
 			children = (
 				FFA132FD26A80C550051494B /* NotificationViewModel.swift */,
+				FFA132FF26A8329A0051494B /* NotificationCellViewModel.swift */,
 			);
 			path = Notification;
 			sourceTree = "<group>";
@@ -340,7 +344,6 @@
 			children = (
 				FFA132B726A35DF80051494B /* NotificationView.swift */,
 				FFA132B926A360450051494B /* NotificationCell.swift */,
-				FFA132C826A4571D0051494B /* ResetPasswordView.swift */,
 			);
 			path = Notification;
 			sourceTree = "<group>";
@@ -488,6 +491,7 @@
 				FFA132BA26A360450051494B /* NotificationCell.swift in Sources */,
 				FF10D7A226A1C6FB00C16B79 /* CustomTextField.swift in Sources */,
 				FFA132EA26A5B9C90051494B /* UploadPostViewModel.swift in Sources */,
+				FFA1330026A8329A0051494B /* NotificationCellViewModel.swift in Sources */,
 				FFA132F426A6A5740051494B /* FeecCellViewModel.swift in Sources */,
 				FFA132E626A4A9E60051494B /* ProfileViewModel.swift in Sources */,
 				FFA132FA26A759380051494B /* CommentCell.swift in Sources */,

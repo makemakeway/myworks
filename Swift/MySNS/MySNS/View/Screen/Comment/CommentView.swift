@@ -11,7 +11,7 @@ import Kingfisher
 struct CommentView: View {
     @State var commentInput = ""
     @State var commentFieldClicked = false
-    @Environment(\.presentationMode) var mode
+//    @Environment(\.presentationMode) var mode
     @ObservedObject var commentViewModel: CommentViewModel
     
     
@@ -52,14 +52,14 @@ struct CommentView: View {
         }
         .navigationBarTitle(Text("댓글"), displayMode: .inline)
         .navigationBarItems(leading: Button(action: {
-            mode.wrappedValue.dismiss()
+//            mode.wrappedValue.dismiss()
         },
         label: {Image(systemName: "chevron.left").foregroundColor(.primary)}),
         trailing: Button(action: {
             //open comment ActionSheet
         },
         label: {Image(systemName: "ellipsis").foregroundColor(.primary)}))
-        .navigationBarBackButtonHidden(true)
+//        .navigationBarBackButtonHidden(true)
     }
     func uploadComment() {
         commentViewModel.uploadComment(comment: commentInput)

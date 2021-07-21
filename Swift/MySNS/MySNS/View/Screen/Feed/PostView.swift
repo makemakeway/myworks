@@ -9,7 +9,6 @@ import SwiftUI
 import Kingfisher
 
 struct PostView: View {
-    @State var showActionSheet = false
     @ObservedObject var feedCellViewModel: FeedCellViewModel
     @ObservedObject var commentViewModel: CommentViewModel
     var didLiked: Bool { return feedCellViewModel.post.didLiked ?? false }
@@ -51,21 +50,6 @@ struct PostView: View {
                 
                 Spacer()
                 
-                //ActionSheet Button
-                Image(systemName: "ellipsis")
-                    .font(.headline)
-                    .foregroundColor(.primary)
-                    .onTapGesture(perform: {
-                        showActionSheet.toggle()
-                    })
-                    .actionSheet(isPresented: $showActionSheet, content: {
-                        ActionSheet(title: Text(""),
-                                    message: nil,
-                                    buttons: [
-                                        .default(Text("팔로우 취소"), action: {  }),
-                                        .cancel(Text("취소"))
-                                    ])
-                    })
             }
             .padding(.all, 6)
             

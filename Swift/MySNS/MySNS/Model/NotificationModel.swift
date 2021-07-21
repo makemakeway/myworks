@@ -17,6 +17,9 @@ struct NotificationModel: Identifiable, Decodable {
     let uid: String
     let timestamp: Timestamp
     
+    var isFollowed: Bool? = false
+    var post: PostModel?
+    var user: UserModel?
 }
 
 

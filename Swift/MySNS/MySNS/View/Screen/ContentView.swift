@@ -16,19 +16,21 @@ struct ContentView: View {
             TabView {
                 NavigationView {
                     FeedView()
-                    
                 }
+                .navigationViewStyle(StackNavigationViewStyle())
                 .tabItem { Image(systemName: "house.fill") }
                 
                 NavigationView {
                     SearchView()
                 }
+                .navigationViewStyle(StackNavigationViewStyle())
                 .tabItem { Image(systemName: "magnifyingglass") }
                 
                 NavigationView {
                     Text("ShortVideoView")
                     
                 }
+                .navigationViewStyle(StackNavigationViewStyle())
                 .tabItem { Image(systemName: "play.rectangle") }
                 
                 
@@ -38,6 +40,7 @@ struct ContentView: View {
                         
                     }
                 }
+                .navigationViewStyle(StackNavigationViewStyle())
                 .tabItem { Image(systemName: "person.circle") }
                 
             }

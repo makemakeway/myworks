@@ -8,12 +8,13 @@
 import SwiftUI
 
 struct ProfileView: View {
-    @Environment(\.presentationMode) var mode
-    @EnvironmentObject var authViewModel: AuthViewModel
     @ObservedObject var profileViewModel: ProfileViewModel
-    var throughSearch: Bool
-    @State var navButtonClicked = false
-    let user: UserModel
+    @EnvironmentObject var authViewModel: AuthViewModel
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+
+    var throughSearch: Bool = false
+    @State private var navButtonClicked = false
+    var user: UserModel
     private let width = UIScreen.main.bounds.width / 3
     
     init(user: UserModel, throughSearch: Bool) {
@@ -56,14 +57,13 @@ struct ProfileView: View {
             // 검색창을 통해 방문했을 때
             if throughSearch {
                 EmptyView()
-                    .navigationBarBackButtonHidden(true)
                     .navigationBarTitle("\(user.userID)", displayMode: .inline)
-                    .navigationBarItems(leading: Button(action: {
-                        mode.wrappedValue.dismiss()
-                    },
-                    label: {
+                    .navigationBarBackButtonHidden(true)
+                    .navigationBarItems(leading: Button(action: { self.presentationMode.wrappedValue.dismiss() }, label: {
                         Image(systemName: "chevron.left")
+                            .foregroundColor(.primary)
                     }))
+                    
             }
             else {
                 EmptyView()
@@ -87,12 +87,8 @@ struct ProfileView: View {
                                                              })
                                         }))
                     .navigationBarTitle("", displayMode: .inline)
-                
+
             }
-            
-            
-            
-            
         }
     }
 }

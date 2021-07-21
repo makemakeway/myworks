@@ -9,9 +9,8 @@ import SwiftUI
 import PhotosUI
 
 struct FeedView: View {
-    @Environment(\.presentationMode) var mode
-    @State var throughSearch = false
-    @State var addPostButtonClicked = false
+    var throughSearch = false
+    @State private var addPostButtonClicked = false
     @ObservedObject var feedViewModel = FeedViewModel()
     
     var body: some View {
@@ -28,17 +27,10 @@ struct FeedView: View {
             // MARK: 네비게이션 바 렌더링 파트
             if throughSearch {
                 EmptyView()
-                    .navigationBarBackButtonHidden(true)
                     .navigationBarTitle("탐색 탭", displayMode: .inline)
-                    .navigationBarItems(leading: Button(action:
-                                                            {
-                                                                mode.wrappedValue.dismiss()
-                                                                throughSearch = false
-                                                            },
-                                                        label: {
-                                                            Image(systemName: "chevron.left")
-                                                                .foregroundColor(.primary)
-                                                        }))
+                    .navigationBarBackButtonHidden(true)
+                    
+                    
             }
             else {
                 EmptyView()

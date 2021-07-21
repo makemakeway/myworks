@@ -19,6 +19,7 @@ class FeedViewModel: ObservableObject {
         COLLECTION_POSTS.getDocuments { snapshot, _ in
             guard let documents = snapshot?.documents else { return }
             self.posts = documents.compactMap({ try? $0.data(as: PostModel.self) })
+            print("DEBUG: fetchposts")
         }
         
     }
