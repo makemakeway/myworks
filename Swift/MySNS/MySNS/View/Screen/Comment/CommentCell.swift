@@ -1,43 +1,42 @@
 //
-//  MessageView.swift
+//  CommentCell.swift
 //  MySNS
 //
-//  Created by 박연배 on 2021/07/16.
+//  Created by 박연배 on 2021/07/21.
 //
 
 import SwiftUI
+import Kingfisher
 
 struct CommentCell: View {
-//    @State var commentModel: CommentModel
-    
+    let comment: CommentModel
     var body: some View {
         HStack {
-            Image("Venom")
-                .resizable()
-                .scaledToFill()
-                .frame(width: 40, height: 40, alignment: .center)
-                .cornerRadius(20)
-            VStack(alignment: .leading, spacing: 4) {
-                HStack {
-                    Text("UserName")
-                        .foregroundColor(.primary)
-                        .font(.callout)
-                        .fontWeight(.medium)
-                    
-                    Text("This is New Comment hereeeeeeee")
-                        .foregroundColor(.primary)
-                }
-                
+            if comment.profileImageUrl.isEmpty {
+                Image(systemName: "person.fill")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 40, height: 40)
+                    .background(Color(.systemGray4))
+                    .foregroundColor(.primary)
+                    .cornerRadius(20)
+            } else {
+                KFImage(URL(string: comment.profileImageUrl))
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 40, height: 40)
+                    .cornerRadius(20)
             }
-            Spacer(minLength: 0)
+            
+            Text("\(comment.userName)").font(.system(size: 14, weight: .semibold)) + Text(" \(comment.commentText)").font(.system(size: 14))
+            
+            Spacer()
+            
+            Text("\(comment.timestamp)")
+                .foregroundColor(.gray)
+                .font(.system(size: 12))
         }
+        .padding([.top, .horizontal])
     }
 }
 
-struct MessageView_Previews: PreviewProvider {
-//    static var comment: CommentModel = CommentModel(commentID: <#T##String#>, userID: <#T##String#>, userName: <#T##String#>, content: <#T##String#>, dateCreated: <#T##Date#>)
-    
-    static var previews: some View {
-        CommentCell()
-    }
-}

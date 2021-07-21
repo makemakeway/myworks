@@ -11,6 +11,7 @@ struct CustomTextField: View {
     @Binding var input: String
     @Binding var onClicked: Bool
     let placeholder: String
+    var action: () -> Void
     
     
     var body: some View {
@@ -30,12 +31,12 @@ struct CustomTextField: View {
                 
                 
                 if onClicked {
-                    Button(action: {}, label: {
+                    Button(action: action) {
                         Text("게시")
                             .font(.callout)
                             .fontWeight(.semibold)
                             .foregroundColor(Color(.systemTeal))
-                    })
+                    }
                     .padding(.trailing, 14)
                 }
                 
@@ -46,8 +47,3 @@ struct CustomTextField: View {
     }
 }
 
-struct CustomTextField_Previews: PreviewProvider {
-    static var previews: some View {
-        CustomTextField(input: .constant("알랄랄"), onClicked: .constant(true), placeholder: "댓글 달기...")
-    }
-}

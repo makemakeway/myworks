@@ -6,9 +6,18 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct PostView: View {
     @State var showActionSheet = false
+    @ObservedObject var feedCellViewModel: FeedCellViewModel
+    @ObservedObject var commentViewModel: CommentViewModel
+    var didLiked: Bool { return feedCellViewModel.post.didLiked ?? false }
+    
+    init(viewModel: FeedCellViewModel) {
+        self.feedCellViewModel = viewModel
+        self.commentViewModel = CommentViewModel(post: viewModel.post)
+    }
     
     var body: some View {
         VStack(spacing:0) {
@@ -16,14 +25,25 @@ struct PostView: View {
             // MARK: Header
             HStack {
                 //Profile Image
-                Image("SpiderMan")
-                    .resizable()
-                    .scaledToFill()
-                    .clipShape(Circle())
-                    .frame(width: 30, height: 30)
+                if feedCellViewModel.post.ownerImageUrl.isEmpty {
+                    Image(systemName: "person.fill")
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 30, height: 30)
+                        .background(Color(.systemGray4))
+                        .foregroundColor(.primary)
+                        .cornerRadius(15)
+                } else {
+                    KFImage(URL(string: feedCellViewModel.post.ownerImageUrl))
+                        .resizable()
+                        .scaledToFill()
+                        .clipShape(Circle())
+                        .frame(width: 30, height: 30)
+                }
+                
                 
                 //Profile Name
-                Text("userName")
+                Text(feedCellViewModel.post.ownerUserId)
                     .font(.callout)
                     .foregroundColor(.primary)
                     .fontWeight(.semibold)
@@ -42,7 +62,6 @@ struct PostView: View {
                         ActionSheet(title: Text(""),
                                     message: nil,
                                     buttons: [
-                                        .destructive(Text("신고"), action: {  }),
                                         .default(Text("팔로우 취소"), action: {  }),
                                         .cancel(Text("취소"))
                                     ])
@@ -50,8 +69,8 @@ struct PostView: View {
             }
             .padding(.all, 6)
             
-            // MARK: Feed Image
-            Image("IronMan")
+            // MARK: Post Image
+            KFImage(URL(string: feedCellViewModel.post.imageUrl))
                 .resizable()
                 .scaledToFit()
                 .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width)
@@ -62,70 +81,98 @@ struct PostView: View {
             
             HStack(spacing: 16) {
                 //Like Button
-                Image(systemName: "heart")
+                Button(action: { didLiked ? feedCellViewModel.unlike() : feedCellViewModel.like() },
+                       label: {
+                        Image(systemName: didLiked ? "heart.fill" : "heart")
+                })
+                    .foregroundColor(didLiked ? .red : .primary)
+                
                 
                 //Comment Button
                 NavigationLink(
-                    destination: CommentView(),
+                    destination: CommentView(commentViewModel: commentViewModel),
                     label: {
                         Image(systemName: "bubble.right")
+                            .foregroundColor(.primary)
                     })
                     
                 
                 //DM Button
                 Image(systemName: "paperplane")
+                    .foregroundColor(.primary)
                 
                 Spacer()
                 
                 //BookMark Button
                 Image(systemName: "bookmark")
+                    .foregroundColor(.primary)
             }
             .padding(.all, 6)
-            .foregroundColor(.primary)
             .font(.title3)
             
             // MARK: Like & Caption & Comment
             
             // Like
-            
+            if feedCellViewModel.post.likes > 0 {
                 HStack {
-                    (Text("좋아요 ") + Text("100개"))
+                    (Text("좋아요 ") + Text("\(feedCellViewModel.post.likes)개"))
                         .foregroundColor(.primary)
                         .fontWeight(.semibold)
                     Spacer()
                 }
                 .padding(.all, 6)
+            }
+                
             
             
             // Caption
             
                 HStack {
-                    Text("UserName").fontWeight(.semibold) + Text("  ") + Text("caption")
+                    Text(feedCellViewModel.post.ownerUserId).fontWeight(.semibold) + Text("  ") + Text(feedCellViewModel.post.caption)
                     Spacer(minLength: 0)
                 }
                 .padding(.all, 6)
             
+            // Comment
+            if commentViewModel.comments.count == 1 {
+                HStack {
+                    NavigationLink(
+                        destination: CommentView(commentViewModel: commentViewModel),
+                        label: {
+                            Text("댓글 1개 보기")
+                                .foregroundColor(.gray)
+                                .font(.system(size: 14))
+                        })
+                    Spacer()
+                }
+                .padding(.leading, 6)
+                
+            } else if commentViewModel.comments.count >= 2 {
+                HStack {
+                    NavigationLink(
+                        destination: CommentView(commentViewModel: commentViewModel),
+                        label: {
+                            Text("댓글 \(commentViewModel.comments.count)개 모두 보기")
+                                .foregroundColor(.gray)
+                                .font(.system(size: 14))
+                        })
+                    Spacer()
+                }
+                .padding(.leading, 6)
+            }
             
+            
+            // TimeStamp
             HStack {
-                Text("14d")
+                Text("\(feedCellViewModel.post.timestamp)")
                 Spacer()
             }
             .foregroundColor(.gray)
             .padding(.horizontal, 6)
-            // Comment
+            
             
             
         }
     }
 }
 
-
-struct PostView_Previews: PreviewProvider {
-    static var postModel: PostModel = PostModel(postID: "", userID: "", displayName: "Spider_man", caption: "이 포스트의 캡션이에요.", dateCreate: Date(), likeCount: 100, likedByCurrentUser: false)
-    
-    static var previews: some View {
-        PostView()
-            .previewLayout(.sizeThatFits)
-            .preferredColorScheme(.dark)
-    }
-}

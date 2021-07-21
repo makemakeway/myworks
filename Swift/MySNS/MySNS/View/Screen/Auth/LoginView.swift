@@ -22,7 +22,7 @@ struct LoginView: View {
                         .resizable()
                         .scaledToFill()
                         .frame(width: 120, height: 120, alignment: .center)
-                        .foregroundColor(Color(.systemGray5))
+                        .foregroundColor(Color.primary)
                         .padding(.vertical, 40)
                     
                     AuthTextField(input: $email, placeholder: "이메일을 입력하세요.", image: "envelope")
@@ -34,13 +34,13 @@ struct LoginView: View {
                         Spacer()
                         Text("비밀번호를 잊으셨나요?")
                             .fontWeight(.semibold)
-                            .foregroundColor(Color(.systemGray5))
+                            .foregroundColor(Color.primary)
                     }
                     .padding(.trailing, 40)
                     
                     Button(action: { authViewModel.signIn(email: email, password: passWord) }, label: {
                         Text("로그인")
-                            .foregroundColor(Color(.systemGray6))
+                            .foregroundColor(Color.primary)
                             .frame(height: 40)
                             .frame(maxWidth: .infinity)
                             .background(Color(.systemIndigo))
@@ -55,7 +55,7 @@ struct LoginView: View {
                         destination: RegistrationView(),
                         label: {
                             Text("계정이 없으신가요?").foregroundColor(Color(.systemGray6)) + Text("  ") + Text("가입하기")
-                                .foregroundColor(Color(.systemGray6))
+                                .foregroundColor(Color.primary)
                                 .fontWeight(.bold)
                         })
                     
@@ -67,8 +67,4 @@ struct LoginView: View {
     }
 }
 
-struct LoginView_Previews: PreviewProvider {
-    static var previews: some View {
-        LoginView(email: "", passWord: "")
-    }
-}
+

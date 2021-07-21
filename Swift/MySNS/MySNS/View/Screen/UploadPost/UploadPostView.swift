@@ -13,8 +13,10 @@ struct UploadPostView: View {
     @State var captionText = ""
     @State var isPresented = false
     @Environment(\.presentationMode) var mode
+    @ObservedObject var uploadPostViewModel = UploadPostViewModel()
     
     var body: some View {
+        
         NavigationView {
             VStack {
                 if selectedImage == nil {
@@ -43,18 +45,27 @@ struct UploadPostView: View {
                         
                         Spacer()
                         
-                        TextField("문구 입력..", text: $captionText)
+                        TextArea(placeholder: "작성..", text: $captionText)
+                            .frame(height: 200)
                             .autocapitalization(.none)
                             .disableAutocorrection(true)
                     }
                     .padding()
                     
-                    Button(action: {  }, label: {
+                    Button(action: {
+                        if let image = selectedImage {
+                            uploadPostViewModel.UploadPost(caption: captionText, image: image) { _ in
+                                captionText = ""
+                                selectedImage = nil
+                                mode.wrappedValue.dismiss()
+                            }
+                        }
+                    }, label: {
                         Text("게시")
                             .foregroundColor(.white)
                             .font(.system(size: 16, weight: .semibold))
+                            .frame(width: 360, height: 40)
                     })
-                    .frame(width: 360, height: 40)
                     .background(Color(#colorLiteral(red: 0.1141172731, green: 0.541489393, blue: 1, alpha: 1)))
                     .cornerRadius(10)
                     
@@ -68,6 +79,7 @@ struct UploadPostView: View {
             }))
             .navigationBarTitle("새 게시물", displayMode: .inline)
         }
+        
     }
 }
 
@@ -81,8 +93,4 @@ extension UploadPostView {
 }
 
 
-struct UploadPostView_Previews: PreviewProvider {
-    static var previews: some View {
-        UploadPostView()
-    }
-}
+

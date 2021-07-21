@@ -9,7 +9,6 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
-//    @ObservedObject var searchViewModel = SearchViewModel()
     
     
     var body: some View {
@@ -17,6 +16,7 @@ struct ContentView: View {
             TabView {
                 NavigationView {
                     FeedView()
+                    
                 }
                 .tabItem { Image(systemName: "house.fill") }
                 
@@ -27,17 +27,21 @@ struct ContentView: View {
                 
                 NavigationView {
                     Text("ShortVideoView")
+                    
                 }
                 .tabItem { Image(systemName: "play.rectangle") }
+                
                 
                 NavigationView {
                     if let user = authViewModel.currentUser {
                         ProfileView(user: user, throughSearch: false)
+                        
                     }
                 }
                 .tabItem { Image(systemName: "person.circle") }
+                
             }
-            .accentColor(.black)
+            .accentColor(.primary)
         }
         else {
             LoginView()

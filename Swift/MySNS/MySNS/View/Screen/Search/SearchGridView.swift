@@ -6,8 +6,16 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct SearchGridView: View {
+    @ObservedObject var postGridViewModel: PostGridViewModel
+    let config: PostGridConfiguration
+    
+    init(config: PostGridConfiguration) {
+        self.config = config
+        self.postGridViewModel = PostGridViewModel(config: config)
+    }
     private let width = UIScreen.main.bounds.width / 3
     private let items = [GridItem(spacing: 0),
                          GridItem(spacing: 0),
@@ -19,11 +27,11 @@ struct SearchGridView: View {
                   spacing: 0,
                   pinnedViews: [],
                   content: {
-                    ForEach(0..<50) { i in
+                    ForEach(postGridViewModel.posts) { post in
                         NavigationLink(
                             destination: FeedView(throughSearch: true),
                             label: {
-                                Image("SpiderMan")
+                                KFImage(URL(string: post.imageUrl))
                                     .resizable()
                                     .scaledToFill()
                                     .frame(width: width, height: width)
@@ -34,8 +42,4 @@ struct SearchGridView: View {
     }
 }
 
-struct SearchGridView_Previews: PreviewProvider {
-    static var previews: some View {
-        SearchGridView()
-    }
-}
+

@@ -45,22 +45,11 @@ struct ProfileView: View {
                 
                 // MARK: 내 포스트들의 영역
                 
-                LazyVGrid(columns: [GridItem(.fixed(width), spacing: 1),
-                                    GridItem(.fixed(width), spacing: 1),
-                                    GridItem(.fixed(width), spacing: 1)],
-                          alignment: .center,
-                          spacing: 1,
-                          pinnedViews: [],
-                          content: {
-                            ForEach(0..<50) { i in
-                                Image("SpiderMan")
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: width, height: width)
-                                    .clipped()
-                            }
-                          })
+                
+                SearchGridView(config: .profile(user.id ?? ""))
                     .padding(.top)
+                
+                
                 
                 
             }

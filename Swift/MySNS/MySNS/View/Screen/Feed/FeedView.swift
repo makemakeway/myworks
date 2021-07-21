@@ -12,19 +12,20 @@ struct FeedView: View {
     @Environment(\.presentationMode) var mode
     @State var throughSearch = false
     @State var addPostButtonClicked = false
+    @ObservedObject var feedViewModel = FeedViewModel()
     
     var body: some View {
         
         ScrollView {
-            VStack {
-                LazyVStack(spacing: 32) {
-                    ForEach(0..<50) { data in
-                        PostView()
-                    }
+            
+            LazyVStack(spacing: 32) {
+                ForEach(feedViewModel.posts) { post in
+                    PostView(viewModel: FeedCellViewModel(post: post))
                 }
-                .padding(.top)
-                
             }
+            .padding(.top)
+            
+            // MARK: 네비게이션 바 렌더링 파트
             if throughSearch {
                 EmptyView()
                     .navigationBarBackButtonHidden(true)
@@ -59,7 +60,6 @@ struct FeedView: View {
                                         }.foregroundColor(.primary).font(.title3))
                     .fullScreenCover(isPresented: $addPostButtonClicked, content: {
                         UploadPostView()
-                        
                     })
             }
         }
@@ -67,9 +67,3 @@ struct FeedView: View {
     }
 }
 
-struct FeedView_Previews: PreviewProvider {
-    static var previews: some View {
-        FeedView()
-        //            .preferredColorScheme(.dark)
-    }
-}

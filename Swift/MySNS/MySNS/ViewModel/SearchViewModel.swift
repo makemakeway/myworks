@@ -17,6 +17,7 @@ class SearchViewModel: ObservableObject {
         fetchUsers()
     }
     
+    
     func fetchUsers() {
         COLLECTION_USERS.getDocuments { snapshot, _ in
             guard let documents = snapshot?.documents else { return }
@@ -28,6 +29,6 @@ class SearchViewModel: ObservableObject {
     
     func filteringUsers(query: String) -> [UserModel] {
         let lowerCaseQuery = query.lowercased()
-        return users.filter({ $0.userID.contains(lowerCaseQuery) || $0.userName.contains(lowerCaseQuery) })
+        return users.filter({ $0.userID.lowercased().contains(lowerCaseQuery) || $0.userName.lowercased().contains(lowerCaseQuery) })
     }
 }

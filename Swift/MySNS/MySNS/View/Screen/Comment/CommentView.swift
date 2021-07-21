@@ -6,30 +6,41 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct CommentView: View {
     @State var commentInput = ""
     @State var commentFieldClicked = false
     @Environment(\.presentationMode) var mode
+    @ObservedObject var commentViewModel: CommentViewModel
     
     
     
     var body: some View {
         VStack {
-            ScrollView {
-                Text("임시 댓글입니다.")
-                Text("임시 댓글입니다.")
-                Text("임시 댓글입니다.")
-                Text("임시 댓글입니다.")
-            }
+            // MARK: 댓글 출력 부분
+            CommentList(commentViewModel: commentViewModel)
+            
             HStack {
-                Image("SpiderMan")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 40, height: 40, alignment: .center)
-                    .clipShape(Circle())
+                if let user = AuthViewModel.shared.currentUser {
+                    if user.profileImageUrl.isEmpty {
+                        Image(systemName: "person.fill")
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 40, height: 40, alignment: .center)
+                            .background(Color(.systemGray4))
+                            .clipShape(Circle())
+                    } else {
+                        KFImage(URL(string: user.profileImageUrl))
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 40, height: 40, alignment: .center)
+                            .clipShape(Circle())
+                    }
+                }
                 
-                CustomTextField(input: $commentInput, onClicked: $commentFieldClicked, placeholder: "댓글 달기...")
+                // MARK: 댓글 입력 부분
+                CustomTextField(input: $commentInput, onClicked: $commentFieldClicked, placeholder: "댓글 달기...", action: uploadComment)
                     .padding(.horizontal, 6)
                     .onTapGesture(perform: {
                         commentFieldClicked = true
@@ -50,13 +61,9 @@ struct CommentView: View {
         label: {Image(systemName: "ellipsis").foregroundColor(.primary)}))
         .navigationBarBackButtonHidden(true)
     }
-}
-
-struct CommentView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView{
-            CommentView()
-                .preferredColorScheme(.dark)
-        }
+    func uploadComment() {
+        commentViewModel.uploadComment(comment: commentInput)
+        commentInput = ""
     }
 }
+

@@ -6,33 +6,47 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct NotificationCell: View {
     @State private var showPostImage = false
     @State private var showFollowButton = true
+    
+    let notification: NotificationModel
     var body: some View {
         
         HStack {
-            Image("IronMan")
-                .resizable()
-                .scaledToFill()
-                .frame(width: 40, height: 40)
-                .cornerRadius(20)
-            
-            Text("UserName")
-                .fontWeight(.semibold)
-                .font(.system(size: 14)) + Text(" ") + Text("caption").font(.system(size: 15))
-            
-            Spacer()
-            
-            if showPostImage {
-                Image("IronMan")
+            if notification.profileImageUrl.isEmpty {
+                Image(systemName: "person.fill")
                     .resizable()
                     .scaledToFill()
                     .frame(width: 40, height: 40)
+                    .background(Color(.systemGray4))
+                    .foregroundColor(.primary)
+                    .cornerRadius(20)
+            } else {
+                KFImage(URL(string: notification.profileImageUrl))
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 40, height: 40)
+                    .cornerRadius(20)
             }
             
-            if showFollowButton {
+            
+            Text(notification.userId)
+                .fontWeight(.semibold)
+                .font(.system(size: 14)) +
+                Text("\(notification.type.notificationMessage)").font(.system(size: 15)) +
+                Text(" \(notification.timestamp)").font(.system(size: 14)).foregroundColor(.gray)
+            
+            Spacer()
+            
+            if notification.type != .follow {
+                KFImage(URL(string: notification.profileImageUrl)) // change to postimageurl
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 40, height: 40)
+            } else {
                 Button(action: {  }, label: {
                     Text("팔로우")
                         .foregroundColor(.white)
@@ -49,8 +63,3 @@ struct NotificationCell: View {
     }
 }
 
-struct NotificationCell_Previews: PreviewProvider {
-    static var previews: some View {
-        NotificationCell()
-    }
-}

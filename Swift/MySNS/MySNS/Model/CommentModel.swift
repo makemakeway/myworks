@@ -2,24 +2,23 @@
 //  CommentModel.swift
 //  MySNS
 //
-//  Created by 박연배 on 2021/07/16.
+//  Created by 박연배 on 2021/07/20.
 //
 
-import Foundation
 import SwiftUI
+import Firebase
+import FirebaseFirestoreSwift
 
-struct CommentModel: Identifiable, Hashable {
+struct CommentModel: Identifiable, Decodable {
     
-    var id = UUID()
-    var commentID: String
-    var userID: String
+    @DocumentID var id: String?
+    var uid: String
+    var postOwnerUid: String
+    var profileImageUrl: String
     var userName: String
-    var content: String
-    var dateCreated: Date
+    var commentText: String
+    var timestamp: Timestamp
     
     
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-    }
     
 }

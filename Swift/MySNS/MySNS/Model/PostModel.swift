@@ -5,22 +5,18 @@
 //  Created by 박연배 on 2021/07/16.
 //
 
-import Foundation
-import SwiftUI
+import FirebaseFirestoreSwift
+import Firebase
 
-struct PostModel: Identifiable, Hashable {
-    var id = UUID()
+struct PostModel: Identifiable, Decodable {
+    @DocumentID var id: String?
+    let ownerUid: String
+    let ownerUserId: String
+    let caption: String
+    var likes: Int
+    let imageUrl: String
+    let timestamp: Timestamp
+    let ownerImageUrl: String
     
-    var postID: String
-    var userID: String
-    var displayName: String
-    var caption: String?
-    var dateCreate: Date
-    var likeCount: Int
-    var likedByCurrentUser: Bool
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(self.id)
-    }
-    
+    var didLiked: Bool? = false
 }

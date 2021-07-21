@@ -16,7 +16,7 @@ struct AuthSecureField: View {
         ZStack(alignment: .leading) {
             if input.isEmpty {
                 Text(placeholder)
-                    .foregroundColor(Color(.systemGray5))
+                    .foregroundColor(Color.primary)
                     .padding(.leading, 50)
             }
             HStack(spacing: 14) {

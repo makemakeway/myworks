@@ -8,11 +8,9 @@
 import SwiftUI
 
 struct SearchView: View {
+    @ObservedObject var searchViewModel = SearchViewModel()
     @State var searchInput = ""
     @State var searchMode = false
-    @ObservedObject var searchViewModel = SearchViewModel()
-    
-    private let width = UIScreen.main.bounds.width / 4
     var body: some View {
         ScrollView {
             VStack {
@@ -25,7 +23,7 @@ struct SearchView: View {
                 if searchMode {
                     UserListView(searchViewModel: searchViewModel, searchInput: $searchInput)
                 } else {
-                    SearchGridView()
+                    SearchGridView(config: .explore)
                 }
             }
             .navigationBarHidden(true)
@@ -33,9 +31,4 @@ struct SearchView: View {
     }
 }
 
-struct SearchView_Previews: PreviewProvider {
-    static var previews: some View {
-        SearchView()
-        //            .preferredColorScheme(.dark)
-    }
-}
+

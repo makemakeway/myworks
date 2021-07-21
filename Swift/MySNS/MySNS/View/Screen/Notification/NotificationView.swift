@@ -9,11 +9,14 @@ import SwiftUI
 
 struct NotificationView: View {
     @Environment(\.presentationMode) var mode
+    @ObservedObject var notificationViewModel = NotificationViewModel()
+    
+    
     var body: some View {
         ScrollView {
             LazyVStack(spacing: 20) {
-                ForEach(0..<40) { _ in
-                    NotificationCell()
+                ForEach(notificationViewModel.notifications) { notification in
+                    NotificationCell(notification: notification)
                         .padding(.top)
                 }
             }
@@ -31,8 +34,3 @@ struct NotificationView: View {
     }
 }
 
-struct NotificationView_Previews: PreviewProvider {
-    static var previews: some View {
-        NotificationView()
-    }
-}
