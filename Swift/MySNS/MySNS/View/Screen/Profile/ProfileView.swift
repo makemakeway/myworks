@@ -10,9 +10,8 @@ import SwiftUI
 struct ProfileView: View {
     @ObservedObject var profileViewModel: ProfileViewModel
     @EnvironmentObject var authViewModel: AuthViewModel
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-
-    var throughSearch: Bool = false
+    
+    var throughSearch: Bool
     @State private var navButtonClicked = false
     var user: UserModel
     private let width = UIScreen.main.bounds.width / 3
@@ -50,20 +49,11 @@ struct ProfileView: View {
                 SearchGridView(config: .profile(user.id ?? ""))
                     .padding(.top)
                 
-                
-                
-                
             }
-            // 검색창을 통해 방문했을 때
+            
             if throughSearch {
                 EmptyView()
                     .navigationBarTitle("\(user.userID)", displayMode: .inline)
-                    .navigationBarBackButtonHidden(true)
-                    .navigationBarItems(leading: Button(action: { self.presentationMode.wrappedValue.dismiss() }, label: {
-                        Image(systemName: "chevron.left")
-                            .foregroundColor(.primary)
-                    }))
-                    
             }
             else {
                 EmptyView()
@@ -78,20 +68,21 @@ struct ProfileView: View {
                                                              content: {
                                                                 ActionSheet(title: Text(""),
                                                                             message: Text(""),
-                                                                            buttons: [
-                                                                                .cancel(Text("취소")),
-                                                                                .destructive(Text("로그아웃"), action: {
-                                                                                    authViewModel.signOut()
-                                                                                })
+                                                                            buttons: [.cancel(Text("취소")),
+                                                                                      .destructive(Text("로그아웃"), action: {
+                                                                                        authViewModel.signOut()
+                                                                                      })
                                                                             ])
                                                              })
                                         }))
                     .navigationBarTitle("", displayMode: .inline)
-
             }
+            
+            
         }
     }
 }
+
 
 //struct ProfileView_Previews: PreviewProvider {
 //    @EnvironmentObject var authViewModel: AuthViewModel

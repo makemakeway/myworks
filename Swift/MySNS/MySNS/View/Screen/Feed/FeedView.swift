@@ -9,7 +9,7 @@ import SwiftUI
 import PhotosUI
 
 struct FeedView: View {
-    var throughSearch = false
+    var throughSearch: Bool = false
     @State private var addPostButtonClicked = false
     @ObservedObject var feedViewModel = FeedViewModel()
     
@@ -28,9 +28,6 @@ struct FeedView: View {
             if throughSearch {
                 EmptyView()
                     .navigationBarTitle("탐색 탭", displayMode: .inline)
-                    .navigationBarBackButtonHidden(true)
-                    
-                    
             }
             else {
                 EmptyView()

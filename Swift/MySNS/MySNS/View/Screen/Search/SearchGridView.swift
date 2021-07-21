@@ -29,7 +29,19 @@ struct SearchGridView: View {
                   content: {
                     ForEach(postGridViewModel.posts) { post in
                         NavigationLink(
-                            destination: FeedView(throughSearch: true),
+                            destination: PostView(viewModel: FeedCellViewModel(post: post))
+                                .navigationBarTitleDisplayMode(.inline).toolbar {
+                                    ToolbarItem(placement: .principal) {
+                                        VStack {
+                                            Text("\(post.ownerUserId)")
+                                                .font(.system(size: 13, weight: .bold))
+                                                .foregroundColor(Color.gray)
+                                            Text("게시물")
+                                                .font(.system(size: 15, weight: .bold))
+                                        }
+                                        
+                                    }
+                                },
                             label: {
                                 KFImage(URL(string: post.imageUrl))
                                     .resizable()

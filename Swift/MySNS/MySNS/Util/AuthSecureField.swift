@@ -24,7 +24,7 @@ struct AuthSecureField: View {
                     .resizable()
                     .scaledToFill()
                     .frame(width: 20, height: 20)
-                    .foregroundColor(Color(.systemGray5))
+                    .foregroundColor(Color.white)
                 
                 SecureField("", text: $input)
                     .autocapitalization(.none)

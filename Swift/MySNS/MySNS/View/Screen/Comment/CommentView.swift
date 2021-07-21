@@ -51,15 +51,8 @@ struct CommentView: View {
             .padding(.all)
         }
         .navigationBarTitle(Text("댓글"), displayMode: .inline)
-        .navigationBarItems(leading: Button(action: {
-//            mode.wrappedValue.dismiss()
-        },
-        label: {Image(systemName: "chevron.left").foregroundColor(.primary)}),
-        trailing: Button(action: {
-            //open comment ActionSheet
-        },
-        label: {Image(systemName: "ellipsis").foregroundColor(.primary)}))
-//        .navigationBarBackButtonHidden(true)
+        
+    
     }
     func uploadComment() {
         commentViewModel.uploadComment(comment: commentInput)

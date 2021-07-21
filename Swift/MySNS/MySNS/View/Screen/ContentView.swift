@@ -38,6 +38,7 @@ struct ContentView: View {
                     if let user = authViewModel.currentUser {
                         ProfileView(user: user, throughSearch: false)
                         
+                        
                     }
                 }
                 .navigationViewStyle(StackNavigationViewStyle())

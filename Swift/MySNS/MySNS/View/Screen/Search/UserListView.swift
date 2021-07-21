@@ -20,11 +20,11 @@ struct UserListView: View {
                     NavigationLink(
                         destination:
                             ProfileView(user: user, throughSearch: true)
+                            .navigationBarTitle("\(user.userID)", displayMode: .inline)
                         ,
                         label: {
                             UserCell(user: user)
                         })
-                        .navigationViewStyle(StackNavigationViewStyle())
                 }
             }
         }

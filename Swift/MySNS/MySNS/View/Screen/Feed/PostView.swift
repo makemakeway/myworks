@@ -24,6 +24,7 @@ struct PostView: View {
             // MARK: Header
             HStack {
                 //Profile Image
+                
                 if feedCellViewModel.post.ownerImageUrl.isEmpty {
                     Image(systemName: "person.fill")
                         .resizable()
@@ -123,9 +124,9 @@ struct PostView: View {
                     NavigationLink(
                         destination: CommentView(commentViewModel: commentViewModel),
                         label: {
-                            Text("댓글 1개 보기")
+                            Text("댓글 1개 보기...")
                                 .foregroundColor(.gray)
-                                .font(.system(size: 14))
+                                .font(.system(size: 15))
                         })
                     Spacer()
                 }
@@ -136,9 +137,9 @@ struct PostView: View {
                     NavigationLink(
                         destination: CommentView(commentViewModel: commentViewModel),
                         label: {
-                            Text("댓글 \(commentViewModel.comments.count)개 모두 보기")
+                            Text("댓글 \(commentViewModel.comments.count)개 모두 보기...")
                                 .foregroundColor(.gray)
-                                .font(.system(size: 14))
+                                .font(.system(size: 15))
                         })
                     Spacer()
                 }
@@ -148,7 +149,8 @@ struct PostView: View {
             
             // TimeStamp
             HStack {
-                Text("\(feedCellViewModel.post.timestamp)")
+                Text("\(feedCellViewModel.timestampString)")
+                    .font(.system(size: 14))
                 Spacer()
             }
             .foregroundColor(.gray)

@@ -21,7 +21,7 @@ struct NotificationCell: View {
         HStack {
             if let user = viewModel.notification.user {
                 NavigationLink(
-                    destination: ProfileView(user: user, throughSearch: true),
+                    destination: ProfileView(user: user, throughSearch: true).navigationBarTitle("\(user.userID)", displayMode: .inline),
                     label: {
                         if viewModel.notification.profileImageUrl.isEmpty {
                             Image(systemName: "person.fill")
@@ -57,10 +57,27 @@ struct NotificationCell: View {
             
             if viewModel.notification.type != .follow {
                 if let post = viewModel.notification.post {
-                    KFImage(URL(string: post.imageUrl)) // change to postimageurl
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 40, height: 40)
+                    NavigationLink(
+                        destination: PostView(viewModel: FeedCellViewModel(post: post))
+                            .navigationBarTitleDisplayMode(.inline).toolbar {
+                                ToolbarItem(placement: .principal) {
+                                    VStack {
+                                        Text("\(post.ownerUserId)")
+                                            .font(.system(size: 13, weight: .bold))
+                                            .foregroundColor(Color.gray)
+                                        Text("게시물")
+                                            .font(.system(size: 15, weight: .bold))
+                                    }
+                                    
+                                }
+                            },
+                        label: {
+                            KFImage(URL(string: post.imageUrl))
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 40, height: 40)
+                        })
+                    
                 }
             } else {
                 Button(action: { isFollowed ? viewModel.unfollow() : viewModel.follow() }, label: {

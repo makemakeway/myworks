@@ -11,6 +11,14 @@ class FeedCellViewModel: ObservableObject {
     @Published var post: PostModel
     
     
+    var timestampString: String {
+        let fommatter = DateComponentsFormatter()
+        fommatter.allowedUnits = [.second, .minute, .hour, .day, .weekOfMonth]
+        fommatter.maximumUnitCount = 1
+        fommatter.unitsStyle = .abbreviated
+        return fommatter.string(from: post.timestamp.dateValue(), to: Date()) ?? ""
+    }
+    
     init(post: PostModel) {
         self.post = post
         checkLike()

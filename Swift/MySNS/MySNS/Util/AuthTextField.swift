@@ -16,7 +16,7 @@ struct AuthTextField: View {
         ZStack(alignment: .leading) {
             if input.isEmpty {
                 Text(placeholder)
-                    .foregroundColor(Color.primary)
+                    .foregroundColor(Color.white)
                     .padding(.leading, 50)
             }
             HStack(spacing: 14) {
@@ -24,7 +24,7 @@ struct AuthTextField: View {
                     .resizable()
                     .scaledToFill()
                     .frame(width: 20, height: 20)
-                    .foregroundColor(Color(.systemGray5))
+                    .foregroundColor(Color.white)
                 
                 TextField("", text: $input)
                     .autocapitalization(.none)
