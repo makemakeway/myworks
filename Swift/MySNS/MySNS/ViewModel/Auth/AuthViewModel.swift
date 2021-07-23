@@ -12,6 +12,9 @@ import SwiftUI
 class AuthViewModel: ObservableObject {
     @Published var userSession: FirebaseAuth.User?
     @Published var currentUser: UserModel?
+    @Published var didReset = false
+    
+    
     static let shared = AuthViewModel()
     
     init() {
@@ -62,8 +65,15 @@ class AuthViewModel: ObservableObject {
         try? Auth.auth().signOut()
     }
     
-    func resetPassword() {
-        
+    func resetPassword(withEmail email: String) {
+        Auth.auth().sendPasswordReset(withEmail: email) { error in
+            if let error = error {
+                print("DEBUG: reset Password Error \(error.localizedDescription)")
+                return
+            }
+            
+            self.didReset = true
+        }
     }
     
     func fetchUser() {

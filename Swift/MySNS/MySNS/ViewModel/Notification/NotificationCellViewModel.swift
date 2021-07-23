@@ -17,6 +17,14 @@ class NotificationCellViewModel: ObservableObject {
         fetchNotificationUser()
     }
     
+    var timestampString: String {
+        let fommatter = DateComponentsFormatter()
+        fommatter.allowedUnits = [.second, .minute, .hour, .day, .weekOfMonth]
+        fommatter.maximumUnitCount = 1
+        fommatter.unitsStyle = .abbreviated
+        return fommatter.string(from: notification.timestamp.dateValue(), to: Date()) ?? ""
+    }
+    
     func follow() {
         UserService.follow(uid: notification.uid) { _ in
             NotificationViewModel.uploadNofitication(toUid: self.notification.uid, type: .follow)
@@ -48,7 +56,6 @@ class NotificationCellViewModel: ObservableObject {
     func fetchNotificationUser() {
         COLLECTION_USERS.document(notification.uid).getDocument { snapshot, _ in
             self.notification.user = try? snapshot?.data(as: UserModel.self)
-            print("DEBUG: user is \(self.notification.user?.userID ?? "")")
         }
     }
     

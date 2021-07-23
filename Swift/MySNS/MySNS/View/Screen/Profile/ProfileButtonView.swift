@@ -9,20 +9,29 @@ import SwiftUI
 
 struct ProfileButtonView: View {
     @ObservedObject var profileViewModel: ProfileViewModel
+    @State var editMode: Bool = false
+    
     var isFollowed: Bool { return profileViewModel.user.isFollowed ?? false }
     
     var body: some View {
         if profileViewModel.user.isCurrentUser {
             HStack {
-                Button(action: { }, label: {
+                Button(action: { editMode.toggle() }, label: {
                     Text("프로필 편집")
                 })
                 .foregroundColor(.primary)
+                .fullScreenCover(isPresented: $editMode, onDismiss: AuthViewModel.shared.fetchUser, content: {
+                    EditProfileView(viewModel: EditProfileViewModel(user: profileViewModel.user))
+                })
+                
+                
             }
             .frame(maxWidth: .infinity)
             .frame(height: 40)
             .background(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 0.7))
             .padding(.horizontal)
+            
+            
         } else {
             HStack {
                 if isFollowed {
@@ -63,7 +72,9 @@ struct ProfileButtonView: View {
             }
             .font(.system(size: 15, weight: .semibold))
             .padding(.horizontal)
+            
         }
+        
     }
 }
 

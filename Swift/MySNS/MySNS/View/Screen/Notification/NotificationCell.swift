@@ -44,7 +44,7 @@ struct NotificationCell: View {
                             .fontWeight(.semibold)
                             .font(.system(size: 14)) +
                             Text("\(viewModel.notification.type.notificationMessage)").font(.system(size: 15)) +
-                            Text(" \(viewModel.notification.timestamp)").font(.system(size: 14)).foregroundColor(.gray)
+                            Text(" \(viewModel.timestampString)").font(.system(size: 14)).foregroundColor(.gray)
                     })
             }
             
@@ -76,6 +76,7 @@ struct NotificationCell: View {
                                 .resizable()
                                 .scaledToFill()
                                 .frame(width: 40, height: 40)
+                                .padding(.horizontal, 20)
                         })
                     
                 }

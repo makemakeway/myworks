@@ -11,16 +11,20 @@ struct UserListView: View {
     @ObservedObject var searchViewModel: SearchViewModel
     @Binding var searchInput: String
     
+    
+    var users: [UserModel] {
+        return searchInput.isEmpty ? searchViewModel.users : searchViewModel.filteringUsers(query: searchInput)
+    }
+    
+    
     var body: some View {
         ScrollView {
             LazyVStack {
-                ForEach(searchInput.isEmpty ? searchViewModel.users : searchViewModel.filteringUsers(query: searchInput)) { user in
-                    
-                    
+                ForEach(users) { user in
                     NavigationLink(
                         destination:
-                            ProfileView(user: user, throughSearch: true)
-                            .navigationBarTitle("\(user.userID)", displayMode: .inline)
+                            ProfileView(user: user, throughSearch: true).navigationBarTitle("\(user.userID)", displayMode: .inline)
+                            
                         ,
                         label: {
                             UserCell(user: user)

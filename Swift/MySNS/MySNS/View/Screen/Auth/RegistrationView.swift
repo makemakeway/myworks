@@ -34,7 +34,7 @@ struct RegistrationView: View {
                 
                 Button(action: { authViewModel.registerUser(email: email, password: password, userName: userName, userID: userID) }, label: {
                     Text("가입하기")
-                        .foregroundColor(Color.primary)
+                        .foregroundColor(Color.white)
                         .frame(height: 40)
                         .frame(maxWidth: .infinity)
                         .background(Color(.systemIndigo))
@@ -47,9 +47,9 @@ struct RegistrationView: View {
                 Spacer()
                 
                 Button(action: { mode.wrappedValue.dismiss() }, label: {
-                    Text("이미 계정이 있으신가요?").foregroundColor(Color(.systemGray6)) + Text("  ") + Text("로그인하기")
+                    Text("이미 계정이 있으신가요?").foregroundColor(Color(.white)) + Text("  ") + Text("로그인하기")
                         .fontWeight(.bold)
-                        .foregroundColor(Color.primary)
+                        .foregroundColor(Color.white)
                 })
             }
         }

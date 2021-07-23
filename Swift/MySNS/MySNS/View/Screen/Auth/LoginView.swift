@@ -22,7 +22,7 @@ struct LoginView: View {
                         .resizable()
                         .scaledToFill()
                         .frame(width: 120, height: 120, alignment: .center)
-                        .foregroundColor(Color.primary)
+                        .foregroundColor(Color.white)
                         .padding(.vertical, 40)
                     
                     AuthTextField(input: $email, placeholder: "이메일을 입력하세요.", image: "envelope")
@@ -32,15 +32,19 @@ struct LoginView: View {
                         .padding(.vertical)
                     HStack {
                         Spacer()
-                        Text("비밀번호를 잊으셨나요?")
-                            .fontWeight(.semibold)
-                            .foregroundColor(Color.primary)
+                        NavigationLink(
+                            destination: ResetPasswordView(email: $email).navigationBarBackButtonHidden(true),
+                            label: {
+                                Text("비밀번호를 잊으셨나요?")
+                                    .fontWeight(.semibold)
+                                    .foregroundColor(Color.white)
+                            })
                     }
                     .padding(.trailing, 40)
                     
                     Button(action: { authViewModel.signIn(email: email, password: passWord) }, label: {
                         Text("로그인")
-                            .foregroundColor(Color.primary)
+                            .foregroundColor(Color.white)
                             .frame(height: 40)
                             .frame(maxWidth: .infinity)
                             .background(Color(.systemIndigo))
@@ -54,8 +58,8 @@ struct LoginView: View {
                     NavigationLink(
                         destination: RegistrationView(),
                         label: {
-                            Text("계정이 없으신가요?").foregroundColor(Color(.systemGray6)) + Text("  ") + Text("가입하기")
-                                .foregroundColor(Color.primary)
+                            Text("계정이 없으신가요?").foregroundColor(Color(.white)) + Text("  ") + Text("가입하기")
+                                .foregroundColor(Color.white)
                                 .fontWeight(.bold)
                         })
                     

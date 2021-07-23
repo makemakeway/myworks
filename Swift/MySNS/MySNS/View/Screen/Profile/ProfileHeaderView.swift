@@ -11,6 +11,10 @@ import Kingfisher
 struct ProfileHeaderView: View {
     @ObservedObject var profileViewModel: ProfileViewModel
     
+    init(user: UserModel) {
+        self.profileViewModel = ProfileViewModel(user: user)
+    }
+    
     var body: some View {
         HStack {
             if profileViewModel.user.profileImageUrl.isEmpty {
@@ -30,11 +34,14 @@ struct ProfileHeaderView: View {
             }
 
             Spacer()
-            UserStatView(value: 2, title: "게시물")
+            
+            UserStatView(value: profileViewModel.user.userStats?.posts ?? 0, title: "게시물")
             Spacer()
-            UserStatView(value: 5, title: "팔로워")
+            UserStatView(value: profileViewModel.user.userStats?.followers ?? 0, title: "팔로워")
             Spacer()
-            UserStatView(value: 6, title: "팔로잉")
+            UserStatView(value: profileViewModel.user.userStats?.following ?? 0, title: "팔로잉")
+            
+            
             Spacer()
         }
         .padding()

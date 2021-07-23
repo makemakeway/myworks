@@ -6,15 +6,23 @@
 //
 
 import FirebaseFirestoreSwift
+import Firebase
 
 struct UserModel: Identifiable, Decodable {
-    let email: String
-    let profileImageUrl: String
+    var email: String
+    var profileImageUrl: String
     @DocumentID var id: String?
-    let userID: String
-    let userName: String
+    var userID: String
+    var userName: String
+    var userStats: UserStats?
     var isFollowed: Bool? = false
-    
+    var bio: String?
     var isCurrentUser: Bool { return AuthViewModel.shared.userSession?.uid == id }
     
+}
+
+struct UserStats: Decodable {
+    var following: Int
+    var followers: Int
+    var posts: Int
 }

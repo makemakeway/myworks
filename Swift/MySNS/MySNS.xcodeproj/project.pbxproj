@@ -64,6 +64,9 @@
 		FFA132FC26A7EAE20051494B /* NotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA132FB26A7EAE20051494B /* NotificationModel.swift */; };
 		FFA132FE26A80C550051494B /* NotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA132FD26A80C550051494B /* NotificationViewModel.swift */; };
 		FFA1330026A8329A0051494B /* NotificationCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA132FF26A8329A0051494B /* NotificationCellViewModel.swift */; };
+		FFA1330226A98BBF0051494B /* LazyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA1330126A98BBF0051494B /* LazyView.swift */; };
+		FFA1330426A9A29F0051494B /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA1330326A9A29F0051494B /* EditProfileView.swift */; };
+		FFA1330626A9C0380051494B /* EditProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA1330526A9C0380051494B /* EditProfileViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -119,6 +122,9 @@
 		FFA132FB26A7EAE20051494B /* NotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationModel.swift; sourceTree = "<group>"; };
 		FFA132FD26A80C550051494B /* NotificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewModel.swift; sourceTree = "<group>"; };
 		FFA132FF26A8329A0051494B /* NotificationCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCellViewModel.swift; sourceTree = "<group>"; };
+		FFA1330126A98BBF0051494B /* LazyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyView.swift; sourceTree = "<group>"; };
+		FFA1330326A9A29F0051494B /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
+		FFA1330526A9C0380051494B /* EditProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -216,6 +222,7 @@
 				FFA132C426A41D8F0051494B /* ImagePicker.swift */,
 				FFA132D426A477DB0051494B /* Constants.swift */,
 				FFA132EB26A5CE5A0051494B /* TextArea.swift */,
+				FFA1330126A98BBF0051494B /* LazyView.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -263,6 +270,7 @@
 				FFA132BB26A411470051494B /* ProfileHeaderView.swift */,
 				FFA132BD26A411B50051494B /* UserStatView.swift */,
 				FFA132BF26A412FD0051494B /* ProfileButtonView.swift */,
+				FFA1330326A9A29F0051494B /* EditProfileView.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -298,6 +306,7 @@
 			isa = PBXGroup;
 			children = (
 				FFA132E526A4A9E60051494B /* ProfileViewModel.swift */,
+				FFA1330526A9C0380051494B /* EditProfileViewModel.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -452,6 +461,7 @@
 			files = (
 				FFA132B526A34C820051494B /* Extensions.swift in Sources */,
 				FFA132FE26A80C550051494B /* NotificationViewModel.swift in Sources */,
+				FFA1330226A98BBF0051494B /* LazyView.swift in Sources */,
 				FFA132C926A4571E0051494B /* ResetPasswordView.swift in Sources */,
 				FF10D77E26A170B600C16B79 /* ContentView.swift in Sources */,
 				FF10D79C26A1B81000C16B79 /* PostModel.swift in Sources */,
@@ -467,11 +477,13 @@
 				FFA132B826A35DF80051494B /* NotificationView.swift in Sources */,
 				FFA132CC26A45F750051494B /* ImageUploader.swift in Sources */,
 				FFA132F826A7345B0051494B /* CommentViewModel.swift in Sources */,
+				FFA1330426A9A29F0051494B /* EditProfileView.swift in Sources */,
 				FFA132E426A482590051494B /* SearchViewModel.swift in Sources */,
 				FFA132B226A340720051494B /* SearchGridView.swift in Sources */,
 				FFA132F626A6C7AC0051494B /* CommentModel.swift in Sources */,
 				FF10D79426A1860E00C16B79 /* FeedView.swift in Sources */,
 				FF10D7BD26A2E15D00C16B79 /* ProfileView.swift in Sources */,
+				FFA1330626A9C0380051494B /* EditProfileViewModel.swift in Sources */,
 				FFA132AC26A339870051494B /* SearchTextField.swift in Sources */,
 				FFA132F226A5EAF40051494B /* PostGridViewModel.swift in Sources */,
 				FFA132C326A41AA80051494B /* UploadPostView.swift in Sources */,

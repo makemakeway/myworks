@@ -19,6 +19,12 @@ struct CommentModel: Identifiable, Decodable {
     var commentText: String
     var timestamp: Timestamp
     
-    
+    var timestampString: String? {
+        let fommatter = DateComponentsFormatter()
+        fommatter.allowedUnits = [.second, .minute, .hour, .day, .weekOfMonth]
+        fommatter.maximumUnitCount = 1
+        fommatter.unitsStyle = .abbreviated
+        return fommatter.string(from: timestamp.dateValue(), to: Date()) ?? ""
+    }
     
 }

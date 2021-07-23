@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct UserStatView: View {
-    let value: Int
-    let title: String
+    var value: Int
+    var title: String
+    
     var body: some View {
         VStack {
             Text("\(value)")

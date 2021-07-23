@@ -34,11 +34,11 @@ struct ContentView: View {
                 .tabItem { Image(systemName: "play.rectangle") }
                 
                 
+                
+                
                 NavigationView {
                     if let user = authViewModel.currentUser {
                         ProfileView(user: user, throughSearch: false)
-                        
-                        
                     }
                 }
                 .navigationViewStyle(StackNavigationViewStyle())

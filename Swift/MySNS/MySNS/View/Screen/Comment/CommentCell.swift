@@ -32,9 +32,12 @@ struct CommentCell: View {
             
             Spacer()
             
-            Text("\(comment.timestamp)")
-                .foregroundColor(.gray)
-                .font(.system(size: 12))
+            if let timeString = comment.timestampString {
+                Text("\(timeString)")
+                    .foregroundColor(.gray)
+                    .font(.system(size: 12))
+            }
+            
         }
         .padding([.top, .horizontal])
     }
