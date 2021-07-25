@@ -23,6 +23,7 @@ class HttpClient {
             requestUrl.addValue(Constants.clientKEY, forHTTPHeaderField: "X-Naver-Client-Secret")
             
             
+            
             URLSession.shared.dataTask(with: requestUrl) {data, response, error in
                 
                 guard let data = data, error == nil else {

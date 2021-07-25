@@ -19,7 +19,6 @@
 		FFF47240269DD18C00311834 /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF4723F269DD18C00311834 /* SearchCell.swift */; };
 		FFF47243269DD38D00311834 /* MovieInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF47242269DD38D00311834 /* MovieInfo.swift */; };
 		FFF47247269E01FE00311834 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF47246269E01FE00311834 /* Constants.swift */; };
-		FFF4724A269E027000311834 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF47249269E027000311834 /* ImageLoader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,7 +35,6 @@
 		FFF4723F269DD18C00311834 /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
 		FFF47242269DD38D00311834 /* MovieInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieInfo.swift; sourceTree = "<group>"; };
 		FFF47246269E01FE00311834 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		FFF47249269E027000311834 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,7 +88,6 @@
 			children = (
 				FF19E179269F3E9600AD8237 /* Extension */,
 				FFF4724B269E037C00311834 /* Control */,
-				FFF47248269E026000311834 /* Loader */,
 				FFF47245269E01EF00311834 /* Util */,
 				FFF47244269DD41400311834 /* ViewModel */,
 				FFF47241269DD37900311834 /* Model */,
@@ -134,14 +131,6 @@
 				FF19E177269F3E1500AD8237 /* HttpClient.swift */,
 			);
 			path = Util;
-			sourceTree = "<group>";
-		};
-		FFF47248269E026000311834 /* Loader */ = {
-			isa = PBXGroup;
-			children = (
-				FFF47249269E027000311834 /* ImageLoader.swift */,
-			);
-			path = Loader;
 			sourceTree = "<group>";
 		};
 		FFF4724B269E037C00311834 /* Control */ = {
@@ -226,7 +215,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FFF4724A269E027000311834 /* ImageLoader.swift in Sources */,
 				FFF47231269DCA5700311834 /* ContentView.swift in Sources */,
 				FF19E178269F3E1500AD8237 /* HttpClient.swift in Sources */,
 				FF19E17B269F3EAF00AD8237 /* UrlExtension.swift in Sources */,
