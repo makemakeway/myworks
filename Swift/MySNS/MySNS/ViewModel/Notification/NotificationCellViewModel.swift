@@ -51,12 +51,14 @@ class NotificationCellViewModel: ObservableObject {
         COLLECTION_POSTS.document(postId).getDocument { snapshot, _ in
             self.notification.post = try? snapshot?.data(as: PostModel.self)
         }
+        print("DEBUG: NotificationCellViewModel init -> fetch NotificationPost...")
     }
     
     func fetchNotificationUser() {
         COLLECTION_USERS.document(notification.uid).getDocument { snapshot, _ in
             self.notification.user = try? snapshot?.data(as: UserModel.self)
         }
+        print("DEBUG: NotificationCellViewModel init -> fetch NotificationUser...")
     }
     
 }

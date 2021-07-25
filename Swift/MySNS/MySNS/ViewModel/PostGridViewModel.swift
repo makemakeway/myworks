@@ -24,15 +24,19 @@ class PostGridViewModel: ObservableObject {
     
     init(config: PostGridConfiguration) {
         self.config = config
-        fetchPosts(forConfig: config)
+//        fetchPosts(forConfig: config)
     }
+    
+    
     
     func fetchPosts(forConfig config: PostGridConfiguration) {
         switch config {
         case .explore:
             fetchExplorePosts()
+            print("DEBUG: PostGridViewModel init -> fetch ExplorePosts...")
         case .profile(let uid):
             fetchUserPost(forUid: uid)
+            print("DEBUG: PostGridViewModel init -> fetch UserPost...")
         }
     }
     

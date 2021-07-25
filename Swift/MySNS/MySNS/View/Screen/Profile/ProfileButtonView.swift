@@ -18,18 +18,17 @@ struct ProfileButtonView: View {
             HStack {
                 Button(action: { editMode.toggle() }, label: {
                     Text("프로필 편집")
+                        .foregroundColor(.primary)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 40)
+                        .background(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 0.7))
+                        .padding(.horizontal)
                 })
-                .foregroundColor(.primary)
-                .fullScreenCover(isPresented: $editMode, onDismiss: AuthViewModel.shared.fetchUser, content: {
-                    EditProfileView(viewModel: EditProfileViewModel(user: profileViewModel.user))
+                .fullScreenCover(isPresented: $editMode, content: {
+                    EditProfileView(user: $profileViewModel.user)
                 })
-                
-                
             }
-            .frame(maxWidth: .infinity)
-            .frame(height: 40)
-            .background(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 0.7))
-            .padding(.horizontal)
+            
             
             
         } else {

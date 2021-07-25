@@ -23,11 +23,17 @@ struct UserListView: View {
                 ForEach(users) { user in
                     NavigationLink(
                         destination:
-                            ProfileView(user: user, throughSearch: true).navigationBarTitle("\(user.userID)", displayMode: .inline)
-                            
-                        ,
+                            LazyView(ProfileView(user: user, throughSearch: true)),
                         label: {
                             UserCell(user: user)
+                                .onAppear {
+                                    searchViewModel.fetchUsers()
+                                }
+                        })
+                    NavigationLink(
+                        destination: EmptyView(),
+                        label: {
+                            EmptyView()
                         })
                 }
             }

@@ -10,19 +10,24 @@ import SwiftUI
 class FeedCellViewModel: ObservableObject {
     @Published var post: PostModel
     
-    
+    // 댓글 시간 설정
     var timestampString: String {
         let fommatter = DateComponentsFormatter()
+        // 몇초 전, 몇분 전 .... 몇주 전까지 허용
         fommatter.allowedUnits = [.second, .minute, .hour, .day, .weekOfMonth]
         fommatter.maximumUnitCount = 1
         fommatter.unitsStyle = .abbreviated
         return fommatter.string(from: post.timestamp.dateValue(), to: Date()) ?? ""
     }
     
+    
+    
     init(post: PostModel) {
         self.post = post
         checkLike()
     }
+    
+    
     
     func like() {
         guard let uid = AuthViewModel.shared.userSession?.uid else { return }
@@ -60,6 +65,7 @@ class FeedCellViewModel: ObservableObject {
             guard let didLiked = snapshot?.exists else { return }
             self.post.didLiked = didLiked
         }
+        print("FeedCellViewModel init -> checkLike...")
     }
     
 }

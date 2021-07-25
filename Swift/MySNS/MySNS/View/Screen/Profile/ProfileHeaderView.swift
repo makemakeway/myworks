@@ -11,9 +11,6 @@ import Kingfisher
 struct ProfileHeaderView: View {
     @ObservedObject var profileViewModel: ProfileViewModel
     
-    init(user: UserModel) {
-        self.profileViewModel = ProfileViewModel(user: user)
-    }
     
     var body: some View {
         HStack {

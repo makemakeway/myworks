@@ -10,11 +10,7 @@ import Kingfisher
 
 struct NotificationCell: View {
     var isFollowed: Bool { return viewModel.notification.isFollowed ?? false }
-    @ObservedObject var viewModel: NotificationCellViewModel
-    
-    init(viewModel: NotificationCellViewModel) {
-        self.viewModel = viewModel
-    }
+    @StateObject var viewModel: NotificationCellViewModel
     
     var body: some View {
         

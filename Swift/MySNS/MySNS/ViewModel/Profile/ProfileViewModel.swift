@@ -12,8 +12,9 @@ class ProfileViewModel: ObservableObject {
     
     init(user: UserModel) {
         self.user = user
-        checkFollowed()
-        fetchUserStats()
+//        checkFollowed()
+//        fetchUserStats()
+//        fetchUserInfo()
     }
     
     func follow() {
@@ -38,6 +39,7 @@ class ProfileViewModel: ObservableObject {
         UserService.checkFollow(uid: uid) { isFollowed in
             self.user.isFollowed = isFollowed
         }
+        print("DEBUG: ProfileViewModel init -> check Followed...")
     }
     
     func fetchUserStats() {
@@ -54,6 +56,8 @@ class ProfileViewModel: ObservableObject {
                 }
             }
         }
+        print("DEBUG: ProfileViewModel init -> fetch UserStats...")
+        
     }
     
     func fetchUserInfo() {
@@ -61,11 +65,8 @@ class ProfileViewModel: ObservableObject {
         COLLECTION_USERS.document(uid).getDocument { snapshot, _ in
             guard let data = try? snapshot?.data(as: UserModel.self) else { return }
             self.user = data
-            self.fetchUserStats()
-            
-            print(self.user)
+            AuthViewModel.shared.currentUser = self.user
         }
-        
+        print("DEBUG: ProfileViewModel init -> fetch userinfo..")
     }
-    
 }

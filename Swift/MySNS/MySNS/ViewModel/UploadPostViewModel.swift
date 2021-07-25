@@ -11,6 +11,7 @@ import Firebase
 class UploadPostViewModel: ObservableObject {
     func UploadPost(caption: String, image: UIImage, completion: FireStoreCompletion) {
         guard let user = AuthViewModel.shared.currentUser else { return }
+        guard let uid = user.id else { return }
         
         
         ImageUploader.uploadImage(image: image, type: .post) { imageUrl in
@@ -18,11 +19,12 @@ class UploadPostViewModel: ObservableObject {
                         "timestamp": Timestamp(date: Date()),
                         "likes": 0,
                         "imageUrl": imageUrl,
-                        "ownerUid": user.id ?? "",
+                        "ownerUid": uid,
                         "ownerImageUrl": user.profileImageUrl,
                         "ownerUserId": user.userID] as [String : Any]
             
             COLLECTION_POSTS.addDocument(data: data, completion: completion)
+            
             
         }
     }

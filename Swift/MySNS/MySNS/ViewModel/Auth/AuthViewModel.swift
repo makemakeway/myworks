@@ -83,6 +83,7 @@ class AuthViewModel: ObservableObject {
             self.currentUser = user
             AuthViewModel.shared.userSession = self.userSession
             AuthViewModel.shared.currentUser = self.currentUser
+            print("DEBUG: AuthViewModel init -> fetch User...")
         }
     }
 }

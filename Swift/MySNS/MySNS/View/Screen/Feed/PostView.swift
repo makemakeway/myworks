@@ -59,7 +59,14 @@ struct PostView: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width)
-            
+                .onTapGesture(count: 2) {
+                    if feedCellViewModel.post.didLiked == false {
+                        feedCellViewModel.like()
+                    }
+                    else {
+                        feedCellViewModel.unlike()
+                    }
+                }
             
             
             // MARK: Footer
@@ -69,7 +76,7 @@ struct PostView: View {
                 Button(action: { didLiked ? feedCellViewModel.unlike() : feedCellViewModel.like() },
                        label: {
                         Image(systemName: didLiked ? "heart.fill" : "heart")
-                })
+                       })
                     .foregroundColor(didLiked ? .red : .primary)
                 
                 
@@ -80,7 +87,7 @@ struct PostView: View {
                         Image(systemName: "bubble.right")
                             .foregroundColor(.primary)
                     })
-                    
+                
                 
                 //DM Button
                 Image(systemName: "paperplane")
@@ -107,16 +114,16 @@ struct PostView: View {
                 }
                 .padding(.all, 6)
             }
-                
+            
             
             
             // Caption
             
-                HStack {
-                    Text(feedCellViewModel.post.ownerUserId).fontWeight(.semibold) + Text("  ") + Text(feedCellViewModel.post.caption)
-                    Spacer(minLength: 0)
-                }
-                .padding(.all, 6)
+            HStack {
+                Text(feedCellViewModel.post.ownerUserId).fontWeight(.semibold) + Text("  ") + Text(feedCellViewModel.post.caption)
+                Spacer(minLength: 0)
+            }
+            .padding(.all, 6)
             
             // Comment
             if commentViewModel.comments.count == 1 {
@@ -127,6 +134,7 @@ struct PostView: View {
                             Text("댓글 1개 보기...")
                                 .foregroundColor(.gray)
                                 .font(.system(size: 15))
+
                         })
                     Spacer()
                 }
@@ -155,6 +163,7 @@ struct PostView: View {
             }
             .foregroundColor(.gray)
             .padding(.horizontal, 6)
+            
             
             
             

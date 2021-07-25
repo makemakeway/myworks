@@ -11,12 +11,12 @@ import Firebase
 struct PostModel: Identifiable, Decodable {
     @DocumentID var id: String?
     let ownerUid: String
-    let ownerUserId: String
+    var ownerUserId: String
     let caption: String
     var likes: Int
-    let imageUrl: String
+    var imageUrl: String
     let timestamp: Timestamp
-    let ownerImageUrl: String
+    var ownerImageUrl: String
     
     var didLiked: Bool? = false
 }

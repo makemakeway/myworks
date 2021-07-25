@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ProfileView: View {
-    @ObservedObject var profileViewModel: ProfileViewModel
+    @StateObject var profileViewModel: ProfileViewModel
     @EnvironmentObject var authViewModel: AuthViewModel
     
     var throughSearch: Bool
@@ -16,7 +16,7 @@ struct ProfileView: View {
     private let width = UIScreen.main.bounds.width / 3
     
     init(user: UserModel, throughSearch: Bool) {
-        self.profileViewModel = ProfileViewModel(user: user)
+        self._profileViewModel = StateObject(wrappedValue: ProfileViewModel(user: user))
         self.throughSearch = throughSearch
     }
     
@@ -24,7 +24,7 @@ struct ProfileView: View {
         ScrollView {
             VStack {
                 // MARK: 프로필 사진, 게시물, 팔로워, 팔로잉 숫자
-                ProfileHeaderView(user: profileViewModel.user)
+                ProfileHeaderView(profileViewModel: profileViewModel)
                 
                 // MARK: 아이디(userID)는 네비게이션 영역으로 빼두었음.)
 
@@ -57,13 +57,18 @@ struct ProfileView: View {
                     .padding(.top)
                 
             }
+            .onAppear {
+//                profileViewModel.fetchUserInfo()
+                profileViewModel.fetchUserStats()
+                profileViewModel.checkFollowed()
+            }
             
             if throughSearch {
-                EmptyView()
+                ZStack {}
                     .navigationBarTitle("\(profileViewModel.user.userID)", displayMode: .inline)
             }
             else {
-                EmptyView()
+                ZStack {}
                     .navigationBarItems(leading: Text("\(profileViewModel.user.userID)")
                                             .font(.title2)
                                             .fontWeight(.bold)

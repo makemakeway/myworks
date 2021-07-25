@@ -10,9 +10,8 @@ import Firebase
 
 class NotificationViewModel: ObservableObject {
     @Published var notifications = [NotificationModel]()
-    
     init() {
-        fetchNofitication()
+//        fetchNofitication()
     }
     
     static func uploadNofitication(toUid uid: String, type: NotificationType, post: PostModel? = nil) {
@@ -31,6 +30,9 @@ class NotificationViewModel: ObservableObject {
             data["postId"] = id
         }
         
+        
+        
+        
         COLLECTION_NOTIFICATIONS.document(uid).collection("user-notifications").addDocument(data: data)
     }
     
@@ -41,8 +43,11 @@ class NotificationViewModel: ObservableObject {
         
         query.getDocuments { snapshot, _ in
             guard let documents = snapshot?.documents else { return }
+
             self.notifications = documents.compactMap({ try? $0.data(as: NotificationModel.self) })
+            
         }
+        print("DEBUG: NotificationView init -> fetch Notification...")
         
     }
 }

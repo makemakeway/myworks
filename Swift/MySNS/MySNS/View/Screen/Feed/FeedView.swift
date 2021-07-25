@@ -11,18 +11,50 @@ import PhotosUI
 struct FeedView: View {
     var throughSearch: Bool = false
     @State private var addPostButtonClicked = false
-    @ObservedObject var feedViewModel = FeedViewModel()
+    @ObservedObject var feedViewModel: FeedViewModel
+    @State private var refresh = Refresh(started: false, released: false)
     
     var body: some View {
         
-        ScrollView {
+        ScrollView(.vertical, showsIndicators: false, content: {
             
-            LazyVStack(spacing: 32) {
-                ForEach(feedViewModel.posts) { post in
-                    PostView(viewModel: FeedCellViewModel(post: post))
-                }
+            GeometryReader { reader -> AnyView in
+
+//                DispatchQueue.main.async {
+//                    if refresh.startOffset == 0 {
+//                        refresh.startOffset = reader.frame(in: .global).minY
+//                    }
+//
+//                    refresh.offset = reader.frame(in: .global).minY
+//
+//                    if refresh.offset - refresh.startOffset > 80 && !refresh.started{
+//                        refresh.started = true
+//                    }
+//
+//                    if refresh.startOffset == refresh.offset && refresh.started && !refresh.released {
+//                        refresh.released = true
+//                        feedViewModel.fetchPosts()
+//                        refresh.released = false
+//                        refresh.started = false
+//                    }
+//
+//                }
+
+                return AnyView(Color.black.frame(width: 0, height: 0))
             }
-            .padding(.top)
+            .frame(width: 0, height: 0)
+            
+            ZStack(alignment: Alignment(horizontal: .center, vertical: .top)) {
+                
+                
+                LazyVStack(spacing: 32) {
+                    ForEach(feedViewModel.posts) { post in
+                        PostView(viewModel: FeedCellViewModel(post: post))
+                    }
+                }
+                .padding(.top)
+                
+            }
             
             // MARK: 네비게이션 바 렌더링 파트
             if throughSearch {
@@ -51,8 +83,18 @@ struct FeedView: View {
                         UploadPostView()
                     })
             }
+        })
+        .onAppear {
+            feedViewModel.fetchPosts()
         }
         
     }
+}
+
+struct Refresh {
+    var startOffset: CGFloat = 0
+    var offset: CGFloat = 0
+    var started: Bool
+    var released: Bool
 }
 

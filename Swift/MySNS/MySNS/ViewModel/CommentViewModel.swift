@@ -29,23 +29,20 @@ class CommentViewModel: ObservableObject {
                                   "postOwnerUid": post.ownerUid,
                                   "commentText": comment]
         COLLECTION_POSTS.document(postId).collection("post-comments").addDocument(data: data)
-        
-        
         NotificationViewModel.uploadNofitication(toUid: self.post.ownerUid, type: .comment, post: post)
+        print("DEBUG: Uploaded Comment Successfully...")
     }
     
     func fetchComment() {
         guard let postId = post.id else { return }
         let query = COLLECTION_POSTS.document(postId).collection("post-comments")
-            .order(by: "timestamp", descending: true)
+            .order(by: "timestamp", descending: false)
         
         query.addSnapshotListener { snapshot, _ in
-            
             guard let addedDocs = snapshot?.documentChanges.filter({ $0.type == .added }) else { return }
-            
             self.comments.append(contentsOf: addedDocs.compactMap({ try? $0.document.data(as: CommentModel.self) }))
-            
         }
+        print("DEBUG: CommentViewModel init -> fetch comment...")
     }
     
 }

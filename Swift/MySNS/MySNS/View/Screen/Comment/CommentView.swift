@@ -11,7 +11,6 @@ import Kingfisher
 struct CommentView: View {
     @State var commentInput = ""
     @State var commentFieldClicked = false
-//    @Environment(\.presentationMode) var mode
     @ObservedObject var commentViewModel: CommentViewModel
     
     

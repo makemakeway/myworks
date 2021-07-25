@@ -29,7 +29,7 @@ struct SearchGridView: View {
                   content: {
                     ForEach(postGridViewModel.posts) { post in
                         NavigationLink(
-                            destination: PostView(viewModel: FeedCellViewModel(post: post))
+                            destination: LazyView(PostView(viewModel: FeedCellViewModel(post: post)))
                                 .navigationBarTitleDisplayMode(.inline).toolbar {
                                     ToolbarItem(placement: .principal) {
                                         VStack {
@@ -38,17 +38,12 @@ struct SearchGridView: View {
                                                 .foregroundColor(Color.gray)
                                             Text("게시물")
                                                 .font(.system(size: 15, weight: .bold))
-                                        }
-                                        
-                                    }
-                                },
-                            label: {
-                                KFImage(URL(string: post.imageUrl))
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: width, height: width)
-                                    .clipped()
-                            })
+                                        }}},
+                            label: { KFImage(URL(string: post.imageUrl))
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: width, height: width)
+                                .clipped()})
                     }
                   })
     }

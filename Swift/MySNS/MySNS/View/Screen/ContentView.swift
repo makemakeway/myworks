@@ -9,43 +9,39 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
-    
+    @StateObject var feedViewModel = FeedViewModel()
     
     var body: some View {
         if authViewModel.userSession != nil {
-            TabView {
-                NavigationView {
-                    FeedView()
-                }
-                .navigationViewStyle(StackNavigationViewStyle())
-                .tabItem { Image(systemName: "house.fill") }
-                
-                NavigationView {
-                    SearchView()
-                }
-                .navigationViewStyle(StackNavigationViewStyle())
-                .tabItem { Image(systemName: "magnifyingglass") }
-                
-                NavigationView {
-                    Text("ShortVideoView")
+            if let user = authViewModel.currentUser {
+                TabView {
+                    NavigationView {
+                        FeedView(feedViewModel: feedViewModel)
+                            
+                    }
+                    .tabItem { Image(systemName: "house.fill") }
+                    
+                    NavigationView {
+                       SearchView()
+                    }
+                    .tabItem { Image(systemName: "magnifyingglass") }
+                    
+                    
+                    NavigationView {
+                        Text("ShortVideoView")
+                        
+                    }
+                    .tabItem { Image(systemName: "play.rectangle") }
+                    
+                    NavigationView {
+                        ProfileView(user: user, throughSearch: false)
+                            
+                    }
+                    .tabItem { Image(systemName: "person.circle") }
                     
                 }
-                .navigationViewStyle(StackNavigationViewStyle())
-                .tabItem { Image(systemName: "play.rectangle") }
-                
-                
-                
-                
-                NavigationView {
-                    if let user = authViewModel.currentUser {
-                        ProfileView(user: user, throughSearch: false)
-                    }
-                }
-                .navigationViewStyle(StackNavigationViewStyle())
-                .tabItem { Image(systemName: "person.circle") }
-                
+                .accentColor(.primary)
             }
-            .accentColor(.primary)
         }
         else {
             LoginView()

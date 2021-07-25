@@ -12,18 +12,20 @@ import Kingfisher
 struct EditProfileView: View {
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     @ObservedObject var editProfileViewModel: EditProfileViewModel
+    @Binding var user: UserModel
     @State private var userName: String
     @State private var userId: String
-    @State private var bio: String = ""
-    @State private var selectedImage: UIImage?
-    @State private var profileImage: Image?
+    @State private var bio: String
+    @State private var selectedImage: UIImage? = nil
+    @State private var profileImage: Image? = nil
     @State private var isPresented = false
     
-    init(viewModel: EditProfileViewModel) {
-        self.editProfileViewModel = viewModel
-        _userId = .init(initialValue: viewModel.user.userID)
-        _userName = .init(initialValue: viewModel.user.userName)
-        _bio = .init(initialValue: viewModel.user.bio ?? "")
+    init(user: Binding<UserModel>) {
+        self._user = user
+        self.editProfileViewModel = EditProfileViewModel(user: _user.wrappedValue)
+        _userId = .init(initialValue: _user.wrappedValue.userID)
+        _userName = .init(initialValue: _user.wrappedValue.userName)
+        _bio = .init(initialValue: _user.wrappedValue.bio ?? "")
     }
     
     var body: some View {
@@ -42,11 +44,7 @@ struct EditProfileView: View {
                 Spacer()
                 
                 Button(action: {
-                    if let image = selectedImage {
-                        editProfileViewModel.UploadProfileImage(image: image) { _ in
-                        }
-                    }
-                    editProfileViewModel.saveUserData(bio: bio, userId: userId, userName: userName)
+                    editProfileViewModel.saveUserData(bio: bio, userId: userId, userName: userName, image: selectedImage)
                 },
                 label: {Text("완료").fontWeight(.bold)})
             }
@@ -59,7 +57,24 @@ struct EditProfileView: View {
             // MARK: Profile Image
             VStack {
                 VStack {
-                    if editProfileViewModel.user.profileImageUrl.isEmpty {
+                        // 이미지 피커로 이미지를 골랐을 경우
+                    if let image = profileImage {
+                        image
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 100, height: 100)
+                            .cornerRadius(50)
+                            .padding()
+                        
+                        // 유저 프로필 이미지가 설정되어있고, 이미지피커로 이미지를 고르기 전
+                    } else if !user.profileImageUrl.isEmpty {
+                        KFImage(URL(string: user.profileImageUrl))
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 100, height: 100)
+                            .cornerRadius(50)
+                            .padding()
+                    } else {
                         Image(systemName: "person.fill")
                             .resizable()
                             .scaledToFill()
@@ -68,22 +83,6 @@ struct EditProfileView: View {
                             .foregroundColor(.primary)
                             .cornerRadius(50)
                             .padding()
-                    } else if selectedImage == nil {
-                        KFImage(URL(string: editProfileViewModel.user.profileImageUrl))
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 100, height: 100)
-                            .cornerRadius(50)
-                            .padding()
-                    } else {
-                        if let image = profileImage {
-                            image
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 100, height: 100)
-                                .cornerRadius(50)
-                                .padding()
-                        }
                     }
                     
                     Button(action: { isPresented.toggle() }, label: {
@@ -139,8 +138,13 @@ struct EditProfileView: View {
             }
             .navigationBarHidden(true)
         }
+        // 업로드가 끝났을 경우 실행
         .onReceive(editProfileViewModel.$uploadComplete, perform: { complete in
             if complete {
+                self.user.bio = editProfileViewModel.user.bio
+                self.user.userID = editProfileViewModel.user.userID
+                self.user.userName = editProfileViewModel.user.userName
+                self.user.profileImageUrl = editProfileViewModel.user.profileImageUrl
                 self.mode.wrappedValue.dismiss()
             }
         })
@@ -151,5 +155,6 @@ extension EditProfileView {
     func loadImage() {
         guard let selectedImage = selectedImage else { return }
         profileImage = Image(uiImage: selectedImage)
+        print("DEBUG: loadImage excuted..")
     }
 }
