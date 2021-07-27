@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct UserListView: View {
-    @ObservedObject var searchViewModel: SearchViewModel
+    @StateObject var searchViewModel: SearchViewModel
     @Binding var searchInput: String
     
     
@@ -26,9 +26,7 @@ struct UserListView: View {
                             LazyView(ProfileView(user: user, throughSearch: true)),
                         label: {
                             UserCell(user: user)
-                                .onAppear {
-                                    searchViewModel.fetchUsers()
-                                }
+                                
                         })
                     NavigationLink(
                         destination: EmptyView(),
@@ -37,6 +35,9 @@ struct UserListView: View {
                         })
                 }
             }
+        }
+        .onAppear {
+            searchViewModel.fetchUsers()
         }
     }
 }

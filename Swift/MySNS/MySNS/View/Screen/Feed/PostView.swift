@@ -14,7 +14,7 @@ struct PostView: View {
     var didLiked: Bool { return feedCellViewModel.post.didLiked ?? false }
     
     init(viewModel: FeedCellViewModel) {
-        self.feedCellViewModel = viewModel
+        self.feedCellViewModel = FeedCellViewModel(post: viewModel.post)
         self.commentViewModel = CommentViewModel(post: viewModel.post)
     }
     

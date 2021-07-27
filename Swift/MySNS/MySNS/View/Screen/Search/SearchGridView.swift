@@ -9,12 +9,12 @@ import SwiftUI
 import Kingfisher
 
 struct SearchGridView: View {
-    @ObservedObject var postGridViewModel: PostGridViewModel
+    @StateObject var postGridViewModel: PostGridViewModel
     let config: PostGridConfiguration
     
     init(config: PostGridConfiguration) {
         self.config = config
-        self.postGridViewModel = PostGridViewModel(config: config)
+        self._postGridViewModel = StateObject(wrappedValue: PostGridViewModel(config: config))
     }
     private let width = UIScreen.main.bounds.width / 3
     private let items = [GridItem(spacing: 0),
@@ -46,6 +46,7 @@ struct SearchGridView: View {
                                 .clipped()})
                     }
                   })
+            
     }
 }
 

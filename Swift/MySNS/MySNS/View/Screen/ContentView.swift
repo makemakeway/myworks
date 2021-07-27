@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
-    @StateObject var feedViewModel = FeedViewModel()
+    @ObservedObject var feedViewModel = FeedViewModel()
     
     var body: some View {
         if authViewModel.userSession != nil {
@@ -20,11 +20,13 @@ struct ContentView: View {
                             
                     }
                     .tabItem { Image(systemName: "house.fill") }
+                    .navigationViewStyle(StackNavigationViewStyle())
                     
                     NavigationView {
                        SearchView()
                     }
                     .tabItem { Image(systemName: "magnifyingglass") }
+                    .navigationViewStyle(StackNavigationViewStyle())
                     
                     
                     NavigationView {
@@ -32,12 +34,14 @@ struct ContentView: View {
                         
                     }
                     .tabItem { Image(systemName: "play.rectangle") }
+                    .navigationViewStyle(StackNavigationViewStyle())
                     
                     NavigationView {
                         ProfileView(user: user, throughSearch: false)
                             
                     }
                     .tabItem { Image(systemName: "person.circle") }
+                    .navigationViewStyle(StackNavigationViewStyle())
                     
                 }
                 .accentColor(.primary)

@@ -24,7 +24,7 @@ class PostGridViewModel: ObservableObject {
     
     init(config: PostGridConfiguration) {
         self.config = config
-//        fetchPosts(forConfig: config)
+        fetchPosts(forConfig: config)
     }
     
     

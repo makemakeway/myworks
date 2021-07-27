@@ -12,9 +12,9 @@ class ProfileViewModel: ObservableObject {
     
     init(user: UserModel) {
         self.user = user
-//        checkFollowed()
-//        fetchUserStats()
-//        fetchUserInfo()
+        checkFollowed()
+        fetchUserStats()
+        fetchUserInfo()
     }
     
     func follow() {

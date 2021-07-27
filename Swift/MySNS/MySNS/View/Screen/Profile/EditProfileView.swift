@@ -22,10 +22,10 @@ struct EditProfileView: View {
     
     init(user: Binding<UserModel>) {
         self._user = user
-        self.editProfileViewModel = EditProfileViewModel(user: _user.wrappedValue)
-        _userId = .init(initialValue: _user.wrappedValue.userID)
-        _userName = .init(initialValue: _user.wrappedValue.userName)
-        _bio = .init(initialValue: _user.wrappedValue.bio ?? "")
+        self.editProfileViewModel = EditProfileViewModel(user: self._user.wrappedValue)
+        _userId = State(initialValue: user.wrappedValue.userID)
+        _userName = State(initialValue: user.wrappedValue.userName)
+        _bio = State(initialValue: user.wrappedValue.bio ?? "")
     }
     
     var body: some View {
@@ -44,7 +44,9 @@ struct EditProfileView: View {
                 Spacer()
                 
                 Button(action: {
-                    editProfileViewModel.saveUserData(bio: bio, userId: userId, userName: userName, image: selectedImage)
+                    DispatchQueue.global().sync {
+                        editProfileViewModel.saveUserData(bio: bio, userId: userId, userName: userName, image: selectedImage)
+                    }
                 },
                 label: {Text("완료").fontWeight(.bold)})
             }
@@ -56,7 +58,7 @@ struct EditProfileView: View {
             
             // MARK: Profile Image
             VStack {
-                VStack {
+                LazyVStack {
                         // 이미지 피커로 이미지를 골랐을 경우
                     if let image = profileImage {
                         image
@@ -66,21 +68,21 @@ struct EditProfileView: View {
                             .cornerRadius(50)
                             .padding()
                         
-                        // 유저 프로필 이미지가 설정되어있고, 이미지피커로 이미지를 고르기 전
-                    } else if !user.profileImageUrl.isEmpty {
-                        KFImage(URL(string: user.profileImageUrl))
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 100, height: 100)
-                            .cornerRadius(50)
-                            .padding()
-                    } else {
+                        // 유저 프로필 이미지가 없고, 이미지피커로 이미지를 고르기 전일 경우
+                    } else if user.profileImageUrl.isEmpty {
                         Image(systemName: "person.fill")
                             .resizable()
                             .scaledToFill()
                             .frame(width: 100, height: 100)
                             .background(Color(.systemGray4))
                             .foregroundColor(.primary)
+                            .cornerRadius(50)
+                            .padding()
+                    } else {
+                        KFImage(URL(string: user.profileImageUrl))
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 100, height: 100)
                             .cornerRadius(50)
                             .padding()
                     }
@@ -141,10 +143,10 @@ struct EditProfileView: View {
         // 업로드가 끝났을 경우 실행
         .onReceive(editProfileViewModel.$uploadComplete, perform: { complete in
             if complete {
-                self.user.bio = editProfileViewModel.user.bio
-                self.user.userID = editProfileViewModel.user.userID
-                self.user.userName = editProfileViewModel.user.userName
                 self.user.profileImageUrl = editProfileViewModel.user.profileImageUrl
+                self.user.userName = editProfileViewModel.user.userName
+                self.user.userID = editProfileViewModel.user.userID
+                self.user.bio = editProfileViewModel.user.bio
                 self.mode.wrappedValue.dismiss()
             }
         })

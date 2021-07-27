@@ -67,6 +67,8 @@
 		FFA1330226A98BBF0051494B /* LazyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA1330126A98BBF0051494B /* LazyView.swift */; };
 		FFA1330426A9A29F0051494B /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA1330326A9A29F0051494B /* EditProfileView.swift */; };
 		FFA1330626A9C0380051494B /* EditProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA1330526A9C0380051494B /* EditProfileViewModel.swift */; };
+		FFE7A8AE26AEDF8C002999C2 /* MessageList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE7A8AD26AEDF8C002999C2 /* MessageList.swift */; };
+		FFE7A8B026AEDF9B002999C2 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE7A8AF26AEDF9B002999C2 /* MessageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -125,6 +127,8 @@
 		FFA1330126A98BBF0051494B /* LazyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyView.swift; sourceTree = "<group>"; };
 		FFA1330326A9A29F0051494B /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
 		FFA1330526A9C0380051494B /* EditProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewModel.swift; sourceTree = "<group>"; };
+		FFE7A8AD26AEDF8C002999C2 /* MessageList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageList.swift; sourceTree = "<group>"; };
+		FFE7A8AF26AEDF9B002999C2 /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -199,6 +203,7 @@
 		FF10D78C26A1723C00C16B79 /* Screen */ = {
 			isa = PBXGroup;
 			children = (
+				FFE7A8AC26AEDF74002999C2 /* Message */,
 				FFA132C126A41A920051494B /* UploadPost */,
 				FFA132B626A35DE50051494B /* Notification */,
 				FF10D7C726A3378E00C16B79 /* Search */,
@@ -374,6 +379,15 @@
 			path = Api;
 			sourceTree = "<group>";
 		};
+		FFE7A8AC26AEDF74002999C2 /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				FFE7A8AD26AEDF8C002999C2 /* MessageList.swift */,
+				FFE7A8AF26AEDF9B002999C2 /* MessageView.swift */,
+			);
+			path = Message;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -483,6 +497,7 @@
 				FFA132F626A6C7AC0051494B /* CommentModel.swift in Sources */,
 				FF10D79426A1860E00C16B79 /* FeedView.swift in Sources */,
 				FF10D7BD26A2E15D00C16B79 /* ProfileView.swift in Sources */,
+				FFE7A8B026AEDF9B002999C2 /* MessageView.swift in Sources */,
 				FFA1330626A9C0380051494B /* EditProfileViewModel.swift in Sources */,
 				FFA132AC26A339870051494B /* SearchTextField.swift in Sources */,
 				FFA132F226A5EAF40051494B /* PostGridViewModel.swift in Sources */,
@@ -506,6 +521,7 @@
 				FFA1330026A8329A0051494B /* NotificationCellViewModel.swift in Sources */,
 				FFA132F426A6A5740051494B /* FeecCellViewModel.swift in Sources */,
 				FFA132E626A4A9E60051494B /* ProfileViewModel.swift in Sources */,
+				FFE7A8AE26AEDF8C002999C2 /* MessageList.swift in Sources */,
 				FFA132FA26A759380051494B /* CommentCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

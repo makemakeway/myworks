@@ -12,7 +12,6 @@ struct FeedView: View {
     var throughSearch: Bool = false
     @State private var addPostButtonClicked = false
     @ObservedObject var feedViewModel: FeedViewModel
-    @State private var refresh = Refresh(started: false, released: false)
     
     var body: some View {
         
@@ -77,7 +76,12 @@ struct FeedView: View {
                                                 label: {
                                                     Image(systemName: "heart")
                                                 })
-                                            Image(systemName: "paperplane")
+                                            NavigationLink(
+                                                destination: MessageList(),
+                                                label: {
+                                                    Image(systemName: "paperplane")
+                                                })
+                                            
                                         }.foregroundColor(.primary).font(.title3))
                     .fullScreenCover(isPresented: $addPostButtonClicked, content: {
                         UploadPostView()
@@ -85,7 +89,9 @@ struct FeedView: View {
             }
         })
         .onAppear {
-            feedViewModel.fetchPosts()
+            DispatchQueue.global().sync {
+                feedViewModel.fetchPosts()
+            }
         }
         
     }
