@@ -17,32 +17,6 @@ struct FeedView: View {
         
         ScrollView(.vertical, showsIndicators: false, content: {
             
-            GeometryReader { reader -> AnyView in
-
-//                DispatchQueue.main.async {
-//                    if refresh.startOffset == 0 {
-//                        refresh.startOffset = reader.frame(in: .global).minY
-//                    }
-//
-//                    refresh.offset = reader.frame(in: .global).minY
-//
-//                    if refresh.offset - refresh.startOffset > 80 && !refresh.started{
-//                        refresh.started = true
-//                    }
-//
-//                    if refresh.startOffset == refresh.offset && refresh.started && !refresh.released {
-//                        refresh.released = true
-//                        feedViewModel.fetchPosts()
-//                        refresh.released = false
-//                        refresh.started = false
-//                    }
-//
-//                }
-
-                return AnyView(Color.black.frame(width: 0, height: 0))
-            }
-            .frame(width: 0, height: 0)
-            
             ZStack(alignment: Alignment(horizontal: .center, vertical: .top)) {
                 
                 
@@ -68,16 +42,22 @@ struct FeedView: View {
                                             .fontWeight(.bold)
                                             .foregroundColor(.primary),
                                         trailing: HStack(spacing: 18) {
+                                            // 새 게시물 올리기 창으로 이동
                                             Button(action: { addPostButtonClicked = true }, label: {
                                                 Image(systemName: "plus.app")
                                             })
+                                            // 알림창으로 이동
                                             NavigationLink(
                                                 destination: NotificationView(),
                                                 label: {
                                                     Image(systemName: "heart")
                                                 })
+                                            // 메시지창으로 이동
                                             NavigationLink(
-                                                destination: MessageList(),
+                                                destination: MessageList().navigationBarItems(leading: Text(AuthViewModel.shared.currentUser?.userID ?? "")
+                                                                                                .font(.title2)
+                                                                                                .fontWeight(.bold)
+                                                                                                .foregroundColor(.primary)),
                                                 label: {
                                                     Image(systemName: "paperplane")
                                                 })
@@ -95,12 +75,5 @@ struct FeedView: View {
         }
         
     }
-}
-
-struct Refresh {
-    var startOffset: CGFloat = 0
-    var offset: CGFloat = 0
-    var started: Bool
-    var released: Bool
 }
 

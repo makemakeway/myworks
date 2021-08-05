@@ -29,7 +29,7 @@ struct SearchGridView: View {
                   content: {
                     ForEach(postGridViewModel.posts) { post in
                         NavigationLink(
-                            destination: LazyView(PostView(viewModel: FeedCellViewModel(post: post)))
+                            destination: PostView(viewModel: FeedCellViewModel(post: post))
                                 .navigationBarTitleDisplayMode(.inline).toolbar {
                                     ToolbarItem(placement: .principal) {
                                         VStack {

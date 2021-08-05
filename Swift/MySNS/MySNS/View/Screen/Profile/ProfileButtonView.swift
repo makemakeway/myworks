@@ -59,13 +59,16 @@ struct ProfileButtonView: View {
                 
                 Spacer()
                 
-                Button(action: { }, label: {
-                    Text("메시지")
-                        .foregroundColor(.primary)
-                })
-                .frame(maxWidth: .infinity)
-                .frame(height: 40)
-                .background(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 0.8))
+                NavigationLink(
+                    destination: MessageView(user: profileViewModel.user),
+                    label: {
+                        Text("메시지")
+                            .foregroundColor(.primary)
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 40)
+                            .background(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 0.8))
+                    })
+                
                 
                 
             }

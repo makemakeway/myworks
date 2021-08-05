@@ -6,68 +6,95 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct MessageList: View {
     @State var searchInput = ""
     @State var searchMode = false
+    @ObservedObject var viewModel = MessageListViewModel()
+    @ObservedObject var searchViewModel = SearchViewModel()
+    
+    
     var body: some View {
         ScrollView {
             VStack {
                 SearchTextField(input: $searchInput, searchMode: $searchMode)
                     .padding(.horizontal)
                     .padding(.top, 6)
-                HStack {
-                    Image(systemName: "person.fill")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 48, height: 48)
-                        .background(Color(.systemGray4))
-                        .foregroundColor(.primary)
-                        .cornerRadius(24)
+                    .autocapitalization(.none)
+                    .disableAutocorrection(true)
+                
+                if searchMode {
+                    UserListView(searchViewModel: searchViewModel, searchInput: $searchInput)
+                } else {
                     LazyVStack(alignment: .leading) {
-                        NavigationLink(
-                            destination:
-                                MessageView()
-                                .navigationBarTitleDisplayMode(.inline).toolbar {
-                                    ToolbarItem(placement: .principal) {
-                                        HStack {
+                        ForEach(viewModel.messages) { message in
+                            NavigationLink(
+                                destination:
+                                    MessageView(user: message.user)
+                                    .navigationBarTitleDisplayMode(.inline).toolbar {
+                                        ToolbarItem(placement: .principal) {
+                                            HStack {
+                                                if message.user.profileImageUrl.isEmpty {
+                                                    Image(systemName: "person.fill")
+                                                        .resizable()
+                                                        .scaledToFill()
+                                                        .frame(width: 36, height: 36)
+                                                        .background(Color(.systemGray4))
+                                                        .foregroundColor(.primary)
+                                                        .cornerRadius(24)
+                                                } else {
+                                                    KFImage(URL(string: message.user.profileImageUrl))
+                                                        .resizable()
+                                                        .scaledToFill()
+                                                        .frame(width: 36, height: 36)
+                                                        .cornerRadius(24)
+                                                }
+                                                
+                                                Text(message.user.userID)
+                                                    .font(.system(size: 13, weight: .bold))
+                                                    .foregroundColor(Color.gray)
+                                            }}},
+                                label: {
+                                    HStack {
+                                        if message.user.profileImageUrl.isEmpty {
                                             Image(systemName: "person.fill")
                                                 .resizable()
                                                 .scaledToFill()
-                                                .frame(width: 36, height: 36)
+                                                .frame(width: 48, height: 48)
                                                 .background(Color(.systemGray4))
                                                 .foregroundColor(.primary)
                                                 .cornerRadius(24)
-                                            VStack {
-                                                Text("USER ID")
-                                                    .font(.system(size: 13, weight: .bold))
-                                                    .foregroundColor(Color.gray)
-                                                Text("메시지")
-                                                    .font(.system(size: 15, weight: .bold))
-                                            }
-                                        }}},
-                            label: {
-                                VStack(alignment: .leading) {
-                                    Text("USER ID")
-                                        .font(.system(size: 15, weight: .semibold))
-                                        .foregroundColor(.primary)
-                                    Text("2일 전")
-                                        .font(.system(size: 14))
-                                        .foregroundColor(.gray)
-                                }
-                                
-                            })
-                        NavigationLink(
-                            destination: EmptyView(),
-                            label: {
-                                EmptyView()
-                            })
+                                        } else {
+                                            KFImage(URL(string: message.user.profileImageUrl))
+                                                .resizable()
+                                                .scaledToFill()
+                                                .frame(width: 48, height: 48)
+                                                .cornerRadius(24)
+                                        }
+                                        
+                                        
+                                        VStack(alignment: .leading) {
+                                            Text(message.user.userID)
+                                                .font(.system(size: 15, weight: .semibold))
+                                                .foregroundColor(.primary)
+                                            Text(message.text)
+                                                .font(.system(size: 14))
+                                                .foregroundColor(.gray)
+                                        }
+                                    }
+                                    .padding(.horizontal)
+                                    .padding(.vertical, 6)
+                                })
+                            NavigationLink(
+                                destination: EmptyView(),
+                                label: {
+                                    EmptyView()
+                                })
+                        }
+                        
                     }
-                    Spacer()
                 }
-                .padding(.horizontal)
-                .padding(.vertical, 6)
-                
             }
         }
     }
