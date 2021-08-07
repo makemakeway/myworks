@@ -4,7 +4,7 @@
 //
 //  Created by 박연배 on 2021/07/18.
 //
-
+import Kingfisher
 import SwiftUI
 
 struct ProfileButtonView: View {
@@ -14,6 +14,7 @@ struct ProfileButtonView: View {
     var isFollowed: Bool { return profileViewModel.user.isFollowed ?? false }
     
     var body: some View {
+        
         if profileViewModel.user.isCurrentUser {
             HStack {
                 Button(action: { editMode.toggle() }, label: {
@@ -57,10 +58,11 @@ struct ProfileButtonView: View {
                 }
                 
                 
+                
                 Spacer()
                 
                 NavigationLink(
-                    destination: MessageView(user: profileViewModel.user),
+                    destination: LazyView(MessageView(user: profileViewModel.user)),
                     label: {
                         Text("메시지")
                             .foregroundColor(.primary)
@@ -76,6 +78,7 @@ struct ProfileButtonView: View {
             .padding(.horizontal)
             
         }
+        
         
     }
 }

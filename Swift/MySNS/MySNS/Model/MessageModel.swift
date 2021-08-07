@@ -8,7 +8,7 @@
 import SwiftUI
 import Firebase
 
-struct MessageModel: Identifiable {
+struct MessageModel: Identifiable, Decodable {
     var id: String
     var fromUid: String
     var toUid: String
@@ -26,7 +26,7 @@ struct MessageModel: Identifiable {
         self.toUid = dictionary["toId"] as? String ?? ""
         self.fromUid = dictionary["fromId"] as? String ?? ""
         self.id = dictionary["id"] as? String ?? ""
-        self.isCurrentUser = fromUid == AuthViewModel.shared.currentUser?.id
+        self.isCurrentUser = fromUid == AuthViewModel.shared.userSession?.uid
         self.timestamp = dictionary["timestamp"] as? Timestamp ?? Timestamp(date: Date())
     }
     

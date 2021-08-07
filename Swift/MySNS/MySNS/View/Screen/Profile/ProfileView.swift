@@ -58,10 +58,7 @@ struct ProfileView: View {
                     
                 
             }
-//            .onAppear {
-//                profileViewModel.fetchUserInfo()
-//                profileViewModel.checkFollowed()
-//            }
+            
             
             if throughSearch {
                 ZStack {}

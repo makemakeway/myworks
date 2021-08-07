@@ -18,9 +18,8 @@ class MessageListViewModel: ObservableObject {
     }
     
     func fetchMessages() {
-        guard let uid = AuthViewModel.shared.currentUser?.id else { return }
+        guard let uid = AuthViewModel.shared.userSession?.uid else { return }
         let query = COLLECTION_MESSAGES.document(uid).collection("recent-messages")
-        query.order(by: "timestamp", descending: true)
         
         query.addSnapshotListener { snapshot, error in
             guard let changes = snapshot?.documentChanges else { return }
@@ -34,10 +33,12 @@ class MessageListViewModel: ObservableObject {
                     guard let profileImageUrl = data?.profileImageUrl else { return }
                     guard let userId = data?.userID else { return }
                     guard let userName = data?.userName else { return }
-                    let user = UserModel(email: email, profileImageUrl: profileImageUrl, userID: userId, userName: userName)
+                    guard let uid = data?.id else { return }
+                    let user = UserModel(email: email, profileImageUrl: profileImageUrl, id: uid, userID: userId, userName: userName)
                     self.recentDictionary[uid] = MessageModel(user: user, dictionary: message)
                     
                     self.messages = Array(self.recentDictionary.values)
+                    self.messages.sort(by: { $0.timestamp.dateValue() > $1.timestamp.dateValue() })
                     print("DEBUG: recentmessages \(self.recentDictionary)")
                 }
             }

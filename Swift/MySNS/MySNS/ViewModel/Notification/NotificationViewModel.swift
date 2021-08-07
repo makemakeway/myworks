@@ -10,9 +10,9 @@ import Firebase
 
 class NotificationViewModel: ObservableObject {
     @Published var notifications = [NotificationModel]()
-    init() {
+//    init() {
 //        fetchNofitication()
-    }
+//    }
     
     static func uploadNofitication(toUid uid: String, type: NotificationType, post: PostModel? = nil) {
         
@@ -30,15 +30,12 @@ class NotificationViewModel: ObservableObject {
             data["postId"] = id
         }
         
-        
-        
-        
         COLLECTION_NOTIFICATIONS.document(uid).collection("user-notifications").addDocument(data: data)
     }
     
     
     func fetchNofitication() {
-        guard let uid = AuthViewModel.shared.currentUser?.id else { return }
+        guard let uid = AuthViewModel.shared.userSession?.uid else { return }
         let query = COLLECTION_NOTIFICATIONS.document(uid).collection("user-notifications").order(by: "timestamp", descending: true)
         
         query.getDocuments { snapshot, _ in

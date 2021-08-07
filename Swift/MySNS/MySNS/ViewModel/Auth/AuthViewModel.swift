@@ -62,6 +62,7 @@ class AuthViewModel: ObservableObject {
     
     func signOut() {
         self.userSession = nil
+        self.currentUser = nil
         try? Auth.auth().signOut()
     }
     
@@ -82,8 +83,7 @@ class AuthViewModel: ObservableObject {
             guard let user = try? snapshot?.data(as: UserModel.self) else { return }
             self.currentUser = user
             AuthViewModel.shared.userSession = self.userSession
-            AuthViewModel.shared.currentUser = self.currentUser
-            print("DEBUG: AuthViewModel init -> fetch User...")
+            print("DEBUG: AuthViewModel init -> fetch \(self.currentUser?.id ?? "")...")
         }
     }
 }

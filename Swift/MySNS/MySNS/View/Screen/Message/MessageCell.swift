@@ -13,33 +13,47 @@ struct MessageCell: View {
     
     var body: some View {
         HStack {
-            if message.user.profileImageUrl.isEmpty {
-                Image(systemName: "person.fill")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 36, height: 36)
-                    .background(Color(.systemGray4))
-                    .foregroundColor(.primary)
-                    .cornerRadius(24)
-            } else {
-                KFImage(URL(string: message.user.profileImageUrl))
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 36, height: 36)
-                    .cornerRadius(24)
-            }
-            
-            VStack(alignment: .leading) {
+            if message.isCurrentUser {
+                Spacer()
+                
                 Text(message.text)
                     .foregroundColor(.white)
-                    .padding()
-                    .background(Color.gray)
-                    .clipShape(Capsule())
+                    .padding(.horizontal)
+                    .padding(.vertical, 6)
+                    .background(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 0.8))
+                    .padding(.leading, 100)
+                    .padding(.trailing, 16)
+                
+            } else {
+                if message.user.profileImageUrl.isEmpty {
+                    Image(systemName: "person.fill")
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 36, height: 36)
+                        .background(Color(.systemGray4))
+                        .foregroundColor(.primary)
+                        .cornerRadius(24)
+                } else {
+                    KFImage(URL(string: message.user.profileImageUrl))
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 36, height: 36)
+                        .cornerRadius(24)
+                }
+                Text(message.text)
+                    .foregroundColor(.white)
+                    .padding(.horizontal)
+                    .padding(.vertical, 6)
+                    .background(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 0.8))
+                    .padding(.trailing, 100)
+                    .padding(.leading, 16)
+                
+                Spacer()
             }
-            Spacer()
             
         }
-        .padding()
+        .padding(.horizontal)
+        .padding(.vertical, 4)
     }
 }
 

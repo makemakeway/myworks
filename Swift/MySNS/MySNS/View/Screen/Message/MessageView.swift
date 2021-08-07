@@ -10,7 +10,7 @@ import SwiftUI
 
 struct MessageView: View {
     let user: UserModel
-    let viewModel: MessageViewModel
+    @ObservedObject var viewModel: MessageViewModel
     @State var messageInput: String = ""
     @State var fieldClicked: Bool = false
     
@@ -35,6 +35,29 @@ struct MessageView: View {
                     fieldClicked = true
                 })
         }
+        .navigationBarTitleDisplayMode(.inline).toolbar {
+            ToolbarItem(placement: .principal) {
+                HStack {
+                    if user.profileImageUrl.isEmpty {
+                        Image(systemName: "person.fill")
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 36, height: 36)
+                            .background(Color(.systemGray4))
+                            .foregroundColor(.primary)
+                            .cornerRadius(24)
+                    } else {
+                        KFImage(URL(string: user.profileImageUrl))
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 36, height: 36)
+                            .cornerRadius(24)
+                    }
+                    
+                    Text(user.userID)
+                        .font(.system(size: 13, weight: .bold))
+                        .foregroundColor(Color.gray)
+                }}}
     }
     func sendMessage() {
         viewModel.sendMessage(content: messageInput)

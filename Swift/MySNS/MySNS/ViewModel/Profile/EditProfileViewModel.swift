@@ -28,47 +28,27 @@ class EditProfileViewModel: ObservableObject {
         self.user.userName = userName
         
         // USER 테이블 데이터 업데이트
+        
         COLLECTION_USERS.document(uid).updateData(["bio":bio, "userID":userId, "userName":userName]) { error in
             if let error = error {
                 print(error.localizedDescription)
             }
         }
+        
         // 이미지 변경을 했을 경우
         if let image = image {
-            self.uploadProfileImage(image: image) { error in
-                if let error = error {
-                    print(error.localizedDescription)
-                    return
-                }
-            }
-            
-            print("DEBUG: Image update done..")
-            print(self.user.profileImageUrl)
-            //포스트 userid, userProfileImage를 변경해주기위해 필요한 포스트들을 불러옴
-            COLLECTION_POSTS.whereField("ownerUid", isEqualTo: uid).getDocuments { snapshot, _ in
-                if let documents = snapshot?.documents {
-                    self.temp = documents.compactMap({ try? $0.data(as: PostModel.self) })
-                    self.temp.forEach { post in
-                        guard let postId = post.id else { return }
-                        // 포스트 정보를 가져온 뒤, 아이디와 프로필 이미지 URL을 변경
-                        COLLECTION_POSTS.document(postId)
-                            .updateData(["ownerUserId":userId, "ownerImageUrl":AuthViewModel.shared.currentUser?.profileImageUrl ?? ""])
-                        
-                        // 코멘트 정보도 변경
-                        COLLECTION_POSTS.document(postId).collection("post-comments").whereField("uid", isEqualTo: uid).getDocuments { snapshot, _ in
-                            guard let comments = snapshot?.documents else { return }
-                            self.tempComments = comments.compactMap({ try? $0.data(as: CommentModel.self) })
-                            self.tempComments.forEach { comment in
-                                guard let commentId = comment.id else { return }
-                                COLLECTION_POSTS.document(postId)
-                                    .collection("post-comments")
-                                    .document(commentId)
-                                    .updateData(["userName":self.user.userID, "profileImageUrl": AuthViewModel.shared.currentUser?.profileImageUrl ?? ""])
-                            }
-                        }
+            DispatchQueue.global().sync {
+                self.uploadProfileImage(image: image) { error in
+                    if let error = error {
+                        print(error.localizedDescription)
+                        return
                     }
                 }
             }
+            
+            
+            
+            
             
         }
         
@@ -96,10 +76,6 @@ class EditProfileViewModel: ObservableObject {
                 }
             }
         }
-        
-        AuthViewModel.shared.currentUser?.bio = bio
-        AuthViewModel.shared.currentUser?.userID = userId
-        AuthViewModel.shared.currentUser?.userName = userName
         self.uploadComplete = true
     }
     
@@ -107,13 +83,43 @@ class EditProfileViewModel: ObservableObject {
     
     
     func uploadProfileImage(image: UIImage, completion: FireStoreCompletion) {
-        guard let user = AuthViewModel.shared.currentUser else { return }
+        guard let uid = user.id else { return }
         
         ImageUploader.uploadImage(image: image, type: .profile) { imageUrl in
-            guard let uid = user.id else { return }
+            
+            
+            //포스트 userid, userProfileImage를 변경해주기위해 필요한 포스트들을 불러옴
+            
+            COLLECTION_POSTS.whereField("ownerUid", isEqualTo: uid).getDocuments { snapshot, _ in
+                if let documents = snapshot?.documents {
+                    self.temp = documents.compactMap({ try? $0.data(as: PostModel.self) })
+                    self.temp.forEach { post in
+                        guard let postId = post.id else { return }
+                        
+                        // 포스트 정보를 가져온 뒤, 아이디와 프로필 이미지 URL을 변경
+                        COLLECTION_POSTS.document(postId)
+                            .updateData(["ownerUserId":self.user.userID, "ownerImageUrl": imageUrl])
+                        
+                        // 코멘트 정보도 변경
+                        COLLECTION_POSTS.document(postId).collection("post-comments").whereField("uid", isEqualTo: uid).getDocuments { snapshot, _ in
+                            guard let comments = snapshot?.documents else { return }
+                            self.tempComments = comments.compactMap({ try? $0.data(as: CommentModel.self) })
+                            self.tempComments.forEach { comment in
+                                guard let commentId = comment.id else { return }
+                                COLLECTION_POSTS.document(postId)
+                                    .collection("post-comments")
+                                    .document(commentId)
+                                    .updateData(["userName":self.user.userID, "profileImageUrl": self.user.profileImageUrl])
+                            }
+                        }
+                        
+                    }
+                }
+            }
             let data = ["profileImageUrl": imageUrl]
-            AuthViewModel.shared.currentUser?.profileImageUrl = imageUrl
             COLLECTION_USERS.document(uid).updateData(data)
+            print("DEBUG: Image update done..")
+            self.user.profileImageUrl = imageUrl
         }
     }
 }

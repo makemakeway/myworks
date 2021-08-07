@@ -19,8 +19,9 @@ struct ContentView: View {
                         FeedView(feedViewModel: feedViewModel)
                             
                     }
-                    .tabItem { Image(systemName: "house.fill") }
                     .navigationViewStyle(StackNavigationViewStyle())
+                    .tabItem { Image(systemName: "house.fill") }
+                    
                     
                     NavigationView {
                        SearchView()
@@ -37,7 +38,7 @@ struct ContentView: View {
                     .navigationViewStyle(StackNavigationViewStyle())
                     
                     NavigationView {
-                        ProfileView(user: user, throughSearch: false)
+                        LazyView(ProfileView(user: user, throughSearch: false))
                             
                     }
                     .tabItem { Image(systemName: "person.circle") }

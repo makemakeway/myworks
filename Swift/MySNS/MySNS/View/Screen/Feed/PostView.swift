@@ -90,12 +90,20 @@ struct PostView: View {
                 
                 
                 //DM Button
-                Image(systemName: "paperplane")
-                    .foregroundColor(.primary)
+                NavigationLink (
+                    destination: MessageView(user: UserModel(email: "", profileImageUrl: feedCellViewModel.post.ownerImageUrl, id: feedCellViewModel.post.ownerUid, userID: feedCellViewModel.post.ownerUserId, userName: "")),
+                    label: {
+                        Image(systemName: "paperplane")
+                            .foregroundColor(.primary)
+                    }
+                )
+                
+                
                 
                 Spacer()
                 
                 //BookMark Button
+                
                 Image(systemName: "bookmark")
                     .foregroundColor(.primary)
             }

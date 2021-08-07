@@ -54,10 +54,7 @@ struct FeedView: View {
                                                 })
                                             // 메시지창으로 이동
                                             NavigationLink(
-                                                destination: MessageList().navigationBarItems(leading: Text(AuthViewModel.shared.currentUser?.userID ?? "")
-                                                                                                .font(.title2)
-                                                                                                .fontWeight(.bold)
-                                                                                                .foregroundColor(.primary)),
+                                                destination: MessageList().navigationBarTitle("메시지", displayMode: .inline),
                                                 label: {
                                                     Image(systemName: "paperplane")
                                                 })
@@ -68,11 +65,11 @@ struct FeedView: View {
                     })
             }
         })
-        .onAppear {
-            DispatchQueue.global().sync {
-                feedViewModel.fetchPosts()
-            }
-        }
+//        .onAppear {
+//            DispatchQueue.global().sync {
+//                feedViewModel.refreshPost()
+//            }
+//        }
         
     }
 }

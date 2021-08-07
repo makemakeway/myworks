@@ -23,6 +23,8 @@ class ProfileViewModel: ObservableObject {
             NotificationViewModel.uploadNofitication(toUid: uid, type: .follow)
             self.user.isFollowed = true
         }
+        fetchUserStats()
+        fetchUserInfo()
     }
     
     func unfollow() {
@@ -30,6 +32,8 @@ class ProfileViewModel: ObservableObject {
         UserService.unfollow(uid: uid) { _ in
             self.user.isFollowed = false
         }
+        fetchUserStats()
+        fetchUserInfo()
         
     }
     
@@ -65,7 +69,6 @@ class ProfileViewModel: ObservableObject {
         COLLECTION_USERS.document(uid).getDocument { snapshot, _ in
             guard let data = try? snapshot?.data(as: UserModel.self) else { return }
             self.user = data
-            AuthViewModel.shared.currentUser = self.user
         }
         print("DEBUG: ProfileViewModel init -> fetch userinfo..")
     }
