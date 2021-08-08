@@ -9,9 +9,9 @@ import SwiftUI
 import Kingfisher
 
 struct MessageList: View {
-    @State var searchInput = ""
-    @State var searchMode = false
-    @ObservedObject var viewModel = MessageListViewModel()
+    @State private var searchInput = ""
+    @State private var searchMode = false
+    @StateObject var viewModel = MessageListViewModel()
     @ObservedObject var searchViewModel = SearchViewModel()
     
     
@@ -50,7 +50,6 @@ struct MessageList: View {
                                                 .cornerRadius(24)
                                         }
                                         
-                                        
                                         VStack(alignment: .leading) {
                                             Text(message.user.userID)
                                                 .font(.system(size: 15, weight: .semibold))
@@ -58,10 +57,22 @@ struct MessageList: View {
                                             Text(message.text)
                                                 .font(.system(size: 14))
                                                 .foregroundColor(.gray)
+                                                .lineLimit(1)
                                         }
+                                        Spacer()
+                                        
+                                        Text(viewModel.timestampString(message: message))
+                                            .font(.system(size: 14))
+                                            .foregroundColor(.gray)
+                                        
                                     }
                                     .padding(.horizontal)
                                     .padding(.vertical, 6)
+                                }).id(message.id)
+                            NavigationLink(
+                                destination: EmptyView(),
+                                label: {
+                                    EmptyView()
                                 })
                             NavigationLink(
                                 destination: EmptyView(),
@@ -74,8 +85,12 @@ struct MessageList: View {
                     
                 }
             }
+            .onAppear() {
+                viewModel.fetchMessages()
+            }
         }
-
+        
     }
+    
 }
 

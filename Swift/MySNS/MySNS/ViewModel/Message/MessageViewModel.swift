@@ -12,19 +12,13 @@ class MessageViewModel: ObservableObject {
     @Published var messages = [MessageModel]()
     let user: UserModel
     
+    
+    
     init(user: UserModel) {
         self.user = user
         fetchMessages(user: user)
     }
-    
-//    var timestampString: String {
-//        let fommatter = DateComponentsFormatter()
-//        fommatter.allowedUnits = [.second, .minute, .hour, .day, .weekOfMonth]
-//        fommatter.maximumUnitCount = 1
-//        fommatter.unitsStyle = .abbreviated
-//        return fommatter.string(from: MessageModel.timestamp.dateValue(), to: Date()) ?? ""
-//    }
-    
+
     func sendMessage(content: String) {
         guard let uid = user.id else { return }
         guard let currentUid = AuthViewModel.shared.userSession?.uid else { return }

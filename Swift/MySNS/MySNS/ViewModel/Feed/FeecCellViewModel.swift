@@ -13,11 +13,16 @@ class FeedCellViewModel: ObservableObject {
     // 댓글 시간 설정
     var timestampString: String {
         let fommatter = DateComponentsFormatter()
-        // 몇초 전, 몇분 전 .... 몇주 전까지 허용
+        let dateFommat = ["s": "초 전", "m":"분 전", "h": "시간 전", "d": "일 전", "w": "주 전"]
+        
         fommatter.allowedUnits = [.second, .minute, .hour, .day, .weekOfMonth]
         fommatter.maximumUnitCount = 1
         fommatter.unitsStyle = .abbreviated
-        return fommatter.string(from: post.timestamp.dateValue(), to: Date()) ?? ""
+        let timestampString = fommatter.string(from: post.timestamp.dateValue(), to: Date()) ?? ""
+        let endIndex = timestampString.index(before: timestampString.endIndex)
+        let dateValue = String(timestampString[..<endIndex])
+        let dateInfo = String(timestampString[endIndex])
+        return dateValue + (dateFommat[dateInfo] ?? "")
     }
     
     

@@ -12,9 +12,26 @@ class MessageListViewModel: ObservableObject {
     @Published var messages = [MessageModel]()
     private var recentDictionary = [String : MessageModel]()
     
+    func timestampString(message: MessageModel) -> String {
+        let fommatter = DateFormatter()
+        fommatter.locale = Locale(identifier: "ko_KR")
+        
+        
+        let diff = Calendar.current.dateComponents([.year, .month, .day], from: message.timestamp.dateValue(), to: Date())
+        
+        print("DEBUG: Diff is.. \(diff)")
+        
+        if diff.day == 0 && diff.year == 0 && diff.month == 0 {
+            fommatter.timeStyle = .short
+        } else {
+            fommatter.dateStyle = .short
+        }
+        
+        return fommatter.string(from: message.timestamp.dateValue() as Date)
+    }
     
     init() {
-        fetchMessages()
+//        fetchMessages()
     }
     
     func fetchMessages() {

@@ -43,7 +43,9 @@ struct SearchGridView: View {
                                 .resizable()
                                 .scaledToFill()
                                 .frame(width: width, height: width)
-                                .clipped()})
+                                .clipped()
+                            })
+                        
                     }
                   })
             

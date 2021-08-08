@@ -265,7 +265,6 @@
 				FF10D7C526A32ED600C16B79 /* Notification */,
 				FF10D7C426A32ECE00C16B79 /* Profile */,
 				FF10D7C326A32EC700C16B79 /* Auth */,
-				FFA132F126A5EAF40051494B /* PostGridViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -406,6 +405,7 @@
 			isa = PBXGroup;
 			children = (
 				FFA132E326A482590051494B /* SearchViewModel.swift */,
+				FFA132F126A5EAF40051494B /* PostGridViewModel.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";

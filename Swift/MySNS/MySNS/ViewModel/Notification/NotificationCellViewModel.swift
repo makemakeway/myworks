@@ -19,10 +19,16 @@ class NotificationCellViewModel: ObservableObject {
     
     var timestampString: String {
         let fommatter = DateComponentsFormatter()
+        let dateFommat = ["s": "초 전", "m":"분 전", "h": "시간 전", "d": "일 전", "w": "주 전"]
+        
         fommatter.allowedUnits = [.second, .minute, .hour, .day, .weekOfMonth]
         fommatter.maximumUnitCount = 1
         fommatter.unitsStyle = .abbreviated
-        return fommatter.string(from: notification.timestamp.dateValue(), to: Date()) ?? ""
+        let timestampString = fommatter.string(from: notification.timestamp.dateValue(), to: Date()) ?? ""
+        let endIndex = timestampString.index(before: timestampString.endIndex)
+        let dateValue = String(timestampString[..<endIndex])
+        let dateInfo = String(timestampString[endIndex])
+        return dateValue + (dateFommat[dateInfo] ?? "")
     }
     
     func follow() {

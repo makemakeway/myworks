@@ -17,7 +17,7 @@ struct MessageCell: View {
                 Spacer()
                 
                 Text(message.text)
-                    .foregroundColor(.white)
+                    .foregroundColor(.primary)
                     .padding(.horizontal)
                     .padding(.vertical, 6)
                     .background(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 0.8))
@@ -41,7 +41,7 @@ struct MessageCell: View {
                         .cornerRadius(24)
                 }
                 Text(message.text)
-                    .foregroundColor(.white)
+                    .foregroundColor(.primary)
                     .padding(.horizontal)
                     .padding(.vertical, 6)
                     .background(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 0.8))
