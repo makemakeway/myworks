@@ -21,9 +21,9 @@ struct NotificationView: View {
                     
                 }
             }
-            .onAppear {
-                notificationViewModel.fetchNofitication()
-            }
+//            .onAppear {
+//                notificationViewModel.fetchNofitication()
+//            }
         }
         
         .navigationBarTitle("활동", displayMode: .inline)

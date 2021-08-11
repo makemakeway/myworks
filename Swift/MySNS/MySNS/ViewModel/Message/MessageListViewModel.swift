@@ -23,7 +23,9 @@ class MessageListViewModel: ObservableObject {
         
         if diff.day == 0 && diff.year == 0 && diff.month == 0 {
             fommatter.timeStyle = .short
+            // 메세지 날짜가 당일일경우, 시간 표시
         } else {
+            // 메시지 날짜가 당일이 아닐경우, 날짜 표시
             fommatter.dateStyle = .short
         }
         
@@ -38,11 +40,11 @@ class MessageListViewModel: ObservableObject {
         guard let uid = AuthViewModel.shared.userSession?.uid else { return }
         let query = COLLECTION_MESSAGES.document(uid).collection("recent-messages")
         
-        query.addSnapshotListener { snapshot, error in
-            guard let changes = snapshot?.documentChanges else { return }
-            changes.forEach { change in
-                let uid = change.document.documentID
-                let message = change.document.data()
+        query.getDocuments { snapshot, _ in
+            guard let messages = snapshot?.documents else { return }
+            messages.forEach { message in
+                let uid = message.documentID
+                let messageData = message.data()
                 
                 COLLECTION_USERS.document(uid).getDocument { snapshot, _ in
                     let data = try? snapshot?.data(as: UserModel.self)
@@ -52,7 +54,7 @@ class MessageListViewModel: ObservableObject {
                     guard let userName = data?.userName else { return }
                     guard let uid = data?.id else { return }
                     let user = UserModel(email: email, profileImageUrl: profileImageUrl, id: uid, userID: userId, userName: userName)
-                    self.recentDictionary[uid] = MessageModel(user: user, dictionary: message)
+                    self.recentDictionary[uid] = MessageModel(user: user, dictionary: messageData)
                     
                     self.messages = Array(self.recentDictionary.values)
                     self.messages.sort(by: { $0.timestamp.dateValue() > $1.timestamp.dateValue() })

@@ -9,13 +9,15 @@ import SwiftUI
 import Kingfisher
 
 struct PostView: View {
-    @ObservedObject var feedCellViewModel: FeedCellViewModel
-    @ObservedObject var commentViewModel: CommentViewModel
+    @StateObject var feedCellViewModel: FeedCellViewModel
+    @StateObject var commentViewModel: CommentViewModel
+    var post: PostModel
     var didLiked: Bool { return feedCellViewModel.post.didLiked ?? false }
     
     init(viewModel: FeedCellViewModel) {
-        self.feedCellViewModel = FeedCellViewModel(post: viewModel.post)
-        self.commentViewModel = CommentViewModel(post: viewModel.post)
+        self._feedCellViewModel = StateObject(wrappedValue: FeedCellViewModel(post: viewModel.post))
+        self._commentViewModel = StateObject(wrappedValue: CommentViewModel(post: viewModel.post))
+        self.post = viewModel.post
     }
     
     var body: some View {
@@ -25,7 +27,7 @@ struct PostView: View {
             HStack {
                 //Profile Image
                 
-                if feedCellViewModel.post.ownerImageUrl.isEmpty {
+                if post.ownerImageUrl.isEmpty {
                     Image(systemName: "person.fill")
                         .resizable()
                         .scaledToFill()
@@ -34,7 +36,7 @@ struct PostView: View {
                         .foregroundColor(.primary)
                         .cornerRadius(15)
                 } else {
-                    KFImage(URL(string: feedCellViewModel.post.ownerImageUrl))
+                    KFImage(URL(string: post.ownerImageUrl))
                         .resizable()
                         .scaledToFill()
                         .clipShape(Circle())
@@ -43,7 +45,7 @@ struct PostView: View {
                 
                 
                 //Profile Name
-                Text(feedCellViewModel.post.ownerUserId)
+                Text(post.ownerUserId)
                     .font(.callout)
                     .foregroundColor(.primary)
                     .fontWeight(.semibold)
@@ -55,15 +57,15 @@ struct PostView: View {
             .padding(.all, 6)
             
             // MARK: Post Image
-            KFImage(URL(string: feedCellViewModel.post.imageUrl))
+            KFImage(URL(string: post.imageUrl))
                 .resizable()
                 .scaledToFit()
                 .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width)
                 .onTapGesture(count: 2) {
-                    if feedCellViewModel.post.didLiked == false {
+                    if post.didLiked == false {
                         feedCellViewModel.like()
                     }
-                    else {
+                    else if post.didLiked == true {
                         feedCellViewModel.unlike()
                     }
                 }
@@ -91,7 +93,7 @@ struct PostView: View {
                 
                 //DM Button
                 NavigationLink (
-                    destination: MessageView(user: UserModel(email: "", profileImageUrl: feedCellViewModel.post.ownerImageUrl, id: feedCellViewModel.post.ownerUid, userID: feedCellViewModel.post.ownerUserId, userName: "")),
+                    destination: MessageView(user: UserModel(email: "", profileImageUrl: post.ownerImageUrl, id: post.ownerUid, userID: post.ownerUserId, userName: "")),
                     label: {
                         Image(systemName: "paperplane")
                             .foregroundColor(.primary)
@@ -102,10 +104,6 @@ struct PostView: View {
                 
                 Spacer()
                 
-                //BookMark Button
-                
-                Image(systemName: "bookmark")
-                    .foregroundColor(.primary)
             }
             .padding(.all, 6)
             .font(.title3)
@@ -115,7 +113,7 @@ struct PostView: View {
             // Like
             if feedCellViewModel.post.likes > 0 {
                 HStack {
-                    (Text("좋아요 ") + Text("\(feedCellViewModel.post.likes)개"))
+                    (Text("좋아요 ") + Text("\(post.likes)개"))
                         .foregroundColor(.primary)
                         .fontWeight(.semibold)
                     Spacer()
@@ -128,7 +126,7 @@ struct PostView: View {
             // Caption
             
             HStack {
-                Text(feedCellViewModel.post.ownerUserId).fontWeight(.semibold) + Text("  ") + Text(feedCellViewModel.post.caption)
+                Text(post.ownerUserId).fontWeight(.semibold) + Text("  ") + Text(post.caption)
                 Spacer(minLength: 0)
             }
             .padding(.all, 6)

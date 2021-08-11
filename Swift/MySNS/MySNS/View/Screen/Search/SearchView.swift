@@ -27,9 +27,9 @@ struct SearchView: View {
                 }
             }
             .navigationBarHidden(true)
-            .onAppear(perform: {
-                searchViewModel.fetchUsers()
-            })
+//            .onAppear(perform: {
+//                searchViewModel.fetchUsers()
+//            })
         }
     }
 }

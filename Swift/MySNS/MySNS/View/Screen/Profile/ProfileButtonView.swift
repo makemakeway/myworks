@@ -8,7 +8,7 @@ import Kingfisher
 import SwiftUI
 
 struct ProfileButtonView: View {
-    @ObservedObject var profileViewModel: ProfileViewModel
+    @StateObject var profileViewModel: ProfileViewModel
     @State var editMode: Bool = false
     
     var isFollowed: Bool { return profileViewModel.user.isFollowed ?? false }

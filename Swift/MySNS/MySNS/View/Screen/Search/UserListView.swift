@@ -20,7 +20,7 @@ struct UserListView: View {
     var body: some View {
         ScrollView {
             LazyVStack {
-                ForEach(users) { user in
+                ForEach(users, id:\.id) { user in
                     NavigationLink(
                         destination:
                             LazyView(ProfileView(user: user, throughSearch: true)),
@@ -36,9 +36,9 @@ struct UserListView: View {
                 }
             }
         }
-        .onAppear {
-            searchViewModel.fetchUsers()
-        }
+//        .onAppear {
+//            searchViewModel.fetchUsers()
+//        }
     }
 }
 

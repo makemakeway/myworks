@@ -19,6 +19,7 @@ struct EditProfileView: View {
     @State private var selectedImage: UIImage? = nil
     @State private var profileImage: Image? = nil
     @State private var isPresented = false
+    @State private var uploading = false
     
     init(user: Binding<UserModel>) {
         self._user = user
@@ -29,127 +30,135 @@ struct EditProfileView: View {
     }
     
     var body: some View {
-        ScrollView {
-            // MARK: Navigation
-            HStack {
-                Button(action: { mode.wrappedValue.dismiss() },
-                       label: {Text("취소").foregroundColor(.primary)})
-                
-                Spacer()
-                
-                Text("프로필 편집")
-                    .font(.system(size: 16, weight: .semibold))
-                    .foregroundColor(.primary)
-                
-                Spacer()
-                
-                Button(action: {
-                    DispatchQueue.global().sync {
-                        editProfileViewModel.saveUserData(bio: bio, userId: userId, userName: userName, image: selectedImage)
-                    }
-                },
-                label: {Text("완료").fontWeight(.bold)})
-            }
-            .padding(.horizontal)
-            
-            Rectangle()
-                .foregroundColor(.gray)
-                .frame(height: 0.5)
-            
-            // MARK: Profile Image
-            VStack {
-                LazyVStack {
-                        // 이미지 피커로 이미지를 골랐을 경우
-                    if let image = profileImage {
-                        image
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 100, height: 100)
-                            .cornerRadius(50)
-                            .padding()
-                        
-                        // 유저 프로필 이미지가 없고, 이미지피커로 이미지를 고르기 전일 경우
-                    } else if user.profileImageUrl.isEmpty {
-                        Image(systemName: "person.fill")
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 100, height: 100)
-                            .background(Color(.systemGray4))
-                            .foregroundColor(.primary)
-                            .cornerRadius(50)
-                            .padding()
-                    } else {
-                        KFImage(URL(string: user.profileImageUrl))
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 100, height: 100)
-                            .cornerRadius(50)
-                            .padding()
-                    }
+        ZStack {
+            if uploading {
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle())
                     
-                    Button(action: { isPresented.toggle() }, label: {
-                        Text("프로필 사진 바꾸기")
-                            .font(.system(size: 14, weight: .semibold))
-                            .foregroundColor(.blue)
-                    })
-                    .padding(.bottom)
-                    .fullScreenCover(isPresented: $isPresented, onDismiss: loadImage) {
-                        ImagePicker(image: $selectedImage)
-                    }
+            }
+            
+            ScrollView {
+                // MARK: Navigation
+                HStack {
+                    Button(action: { mode.wrappedValue.dismiss() },
+                           label: {Text("취소").foregroundColor(.primary)})
+                    
+                    Spacer()
+                    
+                    Text("프로필 편집")
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundColor(.primary)
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        DispatchQueue.global().sync {
+                            editProfileViewModel.saveUserData(bio: bio, userId: userId, userName: userName, image: selectedImage)
+                        }
+                    },
+                    label: {Text("완료").fontWeight(.bold)})
                 }
-                .frame(maxWidth: .infinity)
+                .padding(.horizontal)
                 
                 Rectangle()
                     .foregroundColor(.gray)
-                    .frame(height: 0.3)
+                    .frame(height: 0.5)
                 
-                // MARK: Biograpy
-                HStack(alignment: .center) {
-                    VStack(alignment: .leading) {
-                        Text("이름").font(.system(size: 15))
-                        Spacer()
-                        Text("사용자 이름").font(.system(size: 15))
-                        Spacer()
-                        Text("소개").font(.system(size: 15))
+                // MARK: Profile Image
+                VStack {
+                    LazyVStack {
+                            // 이미지 피커로 이미지를 골랐을 경우
+                        if let image = profileImage {
+                            image
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 100, height: 100)
+                                .cornerRadius(50)
+                                .padding()
+                            
+                            // 유저 프로필 이미지가 없고, 이미지피커로 이미지를 고르기 전일 경우
+                        } else if user.profileImageUrl.isEmpty {
+                            Image(systemName: "person.fill")
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 100, height: 100)
+                                .background(Color(.systemGray4))
+                                .foregroundColor(.primary)
+                                .cornerRadius(50)
+                                .padding()
+                        } else {
+                            KFImage(URL(string: user.profileImageUrl))
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 100, height: 100)
+                                .cornerRadius(50)
+                                .padding()
+                        }
+                        
+                        Button(action: { isPresented.toggle() }, label: {
+                            Text("프로필 사진 바꾸기")
+                                .font(.system(size: 14, weight: .semibold))
+                                .foregroundColor(.blue)
+                        })
+                        .padding(.bottom)
+                        .fullScreenCover(isPresented: $isPresented, onDismiss: loadImage) {
+                            ImagePicker(image: $selectedImage)
+                        }
                     }
-                    .padding(.leading)
+                    .frame(maxWidth: .infinity)
                     
-                    VStack {
-                        TextField("이름", text: $userName)
+                    Rectangle()
+                        .foregroundColor(.gray)
+                        .frame(height: 0.3)
+                    
+                    // MARK: Biograpy
+                    HStack(alignment: .center) {
+                        VStack(alignment: .leading) {
+                            Text("이름").font(.system(size: 15))
+                            Spacer()
+                            Text("사용자 이름").font(.system(size: 15))
+                            Spacer()
+                            Text("소개").font(.system(size: 15))
+                        }
+                        .padding(.leading)
                         
-                        Rectangle()
-                            .foregroundColor(.gray)
-                            .frame(height: 0.3)
+                        VStack {
+                            TextField("이름", text: $userName)
+                            
+                            Rectangle()
+                                .foregroundColor(.gray)
+                                .frame(height: 0.3)
+                            
+                            TextField("사용자 이름", text: $userId)
+                            
+                            Rectangle()
+                                .foregroundColor(.gray)
+                                .frame(height: 0.3)
+                            
+                            TextField("소개", text: $bio)
+                        }
+                        .autocapitalization(.none)
+                        .disableAutocorrection(true)
                         
-                        TextField("사용자 이름", text: $userId)
-                        
-                        Rectangle()
-                            .foregroundColor(.gray)
-                            .frame(height: 0.3)
-                        
-                        TextField("소개", text: $bio)
                     }
-                    .autocapitalization(.none)
-                    .disableAutocorrection(true)
+                    Rectangle()
+                        .foregroundColor(.gray)
+                        .frame(height: 0.3)
                     
                 }
-                Rectangle()
-                    .foregroundColor(.gray)
-                    .frame(height: 0.3)
-                
+                .navigationBarHidden(true)
             }
-            .navigationBarHidden(true)
-        }
-        // 업로드가 끝났을 경우 실행
-        .onReceive(editProfileViewModel.$uploadComplete, perform: { complete in
-            if complete {
-                self.user.profileImageUrl = editProfileViewModel.user.profileImageUrl
-                self.user.userName = editProfileViewModel.user.userName
-                self.user.userID = editProfileViewModel.user.userID
-                self.user.bio = editProfileViewModel.user.bio
-                self.mode.wrappedValue.dismiss()
-            }
+            // 업로드가 끝났을 경우 실행
+            .onReceive(editProfileViewModel.$uploadComplete, perform: { complete in
+                if complete {
+                    self.user.profileImageUrl = editProfileViewModel.user.profileImageUrl
+                    self.user.userName = editProfileViewModel.user.userName
+                    self.user.userID = editProfileViewModel.user.userID
+                    self.user.bio = editProfileViewModel.user.bio
+                    self.mode.wrappedValue.dismiss()
+                }
         })
+        }
     }
 }
 

@@ -14,7 +14,7 @@ class SearchViewModel: ObservableObject {
     @Published var users = [UserModel]()
     
     init() {
-//        fetchUsers()
+        fetchUsers()
     }
     
     

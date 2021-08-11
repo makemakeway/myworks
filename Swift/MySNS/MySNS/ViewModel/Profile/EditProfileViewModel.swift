@@ -45,11 +45,6 @@ class EditProfileViewModel: ObservableObject {
                     }
                 }
             }
-            
-            
-            
-            
-            
         }
         
         else {
@@ -62,19 +57,29 @@ class EditProfileViewModel: ObservableObject {
                         guard let postId = post.id else { return }
                         COLLECTION_POSTS.document(postId).updateData(["ownerUserId":userId])
                         print("DEBUG: ID update done..")
-                        
-                        //코멘트 정보 변경
-                        COLLECTION_POSTS.document(postId).collection("post-comments").whereField("uid", isEqualTo: uid).getDocuments { snapshot, _ in
-                            guard let comments = snapshot?.documents else { return }
-                            self.tempComments = comments.compactMap({ try? $0.data(as: CommentModel.self) })
-                            self.tempComments.forEach { comment in
-                                guard let commentId = comment.id else { return }
-                                COLLECTION_POSTS.document(postId).collection("post-comments").document(commentId).updateData(["userName":self.user.userID])
-                            }
+                    }
+                }
+            }
+            //코멘트 정보 변경
+            COLLECTION_POSTS.getDocuments { snapshot, _ in
+                guard let documents = snapshot?.documents else { return }
+                self.temp = documents.compactMap({ try? $0.data(as: PostModel.self) })
+                self.temp.forEach { post in
+                    guard let postId = post.id else { return }
+                    COLLECTION_POSTS.document(postId).collection("post-comments").whereField("uid", isEqualTo: uid).getDocuments { snapshot, _ in
+                        guard let comments = snapshot?.documents else { return }
+                        self.tempComments = comments.compactMap({ try? $0.data(as: CommentModel.self) })
+                        self.tempComments.forEach { comment in
+                            guard let commentId = comment.id else { return }
+                            COLLECTION_POSTS.document(postId).collection("post-comments").document(commentId).updateData(["userName":self.user.userID])
+                            print(comment.commentText)
+                            print(comment.userName)
+                            print(self.user.userID)
                         }
                     }
                 }
             }
+            
         }
         self.uploadComplete = true
     }
@@ -100,22 +105,29 @@ class EditProfileViewModel: ObservableObject {
                         COLLECTION_POSTS.document(postId)
                             .updateData(["ownerUserId":self.user.userID, "ownerImageUrl": imageUrl])
                         
-                        // 코멘트 정보도 변경
-                        COLLECTION_POSTS.document(postId).collection("post-comments").whereField("uid", isEqualTo: uid).getDocuments { snapshot, _ in
-                            guard let comments = snapshot?.documents else { return }
-                            self.tempComments = comments.compactMap({ try? $0.data(as: CommentModel.self) })
-                            self.tempComments.forEach { comment in
-                                guard let commentId = comment.id else { return }
-                                COLLECTION_POSTS.document(postId)
-                                    .collection("post-comments")
-                                    .document(commentId)
-                                    .updateData(["userName":self.user.userID, "profileImageUrl": self.user.profileImageUrl])
-                            }
-                        }
-                        
                     }
                 }
             }
+            //코멘트 변경
+            COLLECTION_POSTS.getDocuments { snapshot, _ in
+                guard let documents = snapshot?.documents else { return }
+                self.temp = documents.compactMap({ try? $0.data(as: PostModel.self) })
+                self.temp.forEach { post in
+                    guard let postId = post.id else { return }
+                    COLLECTION_POSTS.document(postId).collection("post-comments").whereField("uid", isEqualTo: uid).getDocuments { snapshot, _ in
+                        guard let comments = snapshot?.documents else { return }
+                        self.tempComments = comments.compactMap({ try? $0.data(as: CommentModel.self) })
+                        self.tempComments.forEach { comment in
+                            guard let commentId = comment.id else { return }
+                            COLLECTION_POSTS.document(postId).collection("post-comments").document(commentId).updateData(["userName":self.user.userID, "profileImageUrl": self.user.profileImageUrl])
+                            print(comment.commentText)
+                            print(comment.userName)
+                        }
+                    }
+                }
+            }
+            
+            
             let data = ["profileImageUrl": imageUrl]
             COLLECTION_USERS.document(uid).updateData(data)
             print("DEBUG: Image update done..")

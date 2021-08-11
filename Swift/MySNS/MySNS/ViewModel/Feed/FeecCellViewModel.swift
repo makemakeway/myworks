@@ -16,12 +16,14 @@ class FeedCellViewModel: ObservableObject {
         let dateFommat = ["s": "초 전", "m":"분 전", "h": "시간 전", "d": "일 전", "w": "주 전"]
         
         fommatter.allowedUnits = [.second, .minute, .hour, .day, .weekOfMonth]
-        fommatter.maximumUnitCount = 1
+        fommatter.maximumUnitCount = 5
         fommatter.unitsStyle = .abbreviated
+        
         let timestampString = fommatter.string(from: post.timestamp.dateValue(), to: Date()) ?? ""
-        let endIndex = timestampString.index(before: timestampString.endIndex)
-        let dateValue = String(timestampString[..<endIndex])
-        let dateInfo = String(timestampString[endIndex])
+        let strings = timestampString.components(separatedBy: " ")
+        let endIndex = strings[0].index(before: strings[0].endIndex)
+        let dateValue = String(strings[0][..<endIndex])
+        let dateInfo = String(strings[0][endIndex])
         return dateValue + (dateFommat[dateInfo] ?? "")
     }
     
