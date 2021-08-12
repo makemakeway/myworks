@@ -23,6 +23,8 @@ class ProfileViewModel: ObservableObject {
             NotificationViewModel.uploadNofitication(toUid: uid, type: .follow)
             self.user.isFollowed = true
         }
+        fetchUserStats()
+//        fetchUserInfo()
     }
     
     func unfollow() {
@@ -30,6 +32,8 @@ class ProfileViewModel: ObservableObject {
         UserService.unfollow(uid: uid) { _ in
             self.user.isFollowed = false
         }
+        fetchUserStats()
+//        fetchUserInfo()
     }
     
     func checkFollowed() {

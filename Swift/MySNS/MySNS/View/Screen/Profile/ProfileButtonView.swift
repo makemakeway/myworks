@@ -25,7 +25,11 @@ struct ProfileButtonView: View {
                         .background(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 0.7))
                         .padding(.horizontal)
                 })
-                .fullScreenCover(isPresented: $editMode, content: {
+                .fullScreenCover(isPresented: $editMode,
+                                 onDismiss: {
+                                    profileViewModel.fetchUserInfo()
+                                    profileViewModel.fetchUserStats()
+                                 }, content: {
                     EditProfileView(user: $profileViewModel.user)
                 })
             }

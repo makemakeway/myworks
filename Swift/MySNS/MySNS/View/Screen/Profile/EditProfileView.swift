@@ -33,7 +33,8 @@ struct EditProfileView: View {
         ZStack {
             if uploading {
                 ProgressView()
-                    .progressViewStyle(CircularProgressViewStyle())
+                    .progressViewStyle(CircularProgressViewStyle(tint: .gray))
+                    .scaleEffect(3.0)
                     
             }
             
@@ -54,6 +55,7 @@ struct EditProfileView: View {
                     Button(action: {
                         DispatchQueue.global().sync {
                             editProfileViewModel.saveUserData(bio: bio, userId: userId, userName: userName, image: selectedImage)
+                            self.uploading = true
                         }
                     },
                     label: {Text("완료").fontWeight(.bold)})
@@ -155,7 +157,9 @@ struct EditProfileView: View {
                     self.user.userName = editProfileViewModel.user.userName
                     self.user.userID = editProfileViewModel.user.userID
                     self.user.bio = editProfileViewModel.user.bio
-                    self.mode.wrappedValue.dismiss()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                        self.mode.wrappedValue.dismiss()
+                    }
                 }
         })
         }

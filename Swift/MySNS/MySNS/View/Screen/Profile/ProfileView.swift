@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ProfileView: View {
-    @StateObject var profileViewModel: ProfileViewModel
+    @ObservedObject var profileViewModel: ProfileViewModel
     @EnvironmentObject var authViewModel: AuthViewModel
     
     var throughSearch: Bool
@@ -16,7 +16,7 @@ struct ProfileView: View {
     private let width = UIScreen.main.bounds.width / 3
     
     init(user: UserModel, throughSearch: Bool) {
-        self._profileViewModel = StateObject(wrappedValue: ProfileViewModel(user: user))
+        self.profileViewModel = ProfileViewModel(user: user)
         self.throughSearch = throughSearch
     }
     
@@ -89,6 +89,7 @@ struct ProfileView: View {
             
             
         }
+        
     }
 }
 

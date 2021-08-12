@@ -72,9 +72,7 @@ class EditProfileViewModel: ObservableObject {
                         self.tempComments.forEach { comment in
                             guard let commentId = comment.id else { return }
                             COLLECTION_POSTS.document(postId).collection("post-comments").document(commentId).updateData(["userName":self.user.userID])
-                            print(comment.commentText)
-                            print(comment.userName)
-                            print(self.user.userID)
+                            
                         }
                     }
                 }
@@ -91,6 +89,7 @@ class EditProfileViewModel: ObservableObject {
         guard let uid = user.id else { return }
         
         ImageUploader.uploadImage(image: image, type: .profile) { imageUrl in
+            self.user.profileImageUrl = imageUrl
             
             
             //포스트 userid, userProfileImage를 변경해주기위해 필요한 포스트들을 불러옴
@@ -120,8 +119,6 @@ class EditProfileViewModel: ObservableObject {
                         self.tempComments.forEach { comment in
                             guard let commentId = comment.id else { return }
                             COLLECTION_POSTS.document(postId).collection("post-comments").document(commentId).updateData(["userName":self.user.userID, "profileImageUrl": self.user.profileImageUrl])
-                            print(comment.commentText)
-                            print(comment.userName)
                         }
                     }
                 }
@@ -131,7 +128,7 @@ class EditProfileViewModel: ObservableObject {
             let data = ["profileImageUrl": imageUrl]
             COLLECTION_USERS.document(uid).updateData(data)
             print("DEBUG: Image update done..")
-            self.user.profileImageUrl = imageUrl
+            
         }
     }
 }
