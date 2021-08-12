@@ -9,7 +9,7 @@ import SwiftUI
 import Kingfisher
 
 struct ProfileHeaderView: View {
-    @ObservedObject var profileViewModel: ProfileViewModel
+    @StateObject var profileViewModel: ProfileViewModel
     
     
     var body: some View {

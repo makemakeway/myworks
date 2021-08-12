@@ -11,7 +11,7 @@ import Kingfisher
 struct CommentView: View {
     @State var commentInput = ""
     @State var commentFieldClicked = false
-    @ObservedObject var commentViewModel: CommentViewModel
+    @StateObject var commentViewModel: CommentViewModel
     
     
     
@@ -50,7 +50,6 @@ struct CommentView: View {
             .padding(.all)
         }
         .navigationBarTitle(Text("댓글"), displayMode: .inline)
-        
     
     }
     func uploadComment() {

@@ -24,7 +24,7 @@ class ProfileViewModel: ObservableObject {
             self.user.isFollowed = true
         }
         fetchUserStats()
-        fetchUserInfo()
+//        fetchUserInfo()
     }
     
     func unfollow() {
@@ -33,8 +33,7 @@ class ProfileViewModel: ObservableObject {
             self.user.isFollowed = false
         }
         fetchUserStats()
-        fetchUserInfo()
-        
+//        fetchUserInfo()
     }
     
     func checkFollowed() {

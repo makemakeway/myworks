@@ -8,7 +8,7 @@ import Kingfisher
 import SwiftUI
 
 struct ProfileButtonView: View {
-    @ObservedObject var profileViewModel: ProfileViewModel
+    @StateObject var profileViewModel: ProfileViewModel
     @State var editMode: Bool = false
     
     var isFollowed: Bool { return profileViewModel.user.isFollowed ?? false }
@@ -25,7 +25,11 @@ struct ProfileButtonView: View {
                         .background(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 0.7))
                         .padding(.horizontal)
                 })
-                .fullScreenCover(isPresented: $editMode, content: {
+                .fullScreenCover(isPresented: $editMode,
+                                 onDismiss: {
+                                    profileViewModel.fetchUserInfo()
+                                    profileViewModel.fetchUserStats()
+                                 }, content: {
                     EditProfileView(user: $profileViewModel.user)
                 })
             }

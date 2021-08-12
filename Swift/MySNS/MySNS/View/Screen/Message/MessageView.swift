@@ -25,9 +25,10 @@ struct MessageView: View {
                 ScrollViewReader { scrollview in
                     VStack(alignment: .leading) {
                         //상대방 메세지는 왼쪽, 내 메세지는 오른쪽 표시
-                        ForEach(viewModel.messages) { message in
+                        ForEach(viewModel.messages, id:\.self.id) { message in
                             MessageCell(message: message)
                                 .id(message.id)
+                            
                         }
                         .onAppear() {
                             scrollview.scrollTo(viewModel.messages.last?.id, anchor: .bottom)

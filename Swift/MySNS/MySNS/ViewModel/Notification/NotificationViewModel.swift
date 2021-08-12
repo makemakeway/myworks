@@ -10,9 +10,9 @@ import Firebase
 
 class NotificationViewModel: ObservableObject {
     @Published var notifications = [NotificationModel]()
-//    init() {
-//        fetchNofitication()
-//    }
+    init() {
+        fetchNofitication()
+    }
     
     static func uploadNofitication(toUid uid: String, type: NotificationType, post: PostModel? = nil) {
         

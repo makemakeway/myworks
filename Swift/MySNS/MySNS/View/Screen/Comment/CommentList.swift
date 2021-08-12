@@ -9,7 +9,7 @@ import SwiftUI
 import Kingfisher
 
 struct CommentList: View {
-    @ObservedObject var commentViewModel: CommentViewModel
+    @StateObject var commentViewModel: CommentViewModel
     
     var body: some View {
         ScrollView {
@@ -21,6 +21,7 @@ struct CommentList: View {
                 }
             }
         }
+        
     }
 }
 

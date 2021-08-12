@@ -12,7 +12,7 @@ struct MessageList: View {
     @State private var searchInput = ""
     @State private var searchMode = false
     @StateObject var viewModel = MessageListViewModel()
-    @ObservedObject var searchViewModel = SearchViewModel()
+    @StateObject var searchViewModel = SearchViewModel()
     
     
     var body: some View {
@@ -68,27 +68,21 @@ struct MessageList: View {
                                     }
                                     .padding(.horizontal)
                                     .padding(.vertical, 6)
-                                }).id(message.id)
-                            NavigationLink(
-                                destination: EmptyView(),
-                                label: {
-                                    EmptyView()
                                 })
-                            NavigationLink(
-                                destination: EmptyView(),
-                                label: {
-                                    EmptyView()
-                                })
+                            NavigationLink(destination: EmptyView(), label: {})
                         }
                         
                     }
                     
                 }
             }
-            .onAppear() {
-                viewModel.fetchMessages()
-            }
+//            .onAppear() {
+//                viewModel.fetchMessages()
+//            }
         }
+        .onAppear(perform: {
+            viewModel.fetchMessages()
+        })
         
     }
     

@@ -31,13 +31,6 @@ struct ContentView: View {
                     
                     
                     NavigationView {
-                        Text("ShortVideoView")
-                        
-                    }
-                    .tabItem { Image(systemName: "play.rectangle") }
-                    .navigationViewStyle(StackNavigationViewStyle())
-                    
-                    NavigationView {
                         LazyView(ProfileView(user: user, throughSearch: false))
                             
                     }
