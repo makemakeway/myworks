@@ -13,13 +13,19 @@ struct ContentView: View {
     var body: some View {
         ScrollView {
             ZStack {
-                Color(.systemTeal)
+                Color(.systemIndigo)
                     .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
                 
                 VStack {
                     Spacer()
                     
                     CurrentWeather()
+                    
+                    Spacer()
+                    
+                    ForEach(webService.dailyWeather, id:\.self.dt) { daily in
+                        WeatherForecast(daily: daily)
+                    }
                     
                     Spacer()
                 }

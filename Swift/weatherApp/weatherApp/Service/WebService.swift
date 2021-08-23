@@ -14,6 +14,7 @@ class WebService: ObservableObject {
     private let locationManager = CLLocationManager()
     @Published var currentWeather: Current = Current(temp: 0, feels_like: 0, clouds: 0, wind_speed: 0, weather: [])
     @Published var currentLocation: Address = Address(depthOne: "서울", depthTwo: "구로구", depthThree: "구로동")
+    @Published var dailyWeather = [Daily]()
     
     init() {
         DispatchQueue.main.async {
@@ -22,32 +23,18 @@ class WebService: ObservableObject {
         }
     }
     
-    // MARK: API KEYS
-    private var weatherApiKey: String {
-        get {
-            guard let filePath = Bundle.main.path(forResource: "ApiKey", ofType: "plist") else {
-                fatalError("ApiKey.plist not founded.")
-            }
-            let plist = NSDictionary(contentsOfFile: filePath)
-            guard let value = plist?.object(forKey: "OPENWEATHERAPI_KEY") as? String else {
-                fatalError("Couldn't find key [OPENWEATHERAPI_KEY]")
-            }
-            return value
+    // MARK: Get API Key From plist
+    private func getApiKey(ApiKey: String) -> String {
+        guard let filePath = Bundle.main.path(forResource: "ApiKey", ofType: "plist") else {
+            fatalError("ApiKey.plist not founded.")
         }
+        let plist = NSDictionary(contentsOfFile: filePath)
+        guard let value = plist?.object(forKey: ApiKey) as? String else {
+            fatalError("Couldn't find key [\(ApiKey)]")
+        }
+        return value
     }
     
-    private var kakaoApiKey: String {
-        get {
-            guard let filePath = Bundle.main.path(forResource: "ApiKey", ofType: "plist") else {
-                fatalError("ApiKey.plist not founded")
-            }
-            let plist = NSDictionary(contentsOfFile: filePath)
-            guard let value = plist?.object(forKey: "KAKAOAPI_KEY") as? String else {
-                fatalError("Couldn't find key [KAKAOAPI_KEY]")
-            }
-            return value
-        }
-    }
     
     // MARK: GET X, Y Position
     func getLatAndLon() -> [Double?] {
@@ -70,10 +57,12 @@ class WebService: ObservableObject {
     
     func getWeather() {
         let gps = getLatAndLon()
+        let apiKey = getApiKey(ApiKey: "OPENWEATHERAPI_KEY")
         guard let lat = gps[0] else { fatalError("latitude nil..") }
         guard let lon = gps[1] else { fatalError("longtitude nil..") }
         
-        let urlString = "https://api.openweathermap.org/data/2.5/onecall?lat=\(lat)&lon=\(lon)&exclude=minutely,alert,hourly,daily&appid=\(weatherApiKey)"
+        
+        let urlString = "https://api.openweathermap.org/data/2.5/onecall?lat=\(lat)&lon=\(lon)&exclude=minutely,alert,hourly&appid=\(apiKey)&units=metric"
         AF.request(urlString, method: .get, encoding: URLEncoding.default)
             .validate()
             .responseJSON { response in
@@ -84,10 +73,7 @@ class WebService: ObservableObject {
                         let decoder = JSONDecoder()
                         let json = try decoder.decode(WeatherResponse.self, from: data)
                         self.currentWeather = json.current
-                        // MARK: Kelvin to Celsius
-                        self.currentWeather.temp = round(self.currentWeather.temp - 273.15)
-                        self.currentWeather.feels_like = round(self.currentWeather.feels_like - 273.15)
-                        
+                        self.dailyWeather = json.daily
                         print(json)
                     } catch {
                         print(error)
@@ -101,11 +87,12 @@ class WebService: ObservableObject {
     
     func getLocation() {
         let gps = getLatAndLon()
+        let apiKey = getApiKey(ApiKey: "KAKAOAPI_KEY")
         guard let lat = gps[0] else { return }
         guard let lon = gps[1] else { return }
         
         let urlString = "https://dapi.kakao.com/v2/local/geo/coord2address.json?x=\(lon)&y=\(lat)&input_coord=WGS84"
-        let headers: HTTPHeaders = ["Authorization":"KakaoAK \(kakaoApiKey)"]
+        let headers: HTTPHeaders = ["Authorization":"KakaoAK \(apiKey)"]
         AF.request(urlString,
                    method: .get,
                    parameters: nil,
