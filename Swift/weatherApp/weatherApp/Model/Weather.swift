@@ -10,10 +10,11 @@ import Foundation
 struct WeatherResponse: Codable {
     let current: Current
     let daily: [Daily]
-    
+    let hourly: [Hourly]
     private enum CodingKeys: String, CodingKey {
         case current = "current"
         case daily = "daily"
+        case hourly = "hourly"
     }
 }
 
@@ -23,15 +24,27 @@ struct Current: Codable {
     let clouds: Int
     let wind_speed: Double
     let weather: [Weather]
-    
+    var sunrise: Double
+    var sunset: Double
+    var pressure: Int
+    var uvi: Double
+    var humidity: Int
+    var visibility: Int
     private enum CodingKeys: String, CodingKey {
         case temp = "temp"
         case feels_like = "feels_like"
         case clouds = "clouds"
         case wind_speed = "wind_speed"
         case weather = "weather"
+        case sunrise = "sunrise"
+        case sunset = "sunset"
+        case pressure = "pressure"
+        case uvi = "uvi"
+        case humidity = "humidity"
+        case visibility = "visibility"
     }
 }
+
 
 struct Daily: Codable {
     var dt: Double
@@ -56,6 +69,18 @@ struct DailyTemp: Codable {
     private enum CodingKeys: String, CodingKey {
         case minTemp = "min"
         case maxTemp = "max"
+    }
+}
+
+struct Hourly: Codable {
+    var dt: Double
+    var temp: Double
+    var weather: [Weather]
+    
+    private enum CodingKeys: String, CodingKey {
+        case dt = "dt"
+        case temp = "temp"
+        case weather = "weather"
     }
 }
 

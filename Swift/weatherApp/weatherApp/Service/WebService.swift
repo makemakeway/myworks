@@ -11,10 +11,13 @@ import CoreLocation
 import Alamofire
 
 class WebService: ObservableObject {
-    private let locationManager = CLLocationManager()
-    @Published var currentWeather: Current = Current(temp: 0, feels_like: 0, clouds: 0, wind_speed: 0, weather: [])
+    let locationManager = CLLocationManager()
+    
+    @Published var currentWeather: Current = Current(temp: 0, feels_like: 0, clouds: 0, wind_speed: 0, weather: [], sunrise: 0, sunset: 0, pressure: 0, uvi: 0, humidity: 0, visibility: 0)
     @Published var currentLocation: Address = Address(depthOne: "서울", depthTwo: "구로구", depthThree: "구로동")
     @Published var dailyWeather = [Daily]()
+    @Published var hourlyWeather = [Hourly]()
+    @Published private var hasPermission = false
     
     init() {
         DispatchQueue.main.async {
@@ -35,22 +38,30 @@ class WebService: ObservableObject {
         return value
     }
     
-    
     // MARK: GET X, Y Position
     func getLatAndLon() -> [Double?] {
         locationManager.requestWhenInUseAuthorization()
         
-        if CLLocationManager.locationServicesEnabled() {
+        switch locationManager.authorizationStatus {
+        case .authorizedWhenInUse, .authorizedAlways:
+            print("권한 있음")
+            self.hasPermission = true
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
             locationManager.startUpdatingLocation()
-        } else {
-            UIControl().sendAction(#selector(URLSessionTask.suspend), to: UIApplication.shared, for: nil)
+            guard let coor = locationManager.location?.coordinate else { fatalError("coordinate failed..") }
+            let lat = coor.latitude
+            let lon = coor.longitude
+            return [lat, lon]
+        case .notDetermined:
+            print("아직 선택되지않음")
+            self.hasPermission = false
+        case .denied, .restricted:
+            print("권한 요청 거부당함")
+            self.hasPermission = false
+        default:
+            break
         }
-        guard let coor = locationManager.location?.coordinate else { fatalError("coordinate failed..") }
-        let lat = coor.latitude
-        let lon = coor.longitude
-        print(lat, lon)
-        return [lat, lon]
+        return [36.35111, 127.38500]
     }
     
     // MARK: API CALLS
@@ -62,7 +73,7 @@ class WebService: ObservableObject {
         guard let lon = gps[1] else { fatalError("longtitude nil..") }
         
         
-        let urlString = "https://api.openweathermap.org/data/2.5/onecall?lat=\(lat)&lon=\(lon)&exclude=minutely,alert,hourly&appid=\(apiKey)&units=metric"
+        let urlString = "https://api.openweathermap.org/data/2.5/onecall?lat=\(lat)&lon=\(lon)&exclude=minutely,alert&appid=\(apiKey)&units=metric"
         AF.request(urlString, method: .get, encoding: URLEncoding.default)
             .validate()
             .responseJSON { response in
@@ -74,7 +85,7 @@ class WebService: ObservableObject {
                         let json = try decoder.decode(WeatherResponse.self, from: data)
                         self.currentWeather = json.current
                         self.dailyWeather = json.daily
-                        print(json)
+                        self.hourlyWeather = json.hourly
                     } catch {
                         print(error)
                     }

@@ -12,25 +12,25 @@ import Kingfisher
 struct WeatherForecast: View {
     let daily: Daily
     let time: Date
-    let formatter = DateFormatter()
     let calender = Calendar.current
-    let month: Int
-    let day: Int
     let icon: String?
     let weatherImage = WeatherImage()
+    let whatDay: String
     
     init(daily: Daily) {
+        let formatter = DateFormatter()
         self.daily = daily
         self.time = Date(timeIntervalSince1970: daily.dt)
-        self.month = calender.component(.month, from: time)
-        self.day = calender.component(.day, from: time)
+        formatter.dateFormat = "EEEE"
+        formatter.locale = Locale(identifier: "ko_KR")
+        self.whatDay = formatter.string(from: time)
         self.icon = self.daily.weather.first?.icon
     }
     
     var body: some View {
         VStack(alignment: .leading){
             HStack {
-                Text("\(month)/\(day)")
+                Text("\(whatDay)")
                     .foregroundColor(.white)
                 
                 Spacer()
@@ -43,13 +43,14 @@ struct WeatherForecast: View {
                 
                 Spacer()
                     
-                Text("\(Int(round(daily.temp.maxTemp)))")
+                Text("\(Int(daily.temp.maxTemp))")
                     .foregroundColor(.white)
                 
-                Text("\(Int(round(daily.temp.minTemp)))")
+                Text("\(Int(daily.temp.minTemp))")
                     .foregroundColor(.orange)
             }
             .font(.system(size: 20, weight: .medium))
+            .padding(.horizontal)
         }
         
     }
