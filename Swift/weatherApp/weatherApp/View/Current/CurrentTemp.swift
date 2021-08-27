@@ -29,9 +29,3 @@ struct CurrentTemp: View {
         
     }
 }
-
-struct CurrentTemp_Previews: PreviewProvider {
-    static var previews: some View {
-        CurrentTemp()
-    }
-}
