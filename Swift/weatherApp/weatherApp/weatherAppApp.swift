@@ -29,7 +29,7 @@ struct weatherAppApp: App {
                     case .inactive:
                         print("app is inactive")
                     @unknown default:
-                        print("Oh - interesting: I received an unexpected new value.")
+                        print("unexpected value.")
                     }
                 }
         }
