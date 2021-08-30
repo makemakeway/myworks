@@ -9,7 +9,14 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var webService: WebService
+    @State var offset: CGFloat = 0
+    @State var scrollUp: Double = 100.0
     
+    func getTitleOffset() -> CGFloat {
+        let progress = offset/120
+        let newOffset = (progress <= 1.0 ? progress : 1) * 20
+        return newOffset
+    }
     
     var body: some View {
         
@@ -17,9 +24,20 @@ struct ContentView: View {
             ZStack {
                 Color(.systemIndigo)
                 
-                ScrollView {
+                ScrollView(.vertical, showsIndicators: false) {
                     VStack {
                         CurrentWeather()
+                            .offset(y: -offset)
+                            .offset(y: offset > 0 ? (offset / UIScreen.main.bounds.width) * 100 : 0)
+                            .offset(y: self.getTitleOffset())
+                        
+                        
+                        
+                        withAnimation {
+                            CurrentTemp()
+                                .opacity((Double(self.offset) + self.scrollUp) / 100)
+                        }
+                        
                         
                         CustomBorder(borderwidth: geometry.size.width, borderheight: 0.4)
                         
@@ -33,7 +51,6 @@ struct ContentView: View {
                             }
                             .padding(.horizontal)
                         }
-                        
                         
                         CustomBorder(borderwidth: geometry.size.width, borderheight: 0.4)
                         
@@ -52,6 +69,18 @@ struct ContentView: View {
                     }
                     .padding(.vertical, 50)
                     .frame(width: geometry.size.width)
+                    .overlay(
+                        GeometryReader { proxy -> Color in
+                            let minY = proxy.frame(in: .global).minY
+                            
+                            DispatchQueue.main.async {
+                                self.offset = minY
+                                print(self.offset)
+                            }
+                            
+                            return Color.clear
+                        }
+                    )
                 }
             }
             .edgesIgnoringSafeArea(.all)
