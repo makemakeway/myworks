@@ -1,0 +1,357 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		FF1ADE032680926600403BD2 /* CandySearchSwiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1ADE022680926600403BD2 /* CandySearchSwiftUIApp.swift */; };
+		FF1ADE052680926600403BD2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1ADE042680926600403BD2 /* ContentView.swift */; };
+		FF1ADE072680926800403BD2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF1ADE062680926800403BD2 /* Assets.xcassets */; };
+		FF1ADE0A2680926800403BD2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF1ADE092680926800403BD2 /* Preview Assets.xcassets */; };
+		FF1ADE13268092A400403BD2 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1ADE12268092A400403BD2 /* SearchBar.swift */; };
+		FF1ADE162680A85700403BD2 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1ADE152680A85700403BD2 /* Search.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		FF1ADDFF2680926600403BD2 /* CandySearchSwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CandySearchSwiftUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FF1ADE022680926600403BD2 /* CandySearchSwiftUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandySearchSwiftUIApp.swift; sourceTree = "<group>"; };
+		FF1ADE042680926600403BD2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		FF1ADE062680926800403BD2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		FF1ADE092680926800403BD2 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		FF1ADE0B2680926800403BD2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FF1ADE12268092A400403BD2 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		FF1ADE152680A85700403BD2 /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		FF1ADDFC2680926600403BD2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		FF1ADDF62680926600403BD2 = {
+			isa = PBXGroup;
+			children = (
+				FF1ADE012680926600403BD2 /* CandySearchSwiftUI */,
+				FF1ADE002680926600403BD2 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		FF1ADE002680926600403BD2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FF1ADDFF2680926600403BD2 /* CandySearchSwiftUI.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FF1ADE012680926600403BD2 /* CandySearchSwiftUI */ = {
+			isa = PBXGroup;
+			children = (
+				FF1ADE142680A39E00403BD2 /* Util */,
+				FF1ADE112680928900403BD2 /* View */,
+				FF1ADE022680926600403BD2 /* CandySearchSwiftUIApp.swift */,
+				FF1ADE042680926600403BD2 /* ContentView.swift */,
+				FF1ADE062680926800403BD2 /* Assets.xcassets */,
+				FF1ADE0B2680926800403BD2 /* Info.plist */,
+				FF1ADE082680926800403BD2 /* Preview Content */,
+			);
+			path = CandySearchSwiftUI;
+			sourceTree = "<group>";
+		};
+		FF1ADE082680926800403BD2 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				FF1ADE092680926800403BD2 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		FF1ADE112680928900403BD2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FF1ADE12268092A400403BD2 /* SearchBar.swift */,
+				FF1ADE152680A85700403BD2 /* Search.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		FF1ADE142680A39E00403BD2 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		FF1ADDFE2680926600403BD2 /* CandySearchSwiftUI */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FF1ADE0E2680926800403BD2 /* Build configuration list for PBXNativeTarget "CandySearchSwiftUI" */;
+			buildPhases = (
+				FF1ADDFB2680926600403BD2 /* Sources */,
+				FF1ADDFC2680926600403BD2 /* Frameworks */,
+				FF1ADDFD2680926600403BD2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CandySearchSwiftUI;
+			productName = CandySearchSwiftUI;
+			productReference = FF1ADDFF2680926600403BD2 /* CandySearchSwiftUI.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		FF1ADDF72680926600403BD2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1250;
+				LastUpgradeCheck = 1250;
+				TargetAttributes = {
+					FF1ADDFE2680926600403BD2 = {
+						CreatedOnToolsVersion = 12.5;
+					};
+				};
+			};
+			buildConfigurationList = FF1ADDFA2680926600403BD2 /* Build configuration list for PBXProject "CandySearchSwiftUI" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = FF1ADDF62680926600403BD2;
+			productRefGroup = FF1ADE002680926600403BD2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				FF1ADDFE2680926600403BD2 /* CandySearchSwiftUI */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		FF1ADDFD2680926600403BD2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FF1ADE0A2680926800403BD2 /* Preview Assets.xcassets in Resources */,
+				FF1ADE072680926800403BD2 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		FF1ADDFB2680926600403BD2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FF1ADE052680926600403BD2 /* ContentView.swift in Sources */,
+				FF1ADE162680A85700403BD2 /* Search.swift in Sources */,
+				FF1ADE032680926600403BD2 /* CandySearchSwiftUIApp.swift in Sources */,
+				FF1ADE13268092A400403BD2 /* SearchBar.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		FF1ADE0C2680926800403BD2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		FF1ADE0D2680926800403BD2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		FF1ADE0F2680926800403BD2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"CandySearchSwiftUI/Preview Content\"";
+				DEVELOPMENT_TEAM = H3V637RY5A;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = CandySearchSwiftUI/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = kr.yeonpark.CandySearchSwiftUI;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		FF1ADE102680926800403BD2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"CandySearchSwiftUI/Preview Content\"";
+				DEVELOPMENT_TEAM = H3V637RY5A;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = CandySearchSwiftUI/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = kr.yeonpark.CandySearchSwiftUI;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		FF1ADDFA2680926600403BD2 /* Build configuration list for PBXProject "CandySearchSwiftUI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FF1ADE0C2680926800403BD2 /* Debug */,
+				FF1ADE0D2680926800403BD2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FF1ADE0E2680926800403BD2 /* Build configuration list for PBXNativeTarget "CandySearchSwiftUI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FF1ADE0F2680926800403BD2 /* Debug */,
+				FF1ADE102680926800403BD2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = FF1ADDF72680926600403BD2 /* Project object */;
+}

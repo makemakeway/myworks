@@ -42,8 +42,5 @@ struct ProfileHeaderView: View {
             Spacer()
         }
         .padding()
-//        .onAppear {
-//            profileViewModel.fetchUserStats()
-//        }
     }
 }
