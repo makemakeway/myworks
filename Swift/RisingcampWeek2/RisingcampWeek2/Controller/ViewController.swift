@@ -65,17 +65,11 @@ class ViewController: UIViewController {
         calendar.dataSource = self
         
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("viewWillAppear")
         self.calendar.reloadData()
         setCalendar()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        print("viewDidAppear")
-        
     }
 
 }

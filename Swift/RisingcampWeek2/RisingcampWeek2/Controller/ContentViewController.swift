@@ -55,9 +55,10 @@ class ContentViewController: UIViewController {
         }
         
         // userDefault에 데이터 저장
-        defaults.setValue(try? PropertyListEncoder().encode(data), forKey: "\(self.selectedDate.text!)")
         
+        defaults.setValue(try? PropertyListEncoder().encode(data), forKey: "\(self.selectedDate.text!)")
         dismiss(animated: true, completion: nil)
+        
     }
     
     func loadData() {

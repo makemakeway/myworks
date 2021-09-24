@@ -10,22 +10,46 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
+    var appSwitcherView: UIView?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-//        guard let windowScene = (scene as? UIWindowScene) else { return }
-//        window = UIWindow(windowScene: windowScene)
-//        
-//        let vc = ViewController()
-//        window?.rootViewController = vc
-//        window?.makeKeyAndVisible()
-//        
-//        vc.checkFirst()
+        
     }
 
+    // 현재 보고 있는 뷰의 스크린샷을 만드는 함수
+    func createScreenshotOfCurrentContext() -> UIImage? {
+        UIGraphicsBeginImageContext(self.window?.screen.bounds.size ?? CGSize())
+        guard let currentContext = UIGraphicsGetCurrentContext() else {
+            return nil
+        }
+            
+        self.window?.layer.render(in: currentContext)
+            
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+            
+        UIGraphicsEndImageContext()
+            
+        return image
+    }
+    
+    // 가우시안블러 효과를 적용시키는 함수
+    func applyGaussianBlur(on image: UIImage, withBlurFactor blurFactor : CGFloat) -> UIImage? {
+        guard let inputImage = CIImage(image: image) else {
+            return nil
+        }
+            
+        // Add a comment where to find documentation for that
+        let gaussianFilter = CIFilter(name: "CIGaussianBlur")
+            gaussianFilter?.setValue(inputImage, forKey: kCIInputImageKey)
+            gaussianFilter?.setValue(blurFactor, forKey: kCIInputRadiusKey)
+            
+        guard let outputImage = gaussianFilter?.outputImage else {
+            return nil
+        }
+            
+        return UIImage(ciImage: outputImage)
+    }
+    
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
         // This occurs shortly after the scene enters the background, or when its session is discarded.
@@ -34,13 +58,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
-        // Called when the scene has moved from an inactive state to an active state.
-        // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
+        appSwitcherView?.removeFromSuperview()
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
-        // Called when the scene will move from an active state to an inactive state.
-        // This may occur due to temporary interruptions (ex. an incoming phone call).
+        
+        let placeholder = UIImage(named: "placeholder")
+        appSwitcherView = UIImageView(image: placeholder)
+        appSwitcherView?.frame = window?.frame ?? CGRect(x: 0, y: 0, width: 0, height: 0)
+        self.window?.addSubview(appSwitcherView!)
+        
+//        // First apply the Gaussian blur on the screenshot of the current view.
+//        let blurredImage = applyGaussianBlur(on: createScreenshotOfCurrentContext() ?? UIImage(), withBlurFactor: 4.5)
+//        // Create the UIImageView for the blurred screenshot.
+//        appSwitcherView = UIImageView(image: blurredImage)
+//        // Set it as the current screen
+//        self.window?.addSubview(appSwitcherView!)
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
