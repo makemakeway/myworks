@@ -12,6 +12,19 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var calendar: FSCalendar!
     @IBOutlet weak var headerLabel: UILabel!
+    @IBOutlet weak var happyTotal: UILabel!
+    @IBOutlet weak var delightTotal: UILabel!
+    @IBOutlet weak var sadTotal: UILabel!
+    @IBOutlet weak var madTotal: UILabel!
+    @IBOutlet weak var tiredTotal: UILabel!
+    @IBOutlet weak var sosoTotal: UILabel!
+    var happy: Int = 0
+    var soso: Int = 0
+    var delight: Int = 0
+    var sad: Int = 0
+    var mad: Int = 0
+    var tired: Int = 0
+    
     
     private lazy var dateFormatter: DateFormatter = {
         let df = DateFormatter()
@@ -47,7 +60,6 @@ class ViewController: UIViewController {
         dateComponents.month = isPrev ? -1 : 1
         self.currentPage = cal.date(byAdding: dateComponents, to: self.currentPage ?? self.today)
         self.calendar.setCurrentPage(self.currentPage!, animated: true)
-        
     }
     
     override func viewDidLayoutSubviews() {
@@ -70,19 +82,45 @@ class ViewController: UIViewController {
         super.viewWillAppear(animated)
         self.calendar.reloadData()
         setCalendar()
+        setTotalDefault()
     }
-
-}
-
-extension ViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
     
-    // currentPage가 바뀔 때, 헤더 라벨도 수정
-    func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
-        self.headerLabel.text = self.dateFormatter.string(from: calendar.currentPage)
+    override func viewWillLayoutSubviews() {
         
     }
     
+
+    func countTotal() -> Void {
+        print("countTotal")
+        self.tiredTotal.text = String(self.tired)
+        self.sadTotal.text = String(self.soso)
+        self.madTotal.text = String(self.mad)
+        self.happyTotal.text = String(self.sad)
+        self.sosoTotal.text = String(self.happy)
+        self.delightTotal.text = String(self.delight)
+        return
+    }
     
+    func setTotalDefault() {
+        print("setDefalut")
+        self.tired = 0
+        self.soso = 0
+        self.mad = 0
+        self.sad = 0
+        self.happy = 0
+        self.delight = 0
+        
+        self.tiredTotal.text = String(self.tired)
+        self.sadTotal.text = String(self.soso)
+        self.madTotal.text = String(self.mad)
+        self.happyTotal.text = String(self.sad)
+        self.sosoTotal.text = String(self.happy)
+        self.delightTotal.text = String(self.delight)
+    }
+}
+
+extension ViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
+
     func setCalendar() {
         calendar.heightAnchor.constraint(equalToConstant: self.view.frame.size.height / 2).isActive = true
         calendar.headerHeight = 0
@@ -93,11 +131,14 @@ extension ViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDe
         calendar.appearance.borderSelectionColor = .systemOrange
         calendar.appearance.selectionColor = .clear
         calendar.appearance.titleSelectionColor = .systemOrange
-        calendar.appearance.titleTodayColor = .black
+        calendar.appearance.titleDefaultColor = .label
         calendar.appearance.titleWeekendColor = .systemPink
-        calendar.appearance.weekdayTextColor = .darkGray
+        calendar.appearance.weekdayTextColor = .systemIndigo
+        calendar.appearance.weekdayFont = UIFont(name: "Helvetica-Medium", size: 16)
         calendar.appearance.titleFont = UIFont.systemFont(ofSize: 20, weight: .bold)
         calendar.appearance.todayColor = .clear
+        calendar.appearance.titleTodayColor = .label
+        calendar.scrollEnabled = false
     }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
@@ -109,7 +150,6 @@ extension ViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDe
     }
     
     
-    
     func calendar(_ calendar: FSCalendar, subtitleFor date: Date) -> String? {
         if dfForBackgrond.string(from: date) == dfForBackgrond.string(from: Date()) {
             calendar.appearance.subtitleTodayColor = .gray
@@ -118,33 +158,33 @@ extension ViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDe
         return nil
     }
     
-    
-    
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillDefaultColorFor date: Date) -> UIColor? {
         if let data = UserDefaults.standard.value(forKey: "\(dfForBackgrond.string(from: date))") as? Data {
             self.data = try? PropertyListDecoder().decode(DiaryData.self, from: data)
             switch self.data?.feeling.last {
             case "😐":
-                print("평범한 감정 \(date)")
+                self.soso += 1
+                self.sosoTotal.text = String(self.soso)
                 return UIColor(named: "평범")
-            
             case "😢":
-                print("슬픈 감정 \(date)")
+                self.sad += 1
+                self.sadTotal.text = String(self.sad)
                 return UIColor(named: "슬픔")
             case "😡":
-                print("화난 감정 \(date)")
+                self.mad += 1
+                self.madTotal.text = String(self.mad)
                 return UIColor(named: "분노")
-                
             case "🥰":
-                print("행복한 감정 \(date)")
+                self.happy += 1
+                self.happyTotal.text = String(self.happy)
                 return UIColor(named: "행복")
-                
             case "😊":
-                print("즐거운 감정 \(date)")
+                self.delight += 1
+                self.delightTotal.text = String(self.delight)
                 return UIColor(named: "즐거움")
-                
             case "😩":
-                print("괴로운 감정 \(date)")
+                self.tired += 1
+                self.tiredTotal.text = String(self.tired)
                 return UIColor(named: "괴로움")
             default:
                 return nil
@@ -153,38 +193,37 @@ extension ViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDe
         return nil
     }
     
-    
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillSelectionColorFor date: Date) -> UIColor? {
         if let data = UserDefaults.standard.value(forKey: "\(dfForBackgrond.string(from: date))") as? Data {
             self.data = try? PropertyListDecoder().decode(DiaryData.self, from: data)
             switch self.data?.feeling.last {
             case "😐":
-                print("평범한 감정 \(date)")
                 return UIColor(named: "평범")
-            
             case "😢":
-                print("슬픈 감정 \(dfForBackgrond.string(from: date))")
                 return UIColor(named: "슬픔")
             case "😡":
-                print("화난 감정 \(date)")
                 return UIColor(named: "분노")
                 
             case "🥰":
-                print("행복한 감정 \(date)")
                 return UIColor(named: "행복")
                 
             case "😊":
-                print("즐거운 감정 \(date)")
                 return UIColor(named: "즐거움")
                 
             case "😩":
-                print("괴로운 감정 \(date)")
                 return UIColor(named: "괴로움")
             default:
                 return nil
             }
         }
         return nil
+    }
+    
+    // currentPage가 바뀔 때, 헤더 라벨도 수정
+    func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
+        self.headerLabel.text = self.dateFormatter.string(from: calendar.currentPage)
+        print("scroll")
+        setTotalDefault()
     }
     
 }

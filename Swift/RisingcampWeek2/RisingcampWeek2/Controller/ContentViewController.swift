@@ -22,7 +22,18 @@ class ContentViewController: UIViewController {
     }
     
     @IBAction func goToPerv(_ sender: UIButton) {
-        dismiss(animated: true, completion: nil)
+        if !self.content.text.isEmpty && self.selectedFeeling.text?.last != "!" {
+            let alert = UIAlertController(title: nil, message: "일기를 작성중입니다. 작성을 취소하시겠습니까?", preferredStyle: .alert)
+            let okButton = UIAlertAction(title: "예", style: .default) { _ in
+                self.dismiss(animated: true, completion: nil)
+            }
+            let cancelButton = UIAlertAction(title: "아니오", style: .default, handler: nil)
+            alert.addAction(okButton)
+            alert.addAction(cancelButton)
+            return self.present(alert, animated: true, completion: nil)
+        } else {
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
     @IBAction func setTodefalut(_ sender: Any) {
@@ -32,8 +43,9 @@ class ContentViewController: UIViewController {
             self.content.text = ""
             UserDefaults.standard.removeObject(forKey: "\(self.selectedDate.text!)")
             self.placeholderSetting()
+            self.dismiss(animated: true)
         }
-        let cancelButton = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+        let cancelButton = UIAlertAction(title: "취소", style: .default)
         alert.addAction(okButton)
         alert.addAction(cancelButton)
         
@@ -103,6 +115,12 @@ class ContentViewController: UIViewController {
         }
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        
+    }
+    
 }
 
 extension ContentViewController: UITextViewDelegate {
@@ -120,4 +138,27 @@ extension ContentViewController: UITextViewDelegate {
             self.placeholder.isHidden = true
         }
     }
+}
+
+extension ContentViewController {
+    class var activityType: String {
+        let activityType = ""
+        if let activityTypes = Bundle.main.infoDictionary?["NSUserActivityTypes"] {
+            if let activityArray = activityTypes as? [String] {
+                return activityArray[0]
+            }
+            
+        }
+        return activityType
+
+    }
+    
+    var detailUserActivity: NSUserActivity {
+        let userActivity = NSUserActivity(activityType: ContentViewController.activityType)
+        userActivity.title = "Restore Item"
+        
+        userActivity.addUserInfoEntries(from: ["title": self.title])
+        return userActivity
+    }
+    
 }

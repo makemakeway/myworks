@@ -30,17 +30,18 @@ struct Current: Codable {
     var uvi: Double
     var humidity: Int
     var visibility: Int
+    
     private enum CodingKeys: String, CodingKey {
-        case temp = "temp"
+        case temp       = "temp"
         case feels_like = "feels_like"
-        case clouds = "clouds"
+        case clouds     = "clouds"
         case wind_speed = "wind_speed"
-        case weather = "weather"
-        case sunrise = "sunrise"
-        case sunset = "sunset"
-        case pressure = "pressure"
-        case uvi = "uvi"
-        case humidity = "humidity"
+        case weather    = "weather"
+        case sunrise    = "sunrise"
+        case sunset     = "sunset"
+        case pressure   = "pressure"
+        case uvi        = "uvi"
+        case humidity   = "humidity"
         case visibility = "visibility"
     }
 }
@@ -54,11 +55,11 @@ struct Daily: Codable {
     var weather: [Weather]
     
     private enum CodingKeys: String, CodingKey {
-        case dt = "dt"
-        case sunrise = "sunrise"
-        case sunset = "sunset"
-        case temp = "temp"
-        case weather = "weather"
+        case dt         = "dt"
+        case sunrise    = "sunrise"
+        case sunset     = "sunset"
+        case temp       = "temp"
+        case weather    = "weather"
     }
 }
 
@@ -67,8 +68,8 @@ struct DailyTemp: Codable {
     var maxTemp: Double
     
     private enum CodingKeys: String, CodingKey {
-        case minTemp = "min"
-        case maxTemp = "max"
+        case minTemp    = "min"
+        case maxTemp    = "max"
     }
 }
 
@@ -78,9 +79,9 @@ struct Hourly: Codable {
     var weather: [Weather]
     
     private enum CodingKeys: String, CodingKey {
-        case dt = "dt"
-        case temp = "temp"
-        case weather = "weather"
+        case dt         = "dt"
+        case temp       = "temp"
+        case weather    = "weather"
     }
 }
 
@@ -90,8 +91,8 @@ struct Weather: Codable {
     let icon: String
     
     private enum CodingKeys: String, CodingKey {
-        case main = "main"
-        case description = "description"
-        case icon = "icon"
+        case main           = "main"
+        case description    = "description"
+        case icon               = "icon"
     }
 }

@@ -35,7 +35,7 @@ class TutorialContentsViewController: UIViewController {
         let images = tutorial.contentImages
         let manuals = tutorial.contentManual
         
-        for x in 0..<4 {
+        for x in 0..<5 {
             let pageView = UIView(frame: CGRect(x: CGFloat(x) * placeholerView.frame.size.width, y: 0, width: placeholerView.frame.size.width, height: placeholerView.frame.size.height))
             scrollView.addSubview(pageView)
             
@@ -69,20 +69,20 @@ class TutorialContentsViewController: UIViewController {
             button.layer.cornerRadius = 20
             button.tag = x+1
             
-            if x != 3 {
+            if x != 4 {
                 button.setTitle("다음", for: .normal)
             } else {
                 button.setTitle("시작하기", for: .normal)
             }
             pageView.addSubview(button)
         }
-        scrollView.contentSize = CGSize(width: placeholerView.frame.size.width * 4, height: 0)
+        scrollView.contentSize = CGSize(width: placeholerView.frame.size.width * 5, height: 0)
         scrollView.isPagingEnabled = true
         scrollView.showsHorizontalScrollIndicator = false
     }
     
     @objc func didTapButton(_ button: UIButton) {
-        guard button.tag < 4 else {
+        guard button.tag < 5 else {
             Tutorial.shared.setTutorialCompleted()
             dismiss(animated: true, completion: nil)
             return

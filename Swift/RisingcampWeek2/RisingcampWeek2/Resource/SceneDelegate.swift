@@ -12,6 +12,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
     var appSwitcherView: UIView?
 
+    
+    
+
+    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
     }
@@ -68,12 +72,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         appSwitcherView?.frame = window?.frame ?? CGRect(x: 0, y: 0, width: 0, height: 0)
         self.window?.addSubview(appSwitcherView!)
         
-//        // First apply the Gaussian blur on the screenshot of the current view.
-//        let blurredImage = applyGaussianBlur(on: createScreenshotOfCurrentContext() ?? UIImage(), withBlurFactor: 4.5)
-//        // Create the UIImageView for the blurred screenshot.
-//        appSwitcherView = UIImageView(image: blurredImage)
-//        // Set it as the current screen
-//        self.window?.addSubview(appSwitcherView!)
+        if let navController = window!.rootViewController as? UINavigationController {
+            if let detailViewController = navController.viewControllers.last as? ContentViewController {
+                scene.userActivity = detailViewController.detailUserActivity
+                
+            }
+        }
+
+        
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
@@ -90,3 +96,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 }
 
+extension SceneDelegate {
+    func stateRestorationActivity(for scene: UIScene) -> NSUserActivity? {
+        return scene.userActivity
+        
+    }
+}

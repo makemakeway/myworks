@@ -16,7 +16,6 @@
 		FF5CACF726F5D7A9004D7D50 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = FF5CACF626F5D7A9004D7D50 /* FSCalendar */; };
 		FF5CACF926F5D7D8004D7D50 /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5CACF826F5D7D8004D7D50 /* ContentViewController.swift */; };
 		FF5CACFD26F5E56B004D7D50 /* DiaryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5CACFC26F5E56B004D7D50 /* DiaryData.swift */; };
-		FFFB732626FA338B004586E8 /* TutorialMasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFFB732526FA338B004586E8 /* TutorialMasterViewController.swift */; };
 		FFFB732826FA39DB004586E8 /* TutorialContentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFFB732726FA39DB004586E8 /* TutorialContentsViewController.swift */; };
 		FFFB732A26FB5508004586E8 /* Tutorial.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFFB732926FB5508004586E8 /* Tutorial.swift */; };
 /* End PBXBuildFile section */
@@ -32,7 +31,6 @@
 		FF5CACEF26F5D75E004D7D50 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FF5CACF826F5D7D8004D7D50 /* ContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
 		FF5CACFC26F5E56B004D7D50 /* DiaryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryData.swift; sourceTree = "<group>"; };
-		FFFB732526FA338B004586E8 /* TutorialMasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialMasterViewController.swift; sourceTree = "<group>"; };
 		FFFB732726FA39DB004586E8 /* TutorialContentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialContentsViewController.swift; sourceTree = "<group>"; };
 		FFFB732926FB5508004586E8 /* Tutorial.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tutorial.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -82,7 +80,6 @@
 			children = (
 				FF5CACE526F5D75C004D7D50 /* ViewController.swift */,
 				FF5CACF826F5D7D8004D7D50 /* ContentViewController.swift */,
-				FFFB732526FA338B004586E8 /* TutorialMasterViewController.swift */,
 				FFFB732726FA39DB004586E8 /* TutorialContentsViewController.swift */,
 			);
 			path = Controller;
@@ -198,7 +195,6 @@
 				FFFB732A26FB5508004586E8 /* Tutorial.swift in Sources */,
 				FFFB732826FA39DB004586E8 /* TutorialContentsViewController.swift in Sources */,
 				FF5CACE226F5D75C004D7D50 /* AppDelegate.swift in Sources */,
-				FFFB732626FA338B004586E8 /* TutorialMasterViewController.swift in Sources */,
 				FF5CACE426F5D75C004D7D50 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
