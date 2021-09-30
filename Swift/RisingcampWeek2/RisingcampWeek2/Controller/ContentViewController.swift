@@ -67,7 +67,6 @@ class ContentViewController: UIViewController {
         }
         
         // userDefault에 데이터 저장
-        
         defaults.setValue(try? PropertyListEncoder().encode(data), forKey: "\(self.selectedDate.text!)")
         dismiss(animated: true, completion: nil)
         
@@ -123,6 +122,8 @@ class ContentViewController: UIViewController {
     
 }
 
+
+// MARK: 텍스트뷰 설정
 extension ContentViewController: UITextViewDelegate {
     
     func placeholderSetting() {
@@ -138,27 +139,4 @@ extension ContentViewController: UITextViewDelegate {
             self.placeholder.isHidden = true
         }
     }
-}
-
-extension ContentViewController {
-    class var activityType: String {
-        let activityType = ""
-        if let activityTypes = Bundle.main.infoDictionary?["NSUserActivityTypes"] {
-            if let activityArray = activityTypes as? [String] {
-                return activityArray[0]
-            }
-            
-        }
-        return activityType
-
-    }
-    
-    var detailUserActivity: NSUserActivity {
-        let userActivity = NSUserActivity(activityType: ContentViewController.activityType)
-        userActivity.title = "Restore Item"
-        
-        userActivity.addUserInfoEntries(from: ["title": self.title])
-        return userActivity
-    }
-    
 }

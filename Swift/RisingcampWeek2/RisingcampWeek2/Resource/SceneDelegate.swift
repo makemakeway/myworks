@@ -71,13 +71,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         appSwitcherView = UIImageView(image: placeholder)
         appSwitcherView?.frame = window?.frame ?? CGRect(x: 0, y: 0, width: 0, height: 0)
         self.window?.addSubview(appSwitcherView!)
-        
-        if let navController = window!.rootViewController as? UINavigationController {
-            if let detailViewController = navController.viewControllers.last as? ContentViewController {
-                scene.userActivity = detailViewController.detailUserActivity
-                
-            }
-        }
 
         
     }
@@ -94,11 +87,4 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
 
-}
-
-extension SceneDelegate {
-    func stateRestorationActivity(for scene: UIScene) -> NSUserActivity? {
-        return scene.userActivity
-        
-    }
 }

@@ -10,6 +10,8 @@ import FSCalendar
 
 class ViewController: UIViewController {
 
+    
+    // MARK: 프로퍼티
     @IBOutlet weak var calendar: FSCalendar!
     @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var happyTotal: UILabel!
@@ -42,6 +44,12 @@ class ViewController: UIViewController {
         return df
     }()
     
+    private var currentPage: Date?
+    private var today = Date()
+    private var data: DiaryData?
+    
+    
+    // MARK: 메소드
     @IBAction func prevButtonClicked(_ sender: Any) {
         scrollCurrentPage(isPrev: true)
     }
@@ -49,10 +57,6 @@ class ViewController: UIViewController {
     @IBAction func nextButtonClicked(_ sender: Any) {
         scrollCurrentPage(isPrev: false)
     }
-    
-    private var currentPage: Date?
-    private var today = Date()
-    private var data: DiaryData?
     
     private func scrollCurrentPage(isPrev: Bool) {
         let cal = Calendar.current
@@ -62,34 +66,6 @@ class ViewController: UIViewController {
         self.calendar.setCurrentPage(self.currentPage!, animated: true)
     }
     
-    override func viewDidLayoutSubviews() {
-        if Tutorial.shared.isFirstRun() {
-            let vc = storyboard?.instantiateViewController(withIdentifier: "Tutorial") as! TutorialContentsViewController
-            vc.modalPresentationStyle = .fullScreen
-            present(vc, animated: true, completion: nil)
-        }
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        calendar.delegate = self
-        calendar.dataSource = self
-        
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.calendar.reloadData()
-        setCalendar()
-        setTotalDefault()
-    }
-    
-    override func viewWillLayoutSubviews() {
-        
-    }
-    
-
     func countTotal() -> Void {
         print("countTotal")
         self.tiredTotal.text = String(self.tired)
@@ -117,8 +93,37 @@ class ViewController: UIViewController {
         self.sosoTotal.text = String(self.happy)
         self.delightTotal.text = String(self.delight)
     }
+    
+    
+    // MARK: 라이프사이클 메소드
+    override func viewDidLayoutSubviews() {
+        if Tutorial.shared.isFirstRun() {
+            let vc = storyboard?.instantiateViewController(withIdentifier: "Tutorial") as! TutorialContentsViewController
+            vc.modalPresentationStyle = .fullScreen
+            present(vc, animated: true, completion: nil)
+        }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view.
+        calendar.delegate = self
+        calendar.dataSource = self
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.calendar.reloadData()
+        setCalendar()
+        setTotalDefault()
+    }
+
+    
 }
 
+
+// MARK: 델리게이트 메소드
 extension ViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
 
     func setCalendar() {
