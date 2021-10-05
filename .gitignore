@@ -6,3 +6,4 @@
 *.txt
 .DS_Store
 ApiKey.plist
+GoogleService-Info.plist
